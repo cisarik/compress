@@ -6,6 +6,18 @@ This file is the single active handoff prompt for the next Codex agent.
 Do not create `NEXT_PROMPT`, `NEXT_PROMPT2`, `NEXT_PROMPT3`, or similar files.
 When this handoff is no longer current, overwrite or delete this file and replace it with the latest one.
 
+## Communication Style
+
+This repository prefers a style called `Analytic programming`.
+
+Meaning:
+
+- communicate in a way that is useful both to the direct user and to an orchestrator
+- when the task benefits from explicit operational reporting, use a structured report
+- prefer the heading `### Report for ORCHESTRATOR_CHAT`
+- include the real state, safety checks, commands run, key outputs, limitations, and next step
+- do not compress away important context when handing work to another agent
+
 ## Mission
 
 `PrimeSymbolicMDL` is an experimental lossless compression research harness built around honest MDL-style accounting.

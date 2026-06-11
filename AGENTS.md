@@ -44,6 +44,15 @@ Random bytes must always be included as a sanity check. A transform that loses t
 - When preparing a handoff, overwrite `NEXT_AGENT.md` with the current state and the current next task.
 - After the handoff is consumed, the file may be deleted or replaced, but there should still be only one active handoff file at a time.
 
+## Analytic Programming
+
+- In this repository, "Analytic programming" means structured communication aimed at an orchestrator-style workflow.
+- When useful, provide a complete, explicit operational report instead of a casual summary.
+- Prefer a stable report heading such as `### Report for ORCHESTRATOR_CHAT` when the work benefits from machine-readable handoff or orchestration.
+- Explain the real state, the safety checks, the commands run, the outputs that matter, and the remaining risks.
+- Do not fake success, hidden work, or compression wins.
+- If a future Codex agent continues the project, assume this communication style is preferred unless the user asks otherwise.
+
 ## Architecture Phases
 
 1. deterministic baseline and bit accounting
