@@ -1,0 +1,431 @@
+You are continuing work in the PrimeSymbolicMDL repository.
+
+Current status:
+
+* Real pytest is used.
+* Tests pass: currently 86 tests.
+* Tkinter is available.
+* There is a modular optimizer registry with:
+
+  * GP-lite
+  * SOMA
+  * GP
+  * ADAM
+* GP-lite and SOMA run on generated grayscale image data, but current demos do not beat raw storage.
+* The current image path treats pixels mostly as a 1D byte stream.
+* We now need the first image-aware compression branch.
+
+Human intent:
+Add a new optimizer named:
+
+```
+Image-predictor
+```
+
+This optimizer should exploit 2D image structure using deterministic decoder-known predictors and exact residual coding.
+
+Important conceptual model:
+For each pixel value x at coordinate (col, row):
+
+```
+x = predictor(context) + residual
+```
+
+where predictor(context) may use only decoder-known information:
+
+* col
+* row
+* width
+* height
+* previously decoded left pixel
+* previously decoded up pixel
+* previously decoded up-left pixel
+
+The encoder stores:
+
+* predictor/model id
+* predictor parameters, if any
+* residual stream
+
+The cost must include:
+
+* raw_bits
+* model_bits
+* parameter_bits
+* header_bits
+* residual_bits
+* total_bits
+* saving_bits
+* ratio_vs_raw
+
+This is a predictor branch, not the existing indexed-anchor branch.
+
+Hard rules:
+
+1. Do NOT run git commands.
+2. Do NOT add network downloads.
+3. Do NOT add heavy dependencies.
+4. Use stdlib only plus pytest.
+5. Do NOT use Pillow, numpy, PySR, scipy, or any GUI dependency beyond Tkinter.
+6. Keep behavior deterministic.
+7. Every claimed codec path must be exactly lossless.
+8. Comments and docstrings should be in Slovak.
+9. Public docs may be in English.
+10. Keep tests headless.
+11. Do not remove existing GP-lite, SOMA, GP, ADAM behavior.
+12. Do not fake compression wins. If a model loses, report it honestly.
+
+TASK A — Inspect current repository
+
+Read:
+
+* AGENTS.md
+* README.md
+* docs/research_plan.md
+* src/primesymbolicmdl/*.py
+* src/primesymbolicmdl/optimizers/*.py
+* tests/*.py
+
+Understand the existing image dataset, simulation, optimizer registry, and GUI before editing.
+
+TASK B — Add image predictor model module
+
+Create:
+
+* src/primesymbolicmdl/image_predictors.py
+* tests/test_image_predictors.py
+
+Implement a tiny deterministic set of grayscale predictors.
+
+Define a small model representation, for example a dataclass:
+
+* ImagePredictorModel
+  fields:
+
+  * name: str
+  * params: dict[str, int]
+
+Implement prediction function:
+
+* predict_pixel(model, col, row, width, height, left, up, up_left) -> int
+
+All predictions must be clamped to 0..255.
+
+Required predictors:
+
+1. zero
+
+   * prediction = 0
+
+2. left
+
+   * prediction = left
+
+3. up
+
+   * prediction = up
+
+4. avg_left_up
+
+   * prediction = floor((left + up) / 2)
+
+5. gradient
+
+   * prediction = clamp(left + up - up_left, 0, 255)
+
+6. x_ramp
+
+   * prediction = floor(255 * col / max(1, width - 1))
+
+7. y_ramp
+
+   * prediction = floor(255 * row / max(1, height - 1))
+
+8. diagonal_ramp
+
+   * prediction = floor(255 * (col + row) / max(1, width + height - 2))
+
+9. checker
+
+   * parameter: block
+   * prediction = 0 or 255 depending on ((col // block) + (row // block)) % 2
+   * support candidate block sizes: 1, 2, 4, 8, 16
+
+Implement:
+
+* default_image_predictor_models() -> list[ImagePredictorModel]
+* render_image_predictor(model) -> str
+* image_predictor_model_bits(model) -> int
+* image_predictor_parameter_bits(model) -> int
+
+Costing:
+
+* Keep model_bits and parameter_bits conservative and documented.
+* checker(block=...) must pay parameter bits.
+
+TASK C — Add image predictor codec/cost module
+
+Create:
+
+* src/primesymbolicmdl/image_predictor_branch.py
+* tests/test_image_predictor_branch.py
+
+Implement:
+
+* estimate_image_predictor_cost(image, model) -> dict
+
+Input image is the existing GrayImage object from image_datasets.py.
+
+For each pixel in row-major order:
+
+* compute left/up/up_left from previously decoded/original context
+* compute predicted value
+* residual = pixel - predicted
+
+Cost model:
+
+* raw_bits = width * height * 8
+* header_bits = conservative fixed cost, for example 64
+* model_bits = image_predictor_model_bits(model)
+* parameter_bits = image_predictor_parameter_bits(model)
+* residual_width:
+
+  * if all residuals are exactly 0, residual_width = 0
+  * otherwise use the minimal fixed signed width needed for min_residual..max_residual
+* residual_bits = residual_width * pixel_count
+* total_bits = header_bits + model_bits + parameter_bits + residual_bits
+* saving_bits = raw_bits - total_bits
+* ratio_vs_raw = total_bits / raw_bits, or 1.0 for empty image edge cases
+* include min_residual, max_residual, residual_width, pixel_count, model string
+
+Implement:
+
+* encode_image_predictor_payload(image, model) -> dict
+
+Payload must contain enough to decode exactly:
+
+* image width
+* image height
+* model name and params
+* residuals
+* original_size or pixel_count metadata
+
+Implement:
+
+* decode_image_predictor_payload(payload) -> bytes
+
+It must reconstruct the original pixel bytes exactly using only:
+
+* model
+* width/height
+* residuals
+* previously decoded pixels
+
+Implement:
+
+* roundtrip_image_predictor(image, model) -> bytes
+
+It should return the decoded pixel bytes.
+
+TASK D — Add Image-predictor optimizer
+
+Create:
+
+* src/primesymbolicmdl/optimizers/image_predictor.py
+* tests/test_image_predictor_optimizer.py
+
+Implement optimizer class/adapter:
+
+* name: "Image-predictor"
+* available: True
+* run(request: OptimizerRequest) -> OptimizerResult
+
+Important:
+OptimizerRequest currently contains only bytes, width_bits, seed, etc. For image-aware prediction we also need image width/height.
+
+Use one of these approaches:
+A. Extend OptimizerRequest with optional metadata: dict[str, object] = field(default_factory=dict)
+and pass image_width/image_height/dataset_name through metadata.
+B. Or add optional image_width/image_height fields directly.
+
+Prefer approach A to keep the optimizer abstraction flexible.
+
+The Image-predictor optimizer should:
+
+* Build a GrayImage from request.data and metadata width/height.
+* Evaluate all default_image_predictor_models().
+* Choose the model with lowest total_bits.
+* Return OptimizerResult with:
+
+  * optimizer_name = "Image-predictor"
+  * status = "ok"
+  * best_model = render_image_predictor(best_model)
+  * raw_bits
+  * total_bits
+  * saving_bits
+  * ratio_vs_raw
+  * history containing one row per evaluated model, or a sorted summary
+  * details including:
+
+    * residual_width
+    * min_residual
+    * max_residual
+    * would_use_fallback: total_bits >= raw_bits
+
+Do not force fallback inside total_bits; report the candidate honestly. The GUI/report may explain fallback recommendation.
+
+TASK E — Registry and simulation integration
+
+Update:
+
+* src/primesymbolicmdl/optimizers/registry.py
+* src/primesymbolicmdl/simulation.py
+* src/primesymbolicmdl/sim_demo.py
+* src/primesymbolicmdl/gui.py
+
+Rules:
+
+* Preserve existing optimizer names:
+
+  * GP-lite
+  * SOMA
+  * GP
+  * ADAM
+* Add:
+
+  * Image-predictor
+
+Simulation:
+
+* Pass image_width, image_height, dataset_name through OptimizerRequest metadata.
+* format_simulation_report should include:
+
+  * fallback recommendation if total_bits >= raw_bits
+  * compressed win marker if total_bits < raw_bits
+
+sim_demo:
+
+* Run at least:
+
+  * Image-predictor on gradient
+  * Image-predictor on diagonal_ramp
+  * Image-predictor on checker
+  * GP-lite on gradient
+  * SOMA on gradient
+* Keep it quick.
+* The output should make it easy to see which optimizer wins.
+
+GUI:
+
+* Dropdown should include Image-predictor.
+* Output should show:
+
+  * raw bits
+  * estimated total bits
+  * saving bits
+  * ratio
+  * best model
+  * fallback recommendation
+* Do not break headless tests.
+
+TASK F — Documentation updates
+
+Update:
+
+* README.md
+* docs/research_plan.md
+* AGENTS.md
+
+Add a section:
+
+“Image-aware predictor branch”
+
+Explain:
+
+* It is a predictor/residual branch, not an index branch.
+* It uses decoder-known 2D context and procedural image predictors.
+* It is a necessary baseline before claiming GP/SOMA discoveries.
+* It still uses fixed-width residual accounting.
+* Entropy coding is deferred.
+* A result only matters if total_bits < raw_bits after model/header/residual costs.
+
+TASK G — Tests
+
+Add/update tests proving:
+
+1. Image predictors:
+
+* each predictor returns 0..255
+* x_ramp behaves as expected at first and last column
+* y_ramp behaves as expected at first and last row
+* checker with block=4 alternates
+* render strings are stable
+
+2. Image predictor branch:
+
+* estimate returns all required fields
+* raw_bits equals width * height * 8
+* residual_width exists and is numeric
+* total_bits and saving_bits are numeric
+* roundtrip reconstructs gradient image exactly
+* roundtrip reconstructs checker image exactly
+
+3. Optimizer:
+
+* registry includes Image-predictor
+* Image-predictor runs on tiny gradient image
+* result fields are complete
+* history contains evaluated models
+* best_model is readable
+
+4. Simulation:
+
+* run_image_simulation works with optimizer_name="Image-predictor"
+* gradient or diagonal_ramp should beat raw if the implemented predictor matches the generated dataset exactly or near-exactly
+* noise must not be required to beat raw
+* GP and ADAM placeholders still return not_implemented
+
+5. GUI:
+
+* module imports without opening a window
+* optimizer names used by GUI include Image-predictor
+
+6. Existing tests still pass.
+
+TASK H — Run tests and demos
+
+Run:
+
+python -m pytest -q
+python -m primesymbolicmdl.sim_demo
+
+Do not run the GUI automatically during tests.
+
+Acceptance criteria:
+
+* All tests pass.
+* No git commands were run.
+* No heavy dependencies were added.
+* Existing optimizers still work.
+* New Image-predictor optimizer exists and is in registry.
+* Image-predictor can beat raw on at least one generated structured image dataset.
+* Roundtrip is exact.
+* GUI dropdown includes Image-predictor.
+* Documentation clearly states limitations.
+
+The report must start with:
+
+### Report for ORCHESTRATOR_CHAT
+
+Then include:
+
+1. Changed files
+2. Summary of implementation
+3. Test command run
+4. Full test output
+5. Demo command run
+6. Full demo output
+7. Best Image-predictor result observed
+8. Manual GUI command
+9. Warnings / limitations
+10. Suggested next smallest step
