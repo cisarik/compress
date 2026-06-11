@@ -16,6 +16,12 @@ class GrayImage:
     pixels: bytes
 
 
+def make_gray_image(name: str, width: int, height: int, pixels: bytes) -> GrayImage:
+    """Vytvori grayscale obrazok aj pre externe nacitane pixely."""
+
+    return _image(name, width, height, bytes(pixels))
+
+
 def make_gradient_image(width: int = 32, height: int = 32) -> GrayImage:
     """Vrati vodorovny gradient od ciernej po bielu."""
 

@@ -151,8 +151,13 @@ def run_soma_search(request: OptimizerRequest) -> OptimizerResult:
         ratio_vs_raw=best_cost["ratio_vs_raw"],
         history=history,
         details={
+            "decoder_model": best_law,
             "best_cost": best_cost,
+            "residual_bits": best_cost.get("residual_bits"),
+            "residual_codec": best_cost.get("residual_codec"),
+            "residual_codec_details": best_cost.get("residual_codec_details"),
             "max_index": resolved_max_index,
+            "strict_lower": request.strict_lower,
             "note": "Float parameters are estimated research parameters, not a final codec format.",
         },
     )

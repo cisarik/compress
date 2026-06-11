@@ -4,6 +4,9 @@ from __future__ import annotations
 
 from .base import OptimizerRequest, OptimizerResult
 from .gplite_adapter import GPLiteOptimizer
+from .image_gplite import ImageGPLiteOptimizer
+from .image_predictor import ImagePredictorOptimizer
+from .image_soma import ImageSomaOptimizer
 from .placeholders import make_adam_placeholder, make_gp_placeholder
 from .soma import SomaOptimizer
 
@@ -12,9 +15,12 @@ _OPTIMIZERS = {
     "SOMA": SomaOptimizer(),
     "GP": make_gp_placeholder(),
     "ADAM": make_adam_placeholder(),
+    "Image-predictor": ImagePredictorOptimizer(),
+    "Image-GP-lite": ImageGPLiteOptimizer(),
+    "Image-SOMA": ImageSomaOptimizer(),
 }
 
-_ORDER = ["GP-lite", "SOMA", "GP", "ADAM"]
+_ORDER = ["GP-lite", "SOMA", "GP", "ADAM", "Image-predictor", "Image-GP-lite", "Image-SOMA"]
 
 
 def get_optimizer_names() -> list[str]:

@@ -32,7 +32,12 @@ class GPLiteOptimizer:
             strict_lower=request.strict_lower,
         )
         details = dict(result)
-        details.pop("best_law", None)
+        details["decoder_model"] = details.pop("best_law", None)
+        best_cost = result.get("best_cost", {})
+        if isinstance(best_cost, dict):
+            details["residual_bits"] = best_cost.get("residual_bits")
+            details["residual_codec"] = best_cost.get("residual_codec")
+            details["residual_codec_details"] = best_cost.get("residual_codec_details")
         return OptimizerResult(
             optimizer_name=self.name(),
             status="ok",

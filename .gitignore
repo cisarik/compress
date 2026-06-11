@@ -44,6 +44,7 @@ Thumbs.db
 
 # Local runtime notes or scratch outputs
 *.log
+.ap/
 
 # Large generated model / array artifacts
 *.pt
@@ -54,3 +55,6 @@ Thumbs.db
 *.gguf
 *.npy
 *.npz
+
+# Session handoff archives
+NEXT_AGENT_*.md

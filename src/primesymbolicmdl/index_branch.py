@@ -5,8 +5,9 @@ from __future__ import annotations
 import math
 
 from .anchor_laws import LawNode, anchor_value, law_model_bits, law_parameter_bits, render_law
-from .bitcost import bits_raw, bits_signed_range, bits_unsigned_range
+from .bitcost import bits_raw, bits_unsigned_range
 from .blocks import SUPPORTED_WIDTHS, bytes_to_uint_blocks, uint_blocks_to_bytes
+from .residual_codecs import choose_best_residual_codec
 
 _FIXED_HEADER_BITS = 32
 
@@ -89,11 +90,8 @@ def estimate_law_cost(
     else:
         index_bits = 0
 
-    if residuals:
-        residual_width = bits_signed_range(min(int(value) for value in residuals), max(int(value) for value in residuals))
-        residual_bits = residual_width * len(residuals)
-    else:
-        residual_bits = 0
+    residual_codec = choose_best_residual_codec([int(value) for value in residuals])
+    residual_bits = residual_codec.bits
 
     model_bits = _law_model_bits(law)
     parameter_bits = _law_parameter_bits(law)
@@ -117,6 +115,8 @@ def estimate_law_cost(
         "flag_bits": flag_bits,
         "index_bits": index_bits,
         "residual_bits": residual_bits,
+        "residual_codec": residual_codec.codec_name,
+        "residual_codec_details": dict(residual_codec.details),
         "escape_bits": escape_bits,
         "total_bits": total_bits,
         "saving_bits": saving_bits,

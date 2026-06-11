@@ -47,6 +47,8 @@ def test_estimate_law_cost_returns_required_fields() -> None:
         "flag_bits",
         "index_bits",
         "residual_bits",
+        "residual_codec",
+        "residual_codec_details",
         "escape_bits",
         "total_bits",
         "saving_bits",

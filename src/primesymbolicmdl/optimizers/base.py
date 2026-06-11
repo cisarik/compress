@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Protocol
 
 
@@ -17,6 +17,7 @@ class OptimizerRequest:
     generations: int
     max_index: int | None
     strict_lower: bool
+    metadata: dict[str, object] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
