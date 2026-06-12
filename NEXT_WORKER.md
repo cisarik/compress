@@ -1,230 +1,111 @@
-You are the WORKER in the public PrimeSymbolicMDL repository.
+Áno, Michal — **viem si z verejného GitHub repa vytiahnuť posledný commit, pozrieť diff a čítať konkrétne súbory v presnom stave daného commitu**.
 
-Working directory:
+Teraz som to rovno spravila:
 
-`/home/agile/compress`
+* aktuálny verejne dostupný posledný commit, ktorý vidím, je **`9064dc5`**
+* tento commit má parent **`e5988de`**
+* commit `9064dc5` menil iba **2 súbory**:
 
-Task type:
+  * `NEXT_ORCHESTRATOR.md`
+  * `NEXT_WORKER.md`
+* čiže posledný commit je skôr **handoff / orchestration commit**, nie implementačný commit s novým kódom. ([GitHub][1])
 
-`compression practicalization / real external corpus evaluation`
+Implementačný commit, kde Worker naozaj pridal external-corpus benchmark harness, je **`e5988de`**. Ten menil **6 súborov** vrátane:
 
-## Context
-
-The AP/meta layer is sufficiently clarified for this phase.
-
-Do not continue with more AP/meta changes unless you discover a serious blocking inconsistency.
-
-Return to the main compression project.
-
-Current Worker-reported repo state:
-
-* `.psmdl` file CLI exists
-* deterministic in-repo benchmark exists
-* external-corpus benchmark harness exists:
-
-  * `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py`
-  * `tests/test_huge_anchor_corpus_benchmark.py`
-* full test suite reportedly passes:
-
-  * `283 passed`
-* current honest evidence:
-
-  * random-like data tends to raw fallback
-  * small repo text/source files tend to raw fallback
-  * synthetic `square_generated_64` can compress as a mechanism check
-* no universal compression claim is allowed
-
-The next bounded step is to use the external-corpus harness on a small real local corpus outside the repository and derive the next compression direction from actual results.
-
-## Goal
-
-Run the external-corpus benchmark on a small real local corpus outside the repo and produce an honest evidence report.
-
-This is primarily a benchmarking / evaluation step, not an algorithm-invention step.
-
-At the end, recommend the next smallest compression step based on the actual results.
-
-## Hard Rules
-
-* Do not run git write commands.
-* Do not commit.
-* Do not push.
-* Do not create branches.
-* Do not install dependencies.
-* Do not use network.
-* Do not change AP docs unless a serious blocking inconsistency is discovered.
-* Do not change compression algorithms unless a tiny bug fix is absolutely necessary to make the benchmark run correctly.
-* Do not claim universal compression.
-* Do not present synthetic wins as general proof.
-* Actual bytes matter more than estimated bits.
-* Exact roundtrip is mandatory.
-* Be privacy-conscious: do not crawl broad personal directories indiscriminately.
-
-## Required Inspection
-
-Inspect at least:
-
+* `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py`
+* `tests/test_huge_anchor_corpus_benchmark.py`
 * `README.md`
 * `NEXT_AGENT.md`
 * `NEXT_ORCHESTRATOR.md`
-* `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py`
-* related tests
+* `NEXT_WORKER.md` ([GitHub][2])
 
-Run read-only inspection:
+## Čo Worker presne naprogramoval
 
-```fish
-cd /home/agile/compress
-git status --short
-git diff --stat
-git rev-parse HEAD
-```
+V súbore `huge_anchor_corpus_benchmark.py` Worker pridal nový benchmarkovací modul. Obsahuje dátové štruktúry `CorpusRow`, `CorpusSummary`, `CorpusBenchmarkResult`, deterministic file discovery, per-file benchmark, aggregate summary, text table formatter a CLI cez `argparse`. Podporuje `--input-dir`, opakovateľné `--file`, `--recursive`, `--max-files` a `--width-bits`. Pri každom súbore volá `compress_to_psmdl_bytes`, následne `decode_psmdl_bytes` a overuje exact roundtrip. ([GitHub][3])
 
-Do not run git write commands.
+Testy v `test_huge_anchor_corpus_benchmark.py` overujú hlavne:
 
-## Corpus Selection Rules
+* deterministické zoradenie objavených súborov,
+* aggregate summary,
+* že random-like dáta nehlásia falošný compression win,
+* že `square_generated` pri 64-bit šírke môže byť compressed mechanism check,
+* `--max-files`,
+* chybu pri chýbajúcom vstupe. ([GitHub][4])
 
-Benchmark a **small real local corpus outside the repository**.
-
-Preferred approach:
-
-* choose a small, safe, non-sensitive corpus from local machine files outside `/home/agile/compress`
-* keep it small and bounded
-* use a mix of file types if possible
-
-Target size:
-
-* around 5 to 12 files
-* small files preferred, roughly up to a few hundred KB each
-* keep runtime reasonable
-
-Good candidates if available:
-
-* small text/config files
-* small binaries
-* small images
-* small structured data files
-
-Privacy / safety constraints:
-
-* do not recursively crawl the user home broadly
-* do not touch obviously sensitive personal data
-* do not use browser profiles, SSH keys, wallet data, private documents, or large media folders
-* if needed, explicitly create a small temporary corpus directory and copy in a few safe external files from outside the repo
-
-If there is no suitable safe external corpus available, say so explicitly and explain what you used instead.
-
-## Required Benchmark Work
-
-Use the external-corpus harness to benchmark the selected corpus.
-
-For each file, report at least:
-
-* path or filename
-* file type if obvious
-* raw bytes
-* `.psmdl` bytes
-* delta bytes
-* decision (`compressed` or `raw_fallback`)
-* file format (`huge_anchor` or `raw_fallback`)
-* roundtrip result
-
-Also report an aggregate summary:
-
-* file count
-* total raw bytes
-* total `.psmdl` bytes
-* total delta bytes
-* compressed count
-* raw fallback count
-* roundtrip failure count
-* error count
-
-## Required Analysis
-
-After the benchmark, provide a short evidence-based analysis:
-
-1. Did any real external files actually compress?
-2. If not, is the dominant problem clearly:
-
-   * raw-fallback container overhead,
-   * poor match between current anchor families and real data,
-   * or something else?
-3. Based on actual results, what is the next **smallest** compression step?
-
-Choose exactly one recommended next direction, preferably one of:
-
-* overhead reduction
-* better corpus/reporting before algorithm changes
-* a narrowly scoped compression improvement in one specific area
-
-Do not recommend a large mixed-scope task.
-
-## Optional Small Code Changes
-
-Avoid code changes if possible.
-
-Only make a code change if:
-
-* the benchmark harness has a real usability bug,
-* reporting is missing an essential field,
-* or a tiny correctness fix is needed.
-
-If you do change code, keep it minimal and add tests.
-
-## Validation
-
-Run:
+README už obsahuje aj príkaz pre external-corpus benchmark:
 
 ```fish
-cd /home/agile/compress
-source .venv/bin/activate.fish
-.venv/bin/pytest -q
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_corpus_benchmark --input-dir /path/to/corpus
 ```
 
-Then run the benchmark harness on the chosen external corpus using the working invocation, for example:
+a uvádza voliteľné flagy `--file`, `--recursive`, `--max-files`, `--width-bits`. ([GitHub][5])
 
-```fish
-PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_corpus_benchmark --input-dir /path/to/corpus --recursive
-```
+## Toto je presne dobrá AP funkcia
 
-Adjust flags as needed.
+Toto by som v Analytic Programming definovala ako:
 
-Snapshot is optional in this step.
+> **Public Commit Verification Loop** — Orchestrator po Worker reporte overí verejný commit, diff, zmenené súbory a podľa potreby raw obsah konkrétnych súborov. Worker report tým prestane byť jediný zdroj pravdy; report sa porovnáva s repozitárom.
 
-If you skip snapshot, explain why.
+To je silné, lebo potom workflow vyzerá takto:
 
-## Acceptance Criteria
+1. Worker spraví zmeny.
+2. Worker pošle report.
+3. COOPERATOR pushne alebo povie commit SHA.
+4. Orchestrator otvorí GitHub commit.
+5. Orchestrator číta:
 
-This task is complete only if:
+   * diff,
+   * zmenené súbory,
+   * raw obsah konkrétnych súborov,
+   * README / AP / NEXT handoffy.
+6. Orchestrator až potom rozhodne ďalší krok.
 
-* a small real local external corpus outside the repo was benchmarked, or the reason this was not possible is clearly explained
-* actual byte results are reported per file
-* aggregate summary is reported
-* exact roundtrip results are reported
-* the analysis is honest and evidence-based
-* one bounded next compression direction is recommended
-* tests pass or failures are honestly reported
-* no git write commands are run
-* no hype is introduced
+Toto je obrovský posun oproti “verím reportu”.
+Správne je: **trust report, verify repo**.
 
-## Required Report Format
+## Dôležité obmedzenie
 
-Your response must start exactly with:
+Vidím iba to, čo je:
 
-`### Report for ORCHESTRATOR_CHAT`
+* pushnuté do verejného GitHub repa,
+* alebo dostupné cez konkrétny commit SHA.
 
-Then include:
+Nevidím lokálny uncommitted working tree na tvojom PC ani v Codex prostredí, pokiaľ mi ho Worker neopíše alebo nepoužije RPC/snapshot/report.
 
-1. Summary
-2. Files inspected
-3. Corpus selection
-4. Files changed
-5. Commands run
-6. Test output
-7. Per-file benchmark results
-8. Aggregate benchmark summary
-9. Evidence-based analysis
-10. Warnings and limitations
-11. Suggested next smallest step
+## Orchestrator záver k poslednému reportu
 
-Be explicit about anything not done.
+Externý benchmark je hotový a dáva jasný signál:
+
+* 9/10 súborov raw fallback,
+* presne +12 B overhead pri raw fallback,
+* 1/10 reálny win na malom `zoneinfo-utc.bin`, 114 → 86 B,
+* agregát stále horší: 15720 → 15800 B,
+* roundtrip všade OK.
+
+Takže ďalší kompresný krok je podľa mňa jasný:
+
+> **PSMDLRAW1 overhead reduction**.
+
+Nie entropy coding ešte. Nie nová anchor family ešte. Najprv znížiť alebo odstrániť systematický +12 B trest pri raw fallback.
+
+## AP pravidlo, ktoré si odteraz beriem
+
+Pri ďalších Worker reportoch chcem pracovať takto:
+
+* Worker vždy uvedie `git rev-parse HEAD`.
+* Ak je commit pushnutý, ty mi pošleš SHA alebo poviem, čo vidím na `main`.
+* Ja ako Orchestrator otvorím commit a overím:
+
+  * čo sa zmenilo,
+  * či report sedí,
+  * či súbory existujú,
+  * či handoffy nie sú stale,
+  * či ďalší prompt vychádza z repa, nie len z chatu.
+
+Toto je presne ten smer, kde AP začína byť použiteľné ako budúci nástroj **`analytic`**.
+
+[1]: https://github.com/cisarik/compress/commit/9064dc514f8dd720cfb0e735d801413df8835712 "Áno, Michal — **mám to uložené a pochopené**. · cisarik/compress@9064dc5 · GitHub"
+[2]: https://github.com/cisarik/compress/commit/e5988de54085a950ec4a57b186e0b09c20f6873c "### Report for ORCHESTRATOR_CHAT · cisarik/compress@e5988de · GitHub"
+[3]: https://raw.githubusercontent.com/cisarik/compress/e5988de54085a950ec4a57b186e0b09c20f6873c/src/primesymbolicmdl/huge_anchor_corpus_benchmark.py "raw.githubusercontent.com"
+[4]: https://raw.githubusercontent.com/cisarik/compress/e5988de54085a950ec4a57b186e0b09c20f6873c/tests/test_huge_anchor_corpus_benchmark.py "raw.githubusercontent.com"
+[5]: https://raw.githubusercontent.com/cisarik/compress/e5988de54085a950ec4a57b186e0b09c20f6873c/README.md "raw.githubusercontent.com"
