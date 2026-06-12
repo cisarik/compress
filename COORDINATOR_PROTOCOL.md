@@ -151,4 +151,14 @@ Candidate follow-up methods:
 - `task.set`
 - `handoff.build`
 
+Planned controlled write-RPC for AP and handoff artifacts may later include:
+
+- `update_ap_worker`
+- `update_ap_orchestrator`
+- `update_next_agent`
+- `update_next_orchestrator`
+
+These write methods are conceptual only in the current repository.
+They are not implemented in the current read-only RPC surface.
+
 These should remain bounded, inspectable, and explicit about safety before any write-capable expansion is allowed.

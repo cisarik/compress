@@ -5,7 +5,7 @@ PrimeSymbolicMDL je experimentalny lossless compression research harness oriento
 ## Current Git State
 
 - Branch: `main`
-- HEAD: `d86fb4f83becaf87d50f5c635bb5946bf8bdb23f`
+- HEAD: `463787c1d4bbd2677b9b8913b170b7b4c078e44e`
 
 ## Last Test Status
 

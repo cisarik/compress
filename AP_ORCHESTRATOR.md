@@ -118,6 +118,48 @@ Core rule:
 
 - If a file can answer the question, request the file instead of guessing.
 
+### Planned Controlled Write-RPC
+
+The current repository implements read-only RPC methods only.
+
+Write-RPC remains forbidden unless an explicit task permits it.
+
+Future controlled write-RPC may allow structured, auditable updates to AP and handoff artifacts.
+
+Conceptual candidate methods:
+
+- `update_ap_worker`
+- `update_ap_orchestrator`
+- `update_next_agent`
+- `update_next_orchestrator`
+
+These methods are not implemented in the current proof-of-concept RPC surface.
+
+If adopted later, they must:
+
+- preserve COOPERATOR authority over strategic direction
+- remain repo-visible and diff-inspectable
+- use bounded, explicit task permission
+- avoid silent doctrine drift or hidden memory substitutes
+
+## Orchestrator Doctrine Evolution
+
+`AP_ORCHESTRATOR.md` is a living Orchestrator-side doctrine artifact.
+
+The Orchestrator may update its project-specific understanding after evaluating Worker reports.
+
+Rules:
+
+- convert learning into bounded Worker prompts, not hidden chat memory
+- doctrine changes should be explicit and repo-visible
+- do not silently rely on hidden memory when the repository can store the doctrine
+- after significant Worker reports, decide whether `AP.md`, `AP_WORKER.md`, `AP_ORCHESTRATOR.md`, `NEXT_AGENT.md`, or `NEXT_ORCHESTRATOR.md` need updating
+- propose or schedule doctrine updates through explicit AP/meta tasks when the Worker is not already tasked with them
+
+The Orchestrator remains planning-focused.
+
+Doctrine evolution is how the system learns without losing auditability.
+
 ## Prompt Construction Rules
 
 - every prompt must include the working directory

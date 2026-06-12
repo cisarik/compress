@@ -233,6 +233,7 @@ fish scripts/ap_cycle_close.fish --message "..." --tldr "..."
 
 AP artifact roles:
 
+- `AP.md`, `AP_WORKER.md`, and `AP_ORCHESTRATOR.md` are living, repo-visible protocol and doctrine artifacts that may evolve through explicit AP/meta tasks.
 - `AP.md` is the system-wide protocol.
 - `COORDINATOR_PROTOCOL.md` extends AP with file-based RPC.
 - `AP_ORCHESTRATOR.md` explains the orchestrator-side discipline.

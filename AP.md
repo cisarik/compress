@@ -2,25 +2,33 @@
 
 ## Short Definition
 
-Analytic Programming in this repository is a repo-centered multi-agent workflow where the repository is the ground truth, the diff is the unit of progress, tests are the minimum proof, and explicit artifacts preserve state between User, Orchestrator, and Worker loops.
+Analytic Programming in this repository is a repo-centered multi-agent workflow where the repository is the ground truth, the diff is the unit of progress, tests are the minimum proof, and explicit artifacts preserve state between COOPERATOR, Orchestrator, and Worker loops.
 
 The goal is not more prose.
 The goal is lower context loss, safer delegation, clearer handoff, and less fake progress.
 
 ## Roles
 
-### User
+### COOPERATOR
 
-- sets direction, priorities, and constraints
+The COOPERATOR is the human strategic coordinator.
+
+- owns intent, direction, risk tolerance, and final judgment
+- sets priorities and constraints
 - decides when a risk is acceptable
 - intervenes when the workflow needs strategy correction
+- may reshape the protocol itself through explicit AP/meta tasks
+- is not expected to manually remember all repository state; AP artifacts exist to reduce that burden
+
+In older notes, this role may appear as "User". In this repository, `COOPERATOR` is the preferred name.
 
 ### Orchestrator
 
 - reads the repo state and current artifacts
 - shapes the next bounded task for the Worker
 - keeps scope coherent and prevents drift
-- decides when escalation to the User is necessary
+- decides when escalation to the COOPERATOR is necessary
+- may propose doctrine or handoff updates after evaluating Worker reports
 
 ### Worker
 
@@ -29,6 +37,27 @@ The goal is lower context loss, safer delegation, clearer handoff, and less fake
 - validates with tests and commands
 - reports the real outcome
 - refreshes snapshots when the step is meaningful
+- may recommend doctrine updates in reports, but changes doctrine only in explicit bounded AP/meta tasks
+
+## Living Protocol Artifacts
+
+AP documentation is not a frozen essay set.
+
+These files are living, repo-visible protocol and doctrine artifacts:
+
+- `AP.md` = system-wide Analytic Programming protocol
+- `AP_WORKER.md` = Worker-side operating doctrine
+- `AP_ORCHESTRATOR.md` = Orchestrator-side planning and evaluation doctrine
+
+They may evolve as the project learns, but only through explicit, bounded AP/meta tasks.
+
+Rules:
+
+- changes must be repo-visible, inspectable, and report-backed
+- doctrine must not be rewritten silently during unrelated coding tasks
+- the Orchestrator may propose updates after evaluating Worker reports
+- the Worker may implement doctrine updates only when explicitly asked in a bounded AP/meta task
+- repository files remain the source of truth; chat memory is not
 
 ## Artifact Ownership
 
@@ -46,9 +75,22 @@ The goal is lower context loss, safer delegation, clearer handoff, and less fake
 Each artifact should have one dominant purpose.
 Do not spread the same truth across many files without clear ownership.
 
+## Handoff Artifact Separation
+
+- `NEXT_AGENT.md` = immediate next Worker task
+- `NEXT_ORCHESTRATOR.md` = strategic continuation for the next Orchestrator
+
+These files must not be conflated.
+
+`NEXT_AGENT.md` should stay narrow, actionable, and Worker-focused.
+
+`NEXT_ORCHESTRATOR.md` should stay strategic, contextual, and Orchestrator-focused.
+
+Closing a serious AP session should update both when future continuation is expected.
+
 ## Operating Loop
 
-1. User provides intent and constraints.
+1. COOPERATOR provides intent and constraints.
 2. Orchestrator shapes the next bounded task.
 3. Worker inspects the repo and relevant artifacts.
 4. Worker makes the smallest useful change.
@@ -88,7 +130,17 @@ Safety rules:
 - write RPC is forbidden unless the task explicitly permits it
 - secrets access, network access, and git write commands remain forbidden
 
-Closing a serious AP session should update both the Worker handoff and the Orchestrator handoff when future continuation is expected.
+Planned controlled write-RPC for AP and handoff artifacts is conceptual only unless implemented in the repository.
+
+Candidate future methods include:
+
+- `update_ap_worker`
+- `update_ap_orchestrator`
+- `update_next_agent`
+- `update_next_orchestrator`
+
+Such methods are not implemented in the current proof-of-concept RPC surface.
+They would need explicit COOPERATOR authority, bounded scope, and full repo auditability before adoption.
 
 ## Git Rules
 

@@ -2,7 +2,7 @@
 
 ## 2. Timestamp
 
-- Generated: `2026-06-12T10:27:06+02:00`
+- Generated: `2026-06-12T10:41:28+02:00`
 
 ## 3. Repo Root
 
@@ -14,7 +14,7 @@
 
 ## 5. HEAD Commit
 
-- HEAD: `d86fb4f83becaf87d50f5c635bb5946bf8bdb23f`
+- HEAD: `463787c1d4bbd2677b9b8913b170b7b4c078e44e`
 
 ## 6. Python Info
 
@@ -31,337 +31,290 @@
 ## 7. Git Status
 
 ```text
- M NEXT_ORCHESTRATOR.md
+ M AP.md
+ M AP_ORCHESTRATOR.md
+ M AP_WORKER.md
+ M COORDINATOR_PROTOCOL.md
  M README.md
 ```
 
 ## 8. Diff Stat
 
 ```text
- NEXT_ORCHESTRATOR.md | 201 ++++++++++++++++++++++++++++++++-------------------
- README.md            |  56 +++++++++++++-
- 2 files changed, 182 insertions(+), 75 deletions(-)
+ AP.md                   | 64 ++++++++++++++++++++++++++++++++++++++++++++-----
+ AP_ORCHESTRATOR.md      | 42 ++++++++++++++++++++++++++++++++
+ AP_WORKER.md            | 31 ++++++++++++++++++++----
+ COORDINATOR_PROTOCOL.md | 10 ++++++++
+ README.md               |  1 +
+ 5 files changed, 137 insertions(+), 11 deletions(-)
 ```
 
 ## 9. Full Diff
 
 ```diff
-diff --git a/NEXT_ORCHESTRATOR.md b/NEXT_ORCHESTRATOR.md
-index 8e76745..1c59cdb 100644
---- a/NEXT_ORCHESTRATOR.md
-+++ b/NEXT_ORCHESTRATOR.md
-@@ -1,104 +1,159 @@
--### Report for ORCHESTRATOR_CHAT
-+# NEXT_ORCHESTRATOR.md — Strategic Handoff
+diff --git a/AP.md b/AP.md
+index 10eed0c..1b28b7d 100644
+--- a/AP.md
++++ b/AP.md
+@@ -2,25 +2,33 @@
  
--## 1. Summary
-+This file is the handoff for the **next Orchestrator**, not the Worker.
+ ## Short Definition
  
--Audit a benchmark nového `.psmdl` file CLI sú **dokončené**. Implementácia je konzistentná, exact roundtrip funguje na všetkých testovaných vstupoch a správanie je úprimné: reálne súbory z repa aj náhodné/repeated dáta končia ako **raw fallback** (`.psmdl` je väčší kvôli kontajneru), jediný skutočný huge-anchor win v benchmarke je **syntetický** `square_generated_64` (256 → 49 B). Pridaný bol malý opakovateľný benchmark skript s jedným testom.
-+The Worker should read `NEXT_AGENT.md` instead.
+-Analytic Programming in this repository is a repo-centered multi-agent workflow where the repository is the ground truth, the diff is the unit of progress, tests are the minimum proof, and explicit artifacts preserve state between User, Orchestrator, and Worker loops.
++Analytic Programming in this repository is a repo-centered multi-agent workflow where the repository is the ground truth, the diff is the unit of progress, tests are the minimum proof, and explicit artifacts preserve state between COOPERATOR, Orchestrator, and Worker loops.
  
--## 2. Files inspected
-+## Recommended Read Order
+ The goal is not more prose.
+ The goal is lower context loss, safer delegation, clearer handoff, and less fake progress.
  
--- `src/primesymbolicmdl/huge_anchor_file.py`
--- `src/primesymbolicmdl/huge_anchor_file_cli.py`
--- `tests/test_huge_anchor_file_cli.py`
-+1. `NEXT_ORCHESTRATOR.md`
-+2. `NEXT_AGENT.md`
-+3. `BOOT.md`
-+4. `.ap/current_status.md`
-+5. `.ap/last_report.md`
-+6. `BRAIN.md` only when deeper context is needed
+ ## Roles
+ 
+-### User
++### COOPERATOR
+ 
+-- sets direction, priorities, and constraints
++The COOPERATOR is the human strategic coordinator.
 +
-+## Big Picture
++- owns intent, direction, risk tolerance, and final judgment
++- sets priorities and constraints
+ - decides when a risk is acceptable
+ - intervenes when the workflow needs strategy correction
++- may reshape the protocol itself through explicit AP/meta tasks
++- is not expected to manually remember all repository state; AP artifacts exist to reduce that burden
 +
-+PrimeSymbolicMDL is an experimental lossless compression research harness.
++In older notes, this role may appear as "User". In this repository, `COOPERATOR` is the preferred name.
+ 
+ ### Orchestrator
+ 
+ - reads the repo state and current artifacts
+ - shapes the next bounded task for the Worker
+ - keeps scope coherent and prevents drift
+-- decides when escalation to the User is necessary
++- decides when escalation to the COOPERATOR is necessary
++- may propose doctrine or handoff updates after evaluating Worker reports
+ 
+ ### Worker
+ 
+@@ -29,6 +37,27 @@ The goal is lower context loss, safer delegation, clearer handoff, and less fake
+ - validates with tests and commands
+ - reports the real outcome
+ - refreshes snapshots when the step is meaningful
++- may recommend doctrine updates in reports, but changes doctrine only in explicit bounded AP/meta tasks
 +
-+The project tests anchor-and-residual transforms under honest MDL accounting and, where implemented, honest actual byte accounting.
++## Living Protocol Artifacts
 +
-+Prime anchors are one candidate anchor family, not a privileged truth.
++AP documentation is not a frozen essay set.
 +
-+The repository is benchmark-driven, deterministic, and exactly reversible.
++These files are living, repo-visible protocol and doctrine artifacts:
 +
-+## Analytic Programming / Coordinator Protocol
++- `AP.md` = system-wide Analytic Programming protocol
++- `AP_WORKER.md` = Worker-side operating doctrine
++- `AP_ORCHESTRATOR.md` = Orchestrator-side planning and evaluation doctrine
 +
-+AP is active in this repository.
++They may evolve as the project learns, but only through explicit, bounded AP/meta tasks.
 +
-+Core roles:
++Rules:
 +
-+- `COOPERATOR` (user)
-+- `ORCHESTRATOR`
-+- `WORKER`
++- changes must be repo-visible, inspectable, and report-backed
++- doctrine must not be rewritten silently during unrelated coding tasks
++- the Orchestrator may propose updates after evaluating Worker reports
++- the Worker may implement doctrine updates only when explicitly asked in a bounded AP/meta task
++- repository files remain the source of truth; chat memory is not
  
--**Audit zistenia:**
-+Important protocol files:
+ ## Artifact Ownership
  
--| Oblasť | Hodnotenie |
--|--------|------------|
--| Formát | `decode_psmdl_bytes` rozlišuje `PSMDLHA1` (huge-anchor) vs `PSMDLRAW1` (raw fallback) podľa magic |
--| Raw fallback | Pri `decision != "compressed"` sa zapíše `PSMDLRAW1` wrapper, nie väčší huge-anchor blob |
--| Roundtrip | `compress_to_psmdl_bytes` overí `decode_psmdl_bytes(file_bytes) == payload` pred návratom |
--| `--require-compression` | `PsmdlCompressionRefusedError`, CLI exit code `2`, výstupný súbor sa nevytvorí |
--| Chyby | Neplatný magic → `ValueError`; CLI chyby → exit `1` (súbor neexistuje, corrupt magic) |
--| CLI výstup | Jednoriadkový súhrn s `decision`, `file_format`, actual `raw_bytes` / `compressed_bytes` — bez estimated-bit hype |
-+- `AP.md`
-+- `AP_ORCHESTRATOR.md`
-+- `AP_WORKER.md`
-+- `AGENTS.md`
-+- `COORDINATOR_PROTOCOL.md`
+@@ -46,9 +75,22 @@ The goal is lower context loss, safer delegation, clearer handoff, and less fake
+ Each artifact should have one dominant purpose.
+ Do not spread the same truth across many files without clear ownership.
  
--Žiadne zavádzajúce compression claims v kóde ani výstupe.
-+Important handoff and snapshot files:
- 
--## 3. Files changed
-+- `NEXT_ORCHESTRATOR.md` = strategic Orchestrator handoff
-+- `NEXT_AGENT.md` = immediate Worker handoff
-+- `BOOT.md` = short generated boot summary
-+- `BRAIN.md` = detailed generated repository snapshot
-+- `CHAT.md` = append-only coordination ledger
- 
--- `src/primesymbolicmdl/huge_anchor_file_benchmark.py` — nový deterministický benchmark
--- `tests/test_huge_anchor_file_benchmark.py` — minimálny test benchmarku
-+Current read-only RPC methods:
- 
--**Nezmenené:** `huge_anchor_file.py`, `huge_anchor_file_cli.py`, dokumentácia (`README.md` stále neobsahuje CLI usage).
-+- `repo.status`
-+- `repo.diff_stat`
-+- `repo.list_files`
-+- `repo.get_file`
- 
--## 4. Commands run
-+The repository remains the source of truth.
++## Handoff Artifact Separation
 +
-+Chat and snapshots are supporting artifacts, not proof of compression performance.
++- `NEXT_AGENT.md` = immediate next Worker task
++- `NEXT_ORCHESTRATOR.md` = strategic continuation for the next Orchestrator
 +
-+## What Has Been Solved So Far
++These files must not be conflated.
 +
-+- deterministic baseline and bit accounting
-+- prime-anchor and indexed anchor-law branches
-+- huge-anchor portfolio across multiple families
-+- shared residual codec layer
-+- huge-anchor binary container with actual-size reranking
-+- `.psmdl` file CLI for huge-anchor compression and decompression
-+- deterministic in-repo file benchmark for actual `.psmdl` byte sizes
-+- AP / Coordinator Protocol infrastructure
-+- GUI research cockpit for small grayscale simulations
-+- pytest coverage for roundtrip and random-data sanity
++`NEXT_AGENT.md` should stay narrow, actionable, and Worker-focused.
 +
-+## Current Compression Evidence
++`NEXT_ORCHESTRATOR.md` should stay strategic, contextual, and Orchestrator-focused.
 +
-+Latest verified tests:
++Closing a serious AP session should update both when future continuation is expected.
 +
-+- `277 passed`
+ ## Operating Loop
+ 
+-1. User provides intent and constraints.
++1. COOPERATOR provides intent and constraints.
+ 2. Orchestrator shapes the next bounded task.
+ 3. Worker inspects the repo and relevant artifacts.
+ 4. Worker makes the smallest useful change.
+@@ -88,7 +130,17 @@ Safety rules:
+ - write RPC is forbidden unless the task explicitly permits it
+ - secrets access, network access, and git write commands remain forbidden
+ 
+-Closing a serious AP session should update both the Worker handoff and the Orchestrator handoff when future continuation is expected.
++Planned controlled write-RPC for AP and handoff artifacts is conceptual only unless implemented in the repository.
 +
-+File path exists:
++Candidate future methods include:
 +
-+- `src/primesymbolicmdl/huge_anchor_file.py`
-+- `src/primesymbolicmdl/huge_anchor_file_cli.py`
-+- `src/primesymbolicmdl/huge_anchor_file_benchmark.py`
++- `update_ap_worker`
++- `update_ap_orchestrator`
++- `update_next_agent`
++- `update_next_orchestrator`
++
++Such methods are not implemented in the current proof-of-concept RPC surface.
++They would need explicit COOPERATOR authority, bounded scope, and full repo auditability before adoption.
  
--```fish
--cd /home/agile/compress
--.venv/bin/pytest -q
--.venv/bin/pytest -q tests/test_huge_anchor_file_benchmark.py
--PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark
--PYTHONPATH=src /usr/bin/python3.14 -c "..."  # audit error handling
--```
-+Benchmark summary from the in-repo deterministic file benchmark:
+ ## Git Rules
  
--**Poznámka k Python invokácii:**
-+| input | raw bytes | `.psmdl` bytes | outcome |
-+|-------|-----------|----------------|---------|
-+| random_bytes_128 | 128 | 140 | raw fallback |
-+| repeating_pattern | 128 | 140 | raw fallback |
-+| README.md | 11548 | 11560 | raw fallback |
-+| AGENTS.md | 9904 | 9916 | raw fallback |
-+| huge_anchor_file.py | 5182 | 5194 | raw fallback |
-+| square_generated_64 | 256 | 49 | synthetic huge-anchor win |
+diff --git a/AP_ORCHESTRATOR.md b/AP_ORCHESTRATOR.md
+index 400182f..d19d32c 100644
+--- a/AP_ORCHESTRATOR.md
++++ b/AP_ORCHESTRATOR.md
+@@ -118,6 +118,48 @@ Core rule:
  
--- `.venv/bin/pytest` — funguje
--- `.venv/bin/python -m ...` — `sys.executable` smeruje na Cursor appimage, **nefunguje** pre `-m pytest`
--- `PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark` — **funguje**
-+Interpretation:
+ - If a file can answer the question, request the file instead of guessing.
  
--## 5. Full test results
-+- exact roundtrip verified for all benchmark cases
-+- random bytes remained raw fallback
-+- small real repo files remained raw fallback
-+- `square_generated_64` is a synthetic mechanism check, not general compression proof
-+- `--require-compression` refuses raw-fallback cases and succeeds for the synthetic compressed case
++### Planned Controlled Write-RPC
++
++The current repository implements read-only RPC methods only.
++
++Write-RPC remains forbidden unless an explicit task permits it.
++
++Future controlled write-RPC may allow structured, auditable updates to AP and handoff artifacts.
++
++Conceptual candidate methods:
++
++- `update_ap_worker`
++- `update_ap_orchestrator`
++- `update_next_agent`
++- `update_next_orchestrator`
++
++These methods are not implemented in the current proof-of-concept RPC surface.
++
++If adopted later, they must:
++
++- preserve COOPERATOR authority over strategic direction
++- remain repo-visible and diff-inspectable
++- use bounded, explicit task permission
++- avoid silent doctrine drift or hidden memory substitutes
++
++## Orchestrator Doctrine Evolution
++
++`AP_ORCHESTRATOR.md` is a living Orchestrator-side doctrine artifact.
++
++The Orchestrator may update its project-specific understanding after evaluating Worker reports.
++
++Rules:
++
++- convert learning into bounded Worker prompts, not hidden chat memory
++- doctrine changes should be explicit and repo-visible
++- do not silently rely on hidden memory when the repository can store the doctrine
++- after significant Worker reports, decide whether `AP.md`, `AP_WORKER.md`, `AP_ORCHESTRATOR.md`, `NEXT_AGENT.md`, or `NEXT_ORCHESTRATOR.md` need updating
++- propose or schedule doctrine updates through explicit AP/meta tasks when the Worker is not already tasked with them
++
++The Orchestrator remains planning-focused.
++
++Doctrine evolution is how the system learns without losing auditability.
++
+ ## Prompt Construction Rules
  
--```
--277 passed in 114.76s (0:01:54)
--```
-+## Scientific Guardrails
+ - every prompt must include the working directory
+diff --git a/AP_WORKER.md b/AP_WORKER.md
+index 8c1d7c6..89b9b0e 100644
+--- a/AP_WORKER.md
++++ b/AP_WORKER.md
+@@ -37,20 +37,23 @@ This is controlled stateful engineering with explicit memory and explicit accoun
  
--Predchádzajúci stav: 276 passed. Nový test: `test_huge_anchor_file_benchmark_runs_and_reports_honest_sizes`.
-+- exact roundtrip is mandatory
-+- raw fallback is normal and often expected
-+- actual bytes are stronger evidence than estimated bits
-+- random-byte sanity is required
-+- synthetic wins validate mechanism only
-+- do not claim universal compression without established corpora and full cost accounting
-+- generated snapshots are not proof of compression quality
+ ## Roles
  
--## 6. Benchmark table (actual byte sizes)
-+## Current Risks
+-### User
++### COOPERATOR
  
--| name | raw_bytes | psmdl_bytes | decision | file_format | roundtrip | `--require-compression` | note |
--|------|-----------|-------------|----------|-------------|-----------|-------------------------|------|
--| random_bytes_128 | 128 | 140 | raw_fallback | raw_fallback | OK | refused | deterministic random sanity |
--| repeating_pattern | 128 | 140 | raw_fallback | raw_fallback | OK | refused | ABCD repeat |
--| README.md | 11548 | 11560 | raw_fallback | raw_fallback | OK | refused | repo text file |
--| AGENTS.md | 9904 | 9916 | raw_fallback | raw_fallback | OK | refused | repo text file |
--| huge_anchor_file.py | 5182 | 5194 | raw_fallback | raw_fallback | OK | refused | repo python source |
--| square_generated_64 | 256 | 49 | **compressed** | huge_anchor | OK | ok | synthetic structure-compatible |
-+- no entropy coder exists yet
-+- the small in-repo benchmark does not compress real text/source files
-+- raw fallback has container overhead and can make `.psmdl` larger than raw input
-+- benchmark runtime is around 90–115 seconds for the current in-repo set
-+- public documentation must stay non-hype
-+- estimated wins can still diverge from actual serialized bytes because of container overhead
-+- exact prime support remains limited to the 64-bit line in the scaled-prime branch
+-The user is the strategic authority.
++The COOPERATOR is the human strategic coordinator.
  
--**Preklep v mene:** `random_bytes_128` = 128 B raw (32 blokov × 4 B pri `width_bits=32`).
-+## Recommended Next Strategy
+-The user decides:
++The COOPERATOR decides:
  
--## 7. Roundtrip verification
-+Do not start with another large theory cycle.
+ - what matters
+ - when priorities change
+ - when a risk is acceptable
+ - when the system should go deeper or stop
++- when protocol or doctrine should change
  
--Všetkých **6/6** benchmark prípadov: `decompress_file` po `compress_file` vráti **presne rovnaké bajty** ako vstup.
-+Recommended order:
+-The user should not need to manually reconstruct the whole repo state from memory after every step.
++The COOPERATOR should not need to manually reconstruct the whole repo state from memory after every step.
+ AP exists partly to remove that burden.
  
--Doplnkový audit error paths:
--- `decode_psmdl_bytes(b'BADMAGIC...')` → `Unsupported .psmdl file magic`
--- `decode_psmdl_bytes(b'PSMDLRAW1')` → `Raw .psmdl payload is truncated`
--- CLI decompress na corrupt `.psmdl` → exit `1`
-+1. keep public documentation aligned with actual CLI behavior
-+2. build a small honest external-corpus benchmark harness for actual `.psmdl` file sizes
-+3. only then consider container overhead reduction or entropy coding
++In older notes, this role may appear as "User". In this repository, `COOPERATOR` is the preferred name.
++
+ ### Orchestrator
  
--## 8. Raw fallback / `--require-compression` behavior
-+The next Worker task should stay bounded:
+ The orchestrator is the task-shaping layer.
+@@ -59,7 +62,7 @@ Its job is to:
  
--**Default (bez `--require-compression`):**
--- Ak huge-anchor blob nie je menší ako raw → zapíše sa `PSMDLRAW1` kontajner
--- Overhead: typicky **+12 B** oproti raw (magic 8 + version 1 + varint + padding efekt)
--- Roundtrip zostáva exact, ale `.psmdl` je **väčší** než pôvodný súbor
-+- external corpus benchmark only
-+- no new algorithms unless required for reporting
-+- report actual bytes, decisions, and roundtrip status honestly
+ - read the current repo state
+ - read current snapshot artifacts
+-- understand the user's goal
++- understand the COOPERATOR's goal
+ - decompose the next step into a precise worker task
+ - keep scope bounded
+ - prevent drift
+@@ -561,6 +564,24 @@ So even with direct agent-to-agent messaging, the repo artifacts should remain f
  
--**S `--require-compression`:**
--- Pri raw_fallback: **odmietnutie**, exit code `2`, žiadny výstupný súbor
--- Pri skutočnej kompresii (`square_generated_64`): **úspech**, exit code `0`
-+## What The Next Orchestrator Must Not Do
+ This loop is the practical core of AP.
  
--**Náhodné bajty:** `raw_fallback`, `.psmdl` väčší než raw — **žiadny falošný compression win**.
-+- must not claim universal compression
-+- must not treat synthetic wins as broad proof
-+- must not skip tests
-+- must not give the Worker a large mixed-scope task
-+- must not prioritize entropy coding before honest external benchmarking unless strategy explicitly changes
-+- must not let stale handoff files replace current repository state
++## Worker Doctrine Evolution
++
++`AP_WORKER.md` is a living Worker-side doctrine artifact, not a frozen manifesto.
++
++The Worker may refine this project-specific operating doctrine when explicitly tasked in a bounded AP/meta session.
++
++Rules:
++
++- doctrine changes must be small, justified, and report-backed
++- the Worker must not rewrite its own rules silently as part of unrelated coding tasks
++- if the Worker discovers repeated ambiguity, safety risk, or handoff confusion, it may recommend an `AP_WORKER.md` update in its report
++- the actual doctrine update should happen in a bounded AP/meta task unless the prompt explicitly permits it during the current task
++- repository files remain the source of truth; chat memory is not
++
++The Worker remains execution-focused.
++
++Doctrine evolution is a controlled exception, not a license to drift into meta work during compression or implementation tasks.
++
+ ## Coordinator Protocol
  
--## 9. Warnings and limitations
-+## Closing Note
+ Coordinator Protocol is the file-mediated RPC layer on top of AP.
+diff --git a/COORDINATOR_PROTOCOL.md b/COORDINATOR_PROTOCOL.md
+index dc1b9c0..66fc5c3 100644
+--- a/COORDINATOR_PROTOCOL.md
++++ b/COORDINATOR_PROTOCOL.md
+@@ -151,4 +151,14 @@ Candidate follow-up methods:
+ - `task.set`
+ - `handoff.build`
  
--- Raw fallback kontajner pridáva overhead; na reálnych textoch/Python zdrojoch `.psmdl` je vždy väčší než raw.
--- `repeating_pattern` tiež raw_fallback — kontajnerový overhead preváži (známe z huge-anchor binary demo).
--- Jediný actual win je na **syntetickom** `square_generated` — nie dôkaz všeobecnej kompresie.
--- Benchmark beží ~90–115 s (search + rerank na každom vstupe).
--- `README.md` ešte nepopisuje CLI príkazy.
--- `ap_snapshot.fish` nebol spustený.
--- Žiadne git operácie, žiadne nové závislosti, žiadne sieťové volania.
-+When a serious AP session ends, update both:
- 
--## 10. Suggested next smallest step
-+- `NEXT_ORCHESTRATOR.md` for strategic continuation
-+- `NEXT_AGENT.md` for the next Worker task
- 
--Pridať krátku sekciu do `README.md` s CLI príkazmi a upozornením na raw-fallback overhead; potom benchmarkovať na malom korpuse reálnych binárnych súborov mimo repa (temp files) a reportovať len actual bytes — bez tvrdenia o univerzálnej kompresii.
-\ No newline at end of file
-+Keep one dominant purpose per artifact.
++Planned controlled write-RPC for AP and handoff artifacts may later include:
++
++- `update_ap_worker`
++- `update_ap_orchestrator`
++- `update_next_agent`
++- `update_next_orchestrator`
++
++These write methods are conceptual only in the current repository.
++They are not implemented in the current read-only RPC surface.
++
+ These should remain bounded, inspectable, and explicit about safety before any write-capable expansion is allowed.
 diff --git a/README.md b/README.md
-index 1c72b0a..90fa54e 100644
+index 90fa54e..3671092 100644
 --- a/README.md
 +++ b/README.md
-@@ -23,6 +23,8 @@ This repository is for honest measurement, not compression hype. A transform is
- - a modular optimizer registry with GP-lite, SOMA, and honest placeholders
- - a shared residual codec layer with fixed-width, zero-RLE, and byte-RLE research baselines
- - an experimental huge-anchor binary bitstream container with exact byte-length measurement
-+- a `.psmdl` file CLI for huge-anchor compression and decompression
-+- a deterministic in-repo file benchmark for actual `.psmdl` byte sizes
- - a small Tkinter research cockpit for grayscale image simulations
- - pytest coverage for round-trip and random-data sanity checks
+@@ -233,6 +233,7 @@ fish scripts/ap_cycle_close.fish --message "..." --tldr "..."
  
-@@ -81,6 +83,56 @@ Estimated MDL accounting remains the fast search heuristic, but it is no longer
- - An estimated win can still become `raw_fallback` after real byte serialization.
- - Actual compressed bytes are the stronger evidence because they include headers, alignment, and real residual payload size.
+ AP artifact roles:
  
-+## PSMDL File CLI
-+
-+The repository includes a small file CLI for the huge-anchor binary path.
-+
-+This is **not** a general-purpose compressor. It is a research file interface for exact-lossless experiments with honest actual-byte reporting.
-+
-+Compress:
-+
-+```fish
-+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli compress --input in.bin --output out.psmdl --width-bits 32
-+```
-+
-+Decompress:
-+
-+```fish
-+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli decompress --input out.psmdl --output restored.bin
-+```
-+
-+Optional strict mode:
-+
-+```fish
-+... --require-compression
-+```
-+
-+If the huge-anchor blob is not smaller than the raw input, `--require-compression` refuses to write output.
-+
-+### File formats
-+
-+- `PSMDLHA1` = actual huge-anchor compressed payload
-+- `PSMDLRAW1` = raw fallback wrapper used when huge-anchor compression does not beat raw bytes
-+
-+Default behavior stores a safe raw fallback when compression does not win. That keeps exact roundtrip, but the `.psmdl` file can be **larger** than the original input because of container overhead.
-+
-+### In-repo benchmark summary
-+
-+Deterministic benchmark command:
-+
-+```fish
-+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark
-+```
-+
-+Current honest results from the in-repo set:
-+
-+- random bytes: raw fallback
-+- repeating pattern: raw fallback
-+- small repo text/source files (`README.md`, `AGENTS.md`, Python source): raw fallback
-+- `square_generated_64`: synthetic actual win, `256 B -> 49 B`
-+
-+Synthetic wins validate the exact mechanism only. They are not evidence of universal compression.
-+
- ## Residual Codec Layer
- 
- Predictors and anchor laws both create a residual stream:
-@@ -257,5 +309,5 @@ This version does not yet implement:
- 
- - entropy coding
- - heavy symbolic regression search
--- benchmark corpora integration
--- general file format packaging beyond the current huge-anchor proof-of-concept
-+- external benchmark corpora integration
-+- entropy-backed general-purpose file compression
++- `AP.md`, `AP_WORKER.md`, and `AP_ORCHESTRATOR.md` are living, repo-visible protocol and doctrine artifacts that may evolve through explicit AP/meta tasks.
+ - `AP.md` is the system-wide protocol.
+ - `COORDINATOR_PROTOCOL.md` extends AP with file-based RPC.
+ - `AP_ORCHESTRATOR.md` explains the orchestrator-side discipline.
 ```
 
 ## 10. Test Output
@@ -374,20 +327,20 @@ index 1c72b0a..90fa54e 100644
 ........................................................................ [ 51%]
 ........................................................................ [ 77%]
 .............................................................            [100%]
-277 passed in 122.06s (0:02:02)
+277 passed in 119.91s (0:01:59)
 ```
 
 ## 11. Relevant File Tree
 
 - `AGENTS.md` (9904 bytes)
-- `AP.md` (4742 bytes)
-- `AP_WORKER.md` (15495 bytes)
+- `AP.md` (6847 bytes)
+- `AP_WORKER.md` (16573 bytes)
 - `CHAT.md` (27677 bytes)
-- `COORDINATOR_PROTOCOL.md` (4691 bytes)
+- `COORDINATOR_PROTOCOL.md` (5000 bytes)
 - `docs/research_plan.md` (7097 bytes)
 - `.gitignore` (663 bytes)
 - `pyproject.toml` (481 bytes)
-- `README.md` (13274 bytes)
+- `README.md` (13431 bytes)
 - `scripts/ap_chat_append.fish` (3258 bytes)
 - `scripts/ap_cycle_close.fish` (7131 bytes)
 - `scripts/ap_rpc_call.fish` (2224 bytes)
@@ -683,25 +636,33 @@ Random bytes must always be included as a sanity check. A transform that loses t
 
 ## Short Definition
 
-Analytic Programming in this repository is a repo-centered multi-agent workflow where the repository is the ground truth, the diff is the unit of progress, tests are the minimum proof, and explicit artifacts preserve state between User, Orchestrator, and Worker loops.
+Analytic Programming in this repository is a repo-centered multi-agent workflow where the repository is the ground truth, the diff is the unit of progress, tests are the minimum proof, and explicit artifacts preserve state between COOPERATOR, Orchestrator, and Worker loops.
 
 The goal is not more prose.
 The goal is lower context loss, safer delegation, clearer handoff, and less fake progress.
 
 ## Roles
 
-### User
+### COOPERATOR
 
-- sets direction, priorities, and constraints
+The COOPERATOR is the human strategic coordinator.
+
+- owns intent, direction, risk tolerance, and final judgment
+- sets priorities and constraints
 - decides when a risk is acceptable
 - intervenes when the workflow needs strategy correction
+- may reshape the protocol itself through explicit AP/meta tasks
+- is not expected to manually remember all repository state; AP artifacts exist to reduce that burden
+
+In older notes, this role may appear as "User". In this repository, `COOPERATOR` is the preferred name.
 
 ### Orchestrator
 
 - reads the repo state and current artifacts
 - shapes the next bounded task for the Worker
 - keeps scope coherent and prevents drift
-- decides when escalation to the User is necessary
+- decides when escalation to the COOPERATOR is necessary
+- may propose doctrine or handoff updates after evaluating Worker reports
 
 ### Worker
 
@@ -710,6 +671,27 @@ The goal is lower context loss, safer delegation, clearer handoff, and less fake
 - validates with tests and commands
 - reports the real outcome
 - refreshes snapshots when the step is meaningful
+- may recommend doctrine updates in reports, but changes doctrine only in explicit bounded AP/meta tasks
+
+## Living Protocol Artifacts
+
+AP documentation is not a frozen essay set.
+
+These files are living, repo-visible protocol and doctrine artifacts:
+
+- `AP.md` = system-wide Analytic Programming protocol
+- `AP_WORKER.md` = Worker-side operating doctrine
+- `AP_ORCHESTRATOR.md` = Orchestrator-side planning and evaluation doctrine
+
+They may evolve as the project learns, but only through explicit, bounded AP/meta tasks.
+
+Rules:
+
+- changes must be repo-visible, inspectable, and report-backed
+- doctrine must not be rewritten silently during unrelated coding tasks
+- the Orchestrator may propose updates after evaluating Worker reports
+- the Worker may implement doctrine updates only when explicitly asked in a bounded AP/meta task
+- repository files remain the source of truth; chat memory is not
 
 ## Artifact Ownership
 
@@ -727,9 +709,22 @@ The goal is lower context loss, safer delegation, clearer handoff, and less fake
 Each artifact should have one dominant purpose.
 Do not spread the same truth across many files without clear ownership.
 
+## Handoff Artifact Separation
+
+- `NEXT_AGENT.md` = immediate next Worker task
+- `NEXT_ORCHESTRATOR.md` = strategic continuation for the next Orchestrator
+
+These files must not be conflated.
+
+`NEXT_AGENT.md` should stay narrow, actionable, and Worker-focused.
+
+`NEXT_ORCHESTRATOR.md` should stay strategic, contextual, and Orchestrator-focused.
+
+Closing a serious AP session should update both when future continuation is expected.
+
 ## Operating Loop
 
-1. User provides intent and constraints.
+1. COOPERATOR provides intent and constraints.
 2. Orchestrator shapes the next bounded task.
 3. Worker inspects the repo and relevant artifacts.
 4. Worker makes the smallest useful change.
@@ -769,7 +764,17 @@ Safety rules:
 - write RPC is forbidden unless the task explicitly permits it
 - secrets access, network access, and git write commands remain forbidden
 
-Closing a serious AP session should update both the Worker handoff and the Orchestrator handoff when future continuation is expected.
+Planned controlled write-RPC for AP and handoff artifacts is conceptual only unless implemented in the repository.
+
+Candidate future methods include:
+
+- `update_ap_worker`
+- `update_ap_orchestrator`
+- `update_next_agent`
+- `update_next_orchestrator`
+
+Such methods are not implemented in the current proof-of-concept RPC surface.
+They would need explicit COOPERATOR authority, bounded scope, and full repo auditability before adoption.
 
 ## Git Rules
 
@@ -853,19 +858,22 @@ This is controlled stateful engineering with explicit memory and explicit accoun
 
 ## Roles
 
-### User
+### COOPERATOR
 
-The user is the strategic authority.
+The COOPERATOR is the human strategic coordinator.
 
-The user decides:
+The COOPERATOR decides:
 
 - what matters
 - when priorities change
 - when a risk is acceptable
 - when the system should go deeper or stop
+- when protocol or doctrine should change
 
-The user should not need to manually reconstruct the whole repo state from memory after every step.
+The COOPERATOR should not need to manually reconstruct the whole repo state from memory after every step.
 AP exists partly to remove that burden.
+
+In older notes, this role may appear as "User". In this repository, `COOPERATOR` is the preferred name.
 
 ### Orchestrator
 
@@ -875,7 +883,7 @@ Its job is to:
 
 - read the current repo state
 - read current snapshot artifacts
-- understand the user's goal
+- understand the COOPERATOR's goal
 - decompose the next step into a precise worker task
 - keep scope bounded
 - prevent drift
@@ -1376,6 +1384,24 @@ So even with direct agent-to-agent messaging, the repo artifacts should remain f
 9. Prepare clean handoff context for the next loop.
 
 This loop is the practical core of AP.
+
+## Worker Doctrine Evolution
+
+`AP_WORKER.md` is a living Worker-side doctrine artifact, not a frozen manifesto.
+
+The Worker may refine this project-specific operating doctrine when explicitly tasked in a bounded AP/meta session.
+
+Rules:
+
+- doctrine changes must be small, justified, and report-backed
+- the Worker must not rewrite its own rules silently as part of unrelated coding tasks
+- if the Worker discovers repeated ambiguity, safety risk, or handoff confusion, it may recommend an `AP_WORKER.md` update in its report
+- the actual doctrine update should happen in a bounded AP/meta task unless the prompt explicitly permits it during the current task
+- repository files remain the source of truth; chat memory is not
+
+The Worker remains execution-focused.
+
+Doctrine evolution is a controlled exception, not a license to drift into meta work during compression or implementation tasks.
 
 ## Coordinator Protocol
 
@@ -2480,6 +2506,16 @@ Candidate follow-up methods:
 - `task.set`
 - `handoff.build`
 
+Planned controlled write-RPC for AP and handoff artifacts may later include:
+
+- `update_ap_worker`
+- `update_ap_orchestrator`
+- `update_next_agent`
+- `update_next_orchestrator`
+
+These write methods are conceptual only in the current repository.
+They are not implemented in the current read-only RPC surface.
+
 These should remain bounded, inspectable, and explicit about safety before any write-capable expansion is allowed.
 ```
 
@@ -2955,6 +2991,7 @@ fish scripts/ap_cycle_close.fish --message "..." --tldr "..."
 
 AP artifact roles:
 
+- `AP.md`, `AP_WORKER.md`, and `AP_ORCHESTRATOR.md` are living, repo-visible protocol and doctrine artifacts that may evolve through explicit AP/meta tasks.
 - `AP.md` is the system-wide protocol.
 - `COORDINATOR_PROTOCOL.md` extends AP with file-based RPC.
 - `AP_ORCHESTRATOR.md` explains the orchestrator-side discipline.

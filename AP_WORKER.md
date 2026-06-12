@@ -37,19 +37,22 @@ This is controlled stateful engineering with explicit memory and explicit accoun
 
 ## Roles
 
-### User
+### COOPERATOR
 
-The user is the strategic authority.
+The COOPERATOR is the human strategic coordinator.
 
-The user decides:
+The COOPERATOR decides:
 
 - what matters
 - when priorities change
 - when a risk is acceptable
 - when the system should go deeper or stop
+- when protocol or doctrine should change
 
-The user should not need to manually reconstruct the whole repo state from memory after every step.
+The COOPERATOR should not need to manually reconstruct the whole repo state from memory after every step.
 AP exists partly to remove that burden.
+
+In older notes, this role may appear as "User". In this repository, `COOPERATOR` is the preferred name.
 
 ### Orchestrator
 
@@ -59,7 +62,7 @@ Its job is to:
 
 - read the current repo state
 - read current snapshot artifacts
-- understand the user's goal
+- understand the COOPERATOR's goal
 - decompose the next step into a precise worker task
 - keep scope bounded
 - prevent drift
@@ -560,6 +563,24 @@ So even with direct agent-to-agent messaging, the repo artifacts should remain f
 9. Prepare clean handoff context for the next loop.
 
 This loop is the practical core of AP.
+
+## Worker Doctrine Evolution
+
+`AP_WORKER.md` is a living Worker-side doctrine artifact, not a frozen manifesto.
+
+The Worker may refine this project-specific operating doctrine when explicitly tasked in a bounded AP/meta session.
+
+Rules:
+
+- doctrine changes must be small, justified, and report-backed
+- the Worker must not rewrite its own rules silently as part of unrelated coding tasks
+- if the Worker discovers repeated ambiguity, safety risk, or handoff confusion, it may recommend an `AP_WORKER.md` update in its report
+- the actual doctrine update should happen in a bounded AP/meta task unless the prompt explicitly permits it during the current task
+- repository files remain the source of truth; chat memory is not
+
+The Worker remains execution-focused.
+
+Doctrine evolution is a controlled exception, not a license to drift into meta work during compression or implementation tasks.
 
 ## Coordinator Protocol
 
