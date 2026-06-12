@@ -10,8 +10,10 @@ from primesymbolicmdl.huge_anchor_file import (
     compress_file,
     compress_to_psmdl_bytes,
     decode_psmdl_bytes,
+    decode_raw_psmdl_v1,
     decompress_file,
     encode_raw_psmdl,
+    raw_psmdl_container_overhead,
 )
 from primesymbolicmdl.huge_anchor_file_cli import main as cli_main
 
@@ -49,6 +51,24 @@ def test_encode_raw_psmdl_roundtrips() -> None:
     data = b"hello-psmdl-raw-fallback"
 
     assert decode_psmdl_bytes(encode_raw_psmdl(data)) == data
+
+
+def test_raw_psmdl_v2_reduces_small_file_overhead() -> None:
+    data = b"x" * 128
+    encoded = encode_raw_psmdl(data)
+
+    assert decode_psmdl_bytes(encoded) == data
+    assert encoded.startswith(b"PSMDLR2")
+    assert len(encoded) == len(data) + raw_psmdl_container_overhead(len(data))
+    assert raw_psmdl_container_overhead(len(data)) == 9
+
+
+def test_raw_psmdl_v1_legacy_container_still_decodes() -> None:
+    data = b"legacy-raw-container"
+    legacy = b"PSMDLRAW1\x01" + bytes([len(data)]) + data
+
+    assert decode_raw_psmdl_v1(legacy) == data
+    assert decode_psmdl_bytes(legacy) == data
 
 
 def test_temp_file_cli_roundtrip_for_square_generated(tmp_path: Path) -> None:

@@ -1,3 +1,16 @@
+# NEXT_WORKER.md — Worker Handoff
+
+Immediate Worker handoff. Strategic Orchestrator context lives in `NEXT_ORCHESTRATOR.md`.
+
+For the full task list and acceptance criteria, read `NEXT_AGENT.md`.
+
+## One-Line Focus
+
+`PSMDLR2` compact raw fallback is implemented. Next: decide whether further overhead work or a narrow compression experiment is justified from actual-byte evidence.
+
+## HEAD To Report
+
+Always include `git rev-parse HEAD` in Worker reports for Public Commit Verification Loop.
 Áno, Michal — **viem si z verejného GitHub repa vytiahnuť posledný commit, pozrieť diff a čítať konkrétne súbory v presnom stave daného commitu**.
 
 Teraz som to rovno spravila:

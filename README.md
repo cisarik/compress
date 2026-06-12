@@ -112,9 +112,10 @@ If the huge-anchor blob is not smaller than the raw input, `--require-compressio
 ### File formats
 
 - `PSMDLHA1` = actual huge-anchor compressed payload
-- `PSMDLRAW1` = raw fallback wrapper used when huge-anchor compression does not beat raw bytes
+- `PSMDLR2` = compact raw fallback wrapper used when huge-anchor compression does not beat raw bytes
+- `PSMDLRAW1` = legacy raw fallback wrapper; still supported for decode
 
-Default behavior stores a safe raw fallback when compression does not win. That keeps exact roundtrip, but the `.psmdl` file can be **larger** than the original input because of container overhead.
+Default behavior stores a safe raw fallback when compression does not win. That keeps exact roundtrip, but the `.psmdl` file can still be **larger** than the original input because of container overhead (smaller under `PSMDLR2`, typically +9 B on small files).
 
 ### In-repo benchmark summary
 

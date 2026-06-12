@@ -14,6 +14,9 @@ from .huge_anchor_binary import (
 
 _RAW_MAGIC = b"PSMDLRAW1"
 _RAW_VERSION = 1
+_RAW2_MAGIC = b"PSMDLR2"
+_MAX_UINT16_PAYLOAD = 65535
+_LARGE_SIZE_MARKER = 0xFF
 
 
 class PsmdlCompressionRefusedError(RuntimeError):
@@ -38,19 +41,23 @@ class PsmdlCompressResult:
 
 
 def encode_raw_psmdl(data: bytes) -> bytes:
-    """Zabali povodne bajty do bezpecneho raw-fallback `.psmdl` kontajnera."""
+    """Zabali povodne bajty do kompaktneho raw-fallback `.psmdl` kontajnera."""
 
     payload = bytes(data)
+    original_size = len(payload)
     output = bytearray()
-    output.extend(_RAW_MAGIC)
-    output.append(_RAW_VERSION)
-    output.extend(encode_unsigned_varint(len(payload)))
+    output.extend(_RAW2_MAGIC)
+    if original_size <= _MAX_UINT16_PAYLOAD:
+        output.extend(original_size.to_bytes(2, "big"))
+    else:
+        output.append(_LARGE_SIZE_MARKER)
+        output.extend(original_size.to_bytes(4, "big"))
     output.extend(payload)
     return bytes(output)
 
 
-def decode_raw_psmdl(blob: bytes) -> bytes:
-    """Dekoduje raw-fallback `.psmdl` kontajner."""
+def decode_raw_psmdl_v1(blob: bytes) -> bytes:
+    """Dekoduje legacy `PSMDLRAW1` raw-fallback kontajner."""
 
     payload = bytes(blob)
     if not payload.startswith(_RAW_MAGIC):
@@ -72,13 +79,63 @@ def decode_raw_psmdl(blob: bytes) -> bytes:
     return payload[offset : offset + original_size]
 
 
+def decode_raw_psmdl_v2(blob: bytes) -> bytes:
+    """Dekoduje kompaktny `PSMDLR2` raw-fallback kontajner."""
+
+    payload = bytes(blob)
+    if not payload.startswith(_RAW2_MAGIC):
+        raise ValueError("Unsupported compact raw .psmdl magic")
+    if len(payload) <= len(_RAW2_MAGIC):
+        raise ValueError("Compact raw .psmdl payload is truncated")
+
+    offset = len(_RAW2_MAGIC)
+    if offset + 2 > len(payload):
+        raise ValueError("Truncated compact raw .psmdl size field")
+
+    if payload[offset] == _LARGE_SIZE_MARKER:
+        offset += 1
+        if offset + 4 > len(payload):
+            raise ValueError("Truncated compact raw .psmdl large size field")
+        original_size = int.from_bytes(payload[offset : offset + 4], "big")
+        offset += 4
+    else:
+        original_size = int.from_bytes(payload[offset : offset + 2], "big")
+        offset += 2
+
+    if offset + original_size > len(payload):
+        raise ValueError("Truncated compact raw .psmdl payload")
+    if offset + original_size < len(payload):
+        raise ValueError("Compact raw .psmdl payload has trailing bytes")
+
+    return payload[offset : offset + original_size]
+
+
+def decode_raw_psmdl(blob: bytes) -> bytes:
+    """Dekoduje raw-fallback `.psmdl` kontajner (legacy alebo kompaktny)."""
+
+    payload = bytes(blob)
+    if payload.startswith(_RAW2_MAGIC):
+        return decode_raw_psmdl_v2(payload)
+    if payload.startswith(_RAW_MAGIC):
+        return decode_raw_psmdl_v1(payload)
+    raise ValueError("Unsupported raw .psmdl magic")
+
+
+def raw_psmdl_container_overhead(raw_bytes: int) -> int:
+    """Vrati pocet bajtov naviac oproti raw payloadu pre aktualny raw kontajner."""
+
+    if raw_bytes <= _MAX_UINT16_PAYLOAD:
+        return len(_RAW2_MAGIC) + 2
+    return len(_RAW2_MAGIC) + 1 + 4
+
+
 def decode_psmdl_bytes(blob: bytes) -> bytes:
     """Dekoduje `.psmdl` subor bez ohladu na to, ci ide o huge-anchor alebo raw fallback."""
 
     payload = bytes(blob)
     if payload.startswith(_HUGE_ANCHOR_MAGIC):
         return decode_huge_anchor_binary(payload)
-    if payload.startswith(_RAW_MAGIC):
+    if payload.startswith(_RAW2_MAGIC) or payload.startswith(_RAW_MAGIC):
         return decode_raw_psmdl(payload)
     raise ValueError("Unsupported .psmdl file magic")
 
