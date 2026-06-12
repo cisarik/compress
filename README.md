@@ -23,6 +23,8 @@ This repository is for honest measurement, not compression hype. A transform is 
 - a modular optimizer registry with GP-lite, SOMA, and honest placeholders
 - a shared residual codec layer with fixed-width, zero-RLE, and byte-RLE research baselines
 - an experimental huge-anchor binary bitstream container with exact byte-length measurement
+- a `.psmdl` file CLI for huge-anchor compression and decompression
+- a deterministic in-repo file benchmark for actual `.psmdl` byte sizes
 - a small Tkinter research cockpit for grayscale image simulations
 - pytest coverage for round-trip and random-data sanity checks
 
@@ -80,6 +82,56 @@ Estimated MDL accounting remains the fast search heuristic, but it is no longer 
 - This makes container overhead visible instead of assumed away.
 - An estimated win can still become `raw_fallback` after real byte serialization.
 - Actual compressed bytes are the stronger evidence because they include headers, alignment, and real residual payload size.
+
+## PSMDL File CLI
+
+The repository includes a small file CLI for the huge-anchor binary path.
+
+This is **not** a general-purpose compressor. It is a research file interface for exact-lossless experiments with honest actual-byte reporting.
+
+Compress:
+
+```fish
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli compress --input in.bin --output out.psmdl --width-bits 32
+```
+
+Decompress:
+
+```fish
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli decompress --input out.psmdl --output restored.bin
+```
+
+Optional strict mode:
+
+```fish
+... --require-compression
+```
+
+If the huge-anchor blob is not smaller than the raw input, `--require-compression` refuses to write output.
+
+### File formats
+
+- `PSMDLHA1` = actual huge-anchor compressed payload
+- `PSMDLRAW1` = raw fallback wrapper used when huge-anchor compression does not beat raw bytes
+
+Default behavior stores a safe raw fallback when compression does not win. That keeps exact roundtrip, but the `.psmdl` file can be **larger** than the original input because of container overhead.
+
+### In-repo benchmark summary
+
+Deterministic benchmark command:
+
+```fish
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark
+```
+
+Current honest results from the in-repo set:
+
+- random bytes: raw fallback
+- repeating pattern: raw fallback
+- small repo text/source files (`README.md`, `AGENTS.md`, Python source): raw fallback
+- `square_generated_64`: synthetic actual win, `256 B -> 49 B`
+
+Synthetic wins validate the exact mechanism only. They are not evidence of universal compression.
 
 ## Residual Codec Layer
 
@@ -257,5 +309,5 @@ This version does not yet implement:
 
 - entropy coding
 - heavy symbolic regression search
-- benchmark corpora integration
-- general file format packaging beyond the current huge-anchor proof-of-concept
+- external benchmark corpora integration
+- entropy-backed general-purpose file compression

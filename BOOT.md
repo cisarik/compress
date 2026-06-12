@@ -5,12 +5,12 @@ PrimeSymbolicMDL je experimentalny lossless compression research harness oriento
 ## Current Git State
 
 - Branch: `main`
-- HEAD: `7fd2bb5d33a437b1ca47abf81e32732ae406c664`
+- HEAD: `d86fb4f83becaf87d50f5c635bb5946bf8bdb23f`
 
 ## Last Test Status
 
 - Status: `passed`
-- Runner: `python -m pytest -q`
+- Runner: `project virtual environment python -m pytest -q`
 
 ## Main Modules
 

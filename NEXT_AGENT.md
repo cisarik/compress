@@ -1,182 +1,121 @@
-You are the WORKER in the PrimeSymbolicMDL repository.
+# NEXT_AGENT.md — PrimeSymbolicMDL Worker Handoff
 
-Working directory:
+## Current Session Status
 
-`/home/agile/compress`
+Documentation and AP handoff cleanup after the completed `.psmdl` CLI audit/benchmark step.
 
-Task type:
+- Latest verified tests: `277 passed`
+- `.psmdl` file CLI exists and is documented in `README.md`
+- In-repo file benchmark exists: `src/primesymbolicmdl/huge_anchor_file_benchmark.py`
+- `NEXT_ORCHESTRATOR.md` has been rewritten as a clean strategic handoff
 
-`compression practicalization / validation`
+## Project Mission
 
-## Context
+PrimeSymbolicMDL is an experimental lossless compression research harness.
 
-The previous Worker implemented a real file CLI for huge-anchor binary compression/decompression.
+The goal is exact lossless compression experiments under honest MDL accounting and honest actual byte accounting where implemented.
 
-Reported changed files:
+Do not make universal compression claims.
 
-* `src/primesymbolicmdl/huge_anchor_file.py`
-* `src/primesymbolicmdl/huge_anchor_file_cli.py`
-* `tests/test_huge_anchor_file_cli.py`
+## Analytic Programming / Coordinator Protocol
 
-Reported commands:
+Core roles:
 
-* `.venv/bin/pytest -q tests/test_huge_anchor_file_cli.py`
-* `.venv/bin/pytest -q`
+- `COOPERATOR`
+- `ORCHESTRATOR`
+- `WORKER`
 
-Reported results:
+Important files:
 
-* `9 passed` for new CLI tests
-* `276 passed` for the full suite
+- `AP.md`
+- `AP_WORKER.md`
+- `AP_ORCHESTRATOR.md`
+- `AGENTS.md`
+- `COORDINATOR_PROTOCOL.md`
+- `BOOT.md`
+- `BRAIN.md`
+- `CHAT.md`
+- `.ap/current_status.md`
+- `.ap/last_report.md`
 
-Important warning from the previous report:
+Strategic Orchestrator handoff lives in `NEXT_ORCHESTRATOR.md`.
 
-* In this environment, use `.venv/bin/pytest`.
-* Do not rely on `.venv/bin/python -m pytest`, because it may resolve incorrectly through the Cursor appimage environment.
+This file remains the Worker-focused handoff.
 
-## Goal
+## Current Known Benchmark Summary
 
-Do a small, bounded post-implementation audit and practical benchmark of the new `.psmdl` file CLI.
+In-repo deterministic benchmark (`huge_anchor_file_benchmark`):
 
-The goal is not to invent a new algorithm.
+| input | raw bytes | `.psmdl` bytes | outcome |
+|-------|-----------|----------------|---------|
+| random_bytes_128 | 128 | 140 | raw fallback |
+| repeating_pattern | 128 | 140 | raw fallback |
+| README.md | 11548 | 11560 | raw fallback |
+| AGENTS.md | 9904 | 9916 | raw fallback |
+| huge_anchor_file.py | 5182 | 5194 | raw fallback |
+| square_generated_64 | 256 | 49 | synthetic huge-anchor win |
 
-The goal is to verify that the new CLI is understandable, safe, roundtrips exactly, and produces honest actual-size behavior on small real files and deterministic sanity inputs.
+All cases roundtrip exactly.
 
-## Hard Rules
+`--require-compression` refuses raw-fallback cases and succeeds for `square_generated_64`.
 
-* Do not run any git write commands.
-* Do not commit.
-* Do not push.
-* Do not create branches.
-* Do not install new dependencies.
-* Do not use the network.
-* Do not introduce new compression algorithms.
-* Do not make universal compression claims.
-* Exact byte-for-byte roundtrip is mandatory.
-* Actual file size matters more than estimated bits.
-* Random bytes should normally remain raw fallback.
-* Keep changes minimal.
+## Hard Rules For Next Worker
 
-## Allowed Actions
+- no git write commands unless explicitly permitted
+- run tests after meaningful changes
+- no network downloads
+- no heavy dependencies
+- no fake compression claims
+- exact roundtrip is mandatory
+- random-bytes sanity is required
+- actual bytes are stronger evidence than estimated bits
+- report starts with `### Report for ORCHESTRATOR_CHAT`
 
-You may:
+## Suggested Next Smallest Step
 
-* read relevant source files
-* run tests
-* run the new CLI on temporary files
-* add a small benchmark/demo script if useful
-* add tests for that script only if the script is committed as part of the repo
-* update documentation only if needed to make the CLI usage clear
+Create or extend a small **external-corpus benchmark harness** for actual `.psmdl` file sizes.
 
-Prefer temporary files under a safe temporary directory created by Python or shell.
+Why this is the right next step:
 
-Do not leave generated benchmark files committed into the repo.
+- the in-repo benchmark already validated CLI behavior on repo files and synthetic inputs
+- the next honest step is a small corpus **outside** the repository tree
+- use temporary files only; do not commit generated benchmark blobs
+- report actual bytes, `decision`, `file_format`, and roundtrip status
+- include random-byte sanity and at least a few small real external files supplied locally by the harness or documented temp inputs
 
-## Required Inspection
+Suggested shape:
 
-First inspect:
+- extend `huge_anchor_file_benchmark.py` or add a sibling such as `huge_anchor_external_benchmark.py`
+- keep scope small: a handful of files, deterministic where possible
+- add minimal tests only if a committed script is added
 
-* `src/primesymbolicmdl/huge_anchor_file.py`
-* `src/primesymbolicmdl/huge_anchor_file_cli.py`
-* `tests/test_huge_anchor_file_cli.py`
+Do not introduce new compression algorithms in this step.
 
-Check for:
-
-* clear format handling
-* safe raw fallback behavior
-* exact roundtrip verification
-* good error handling for invalid input
-* clear CLI output
-* no misleading compression claims
-
-## Required Benchmark
-
-Run the CLI on a small deterministic benchmark set.
-
-Use at least these inputs:
-
-1. small random bytes
-2. repeated bytes or repeated pattern
-3. a small real text file from the repository, for example `README.md` or `AGENTS.md`
-4. a small Python source file from `src/primesymbolicmdl/`
-5. a synthetic square-generated style dataset if it can be constructed cleanly using existing repo code
-
-For each case report:
-
-* input name
-* raw input bytes
-* `.psmdl` output bytes
-* whether huge-anchor compression or raw fallback was used
-* exact roundtrip result
-* whether `--require-compression` succeeds or fails
-* any surprising behavior
-
-## Optional Small Repo Change
-
-If it is useful and keeps scope small, add a script such as:
-
-`src/primesymbolicmdl/huge_anchor_file_benchmark.py`
-
-or similar.
-
-The script should:
-
-* generate deterministic temporary inputs
-* run the existing file compression/decompression path directly or through the CLI
-* print an honest table of actual sizes
-* clearly mark raw fallback versus actual huge-anchor compression
-* not claim general compression success
-
-Only add this script if it makes the benchmark repeatable and simple.
-
-If adding a script, add minimal tests for it.
-
-## Validation Commands
-
-Run:
+## Commands That Worked
 
 ```fish
 cd /home/agile/compress
 source .venv/bin/activate.fish
 .venv/bin/pytest -q
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli compress --input in.bin --output out.psmdl --width-bits 32
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli decompress --input out.psmdl --output restored.bin
+fish scripts/ap_snapshot.fish --run-tests
 ```
 
-If you add a benchmark script, also run it, for example:
+## Python Invocation Warning
 
-```fish
-.venv/bin/python -m primesymbolicmdl.huge_anchor_file_benchmark
-```
+In this environment:
 
-If `.venv/bin/python -m ...` has the Cursor appimage problem, use the safest working invocation and report exactly what worked.
-
-## Acceptance Criteria
-
-This task is complete only if:
-
-* the new CLI behavior has been audited
-* exact roundtrip is verified on temporary real files
-* random bytes do not produce misleading compression claims
-* actual `.psmdl` byte sizes are reported
-* raw fallback behavior is clearly shown
-* the full pytest suite passes
-* any new script or docs are minimal and honest
+- use `.venv/bin/pytest` for tests
+- do not rely on `.venv/bin/python -m pytest`; it may resolve incorrectly through the Cursor appimage
+- for module execution, prefer `PYTHONPATH=src /usr/bin/python3.14 -m ...`
 
 ## Required Report Format
 
-Your response must start exactly with:
-
-`### Report for ORCHESTRATOR_CHAT`
-
-Then include:
-
-1. Summary
-2. Files inspected
-3. Files changed
-4. Commands run
-5. Full test results
-6. Benchmark table with actual byte sizes
-7. Roundtrip verification results
-8. Raw fallback / `--require-compression` behavior
-9. Warnings and limitations
-10. Suggested next smallest step
-
-Be explicit about anything not done.
+- report starts with `### Report for ORCHESTRATOR_CHAT`
+- include changed files
+- include commands run
+- include full test output
+- include warnings
+- include the suggested next step

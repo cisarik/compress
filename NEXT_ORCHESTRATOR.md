@@ -1,104 +1,159 @@
-### Report for ORCHESTRATOR_CHAT
+# NEXT_ORCHESTRATOR.md — Strategic Handoff
 
-## 1. Summary
+This file is the handoff for the **next Orchestrator**, not the Worker.
 
-Audit a benchmark nového `.psmdl` file CLI sú **dokončené**. Implementácia je konzistentná, exact roundtrip funguje na všetkých testovaných vstupoch a správanie je úprimné: reálne súbory z repa aj náhodné/repeated dáta končia ako **raw fallback** (`.psmdl` je väčší kvôli kontajneru), jediný skutočný huge-anchor win v benchmarke je **syntetický** `square_generated_64` (256 → 49 B). Pridaný bol malý opakovateľný benchmark skript s jedným testom.
+The Worker should read `NEXT_AGENT.md` instead.
 
-## 2. Files inspected
+## Recommended Read Order
+
+1. `NEXT_ORCHESTRATOR.md`
+2. `NEXT_AGENT.md`
+3. `BOOT.md`
+4. `.ap/current_status.md`
+5. `.ap/last_report.md`
+6. `BRAIN.md` only when deeper context is needed
+
+## Big Picture
+
+PrimeSymbolicMDL is an experimental lossless compression research harness.
+
+The project tests anchor-and-residual transforms under honest MDL accounting and, where implemented, honest actual byte accounting.
+
+Prime anchors are one candidate anchor family, not a privileged truth.
+
+The repository is benchmark-driven, deterministic, and exactly reversible.
+
+## Analytic Programming / Coordinator Protocol
+
+AP is active in this repository.
+
+Core roles:
+
+- `COOPERATOR` (user)
+- `ORCHESTRATOR`
+- `WORKER`
+
+Important protocol files:
+
+- `AP.md`
+- `AP_ORCHESTRATOR.md`
+- `AP_WORKER.md`
+- `AGENTS.md`
+- `COORDINATOR_PROTOCOL.md`
+
+Important handoff and snapshot files:
+
+- `NEXT_ORCHESTRATOR.md` = strategic Orchestrator handoff
+- `NEXT_AGENT.md` = immediate Worker handoff
+- `BOOT.md` = short generated boot summary
+- `BRAIN.md` = detailed generated repository snapshot
+- `CHAT.md` = append-only coordination ledger
+
+Current read-only RPC methods:
+
+- `repo.status`
+- `repo.diff_stat`
+- `repo.list_files`
+- `repo.get_file`
+
+The repository remains the source of truth.
+
+Chat and snapshots are supporting artifacts, not proof of compression performance.
+
+## What Has Been Solved So Far
+
+- deterministic baseline and bit accounting
+- prime-anchor and indexed anchor-law branches
+- huge-anchor portfolio across multiple families
+- shared residual codec layer
+- huge-anchor binary container with actual-size reranking
+- `.psmdl` file CLI for huge-anchor compression and decompression
+- deterministic in-repo file benchmark for actual `.psmdl` byte sizes
+- AP / Coordinator Protocol infrastructure
+- GUI research cockpit for small grayscale simulations
+- pytest coverage for roundtrip and random-data sanity
+
+## Current Compression Evidence
+
+Latest verified tests:
+
+- `277 passed`
+
+File path exists:
 
 - `src/primesymbolicmdl/huge_anchor_file.py`
 - `src/primesymbolicmdl/huge_anchor_file_cli.py`
-- `tests/test_huge_anchor_file_cli.py`
+- `src/primesymbolicmdl/huge_anchor_file_benchmark.py`
 
-**Audit zistenia:**
+Benchmark summary from the in-repo deterministic file benchmark:
 
-| Oblasť | Hodnotenie |
-|--------|------------|
-| Formát | `decode_psmdl_bytes` rozlišuje `PSMDLHA1` (huge-anchor) vs `PSMDLRAW1` (raw fallback) podľa magic |
-| Raw fallback | Pri `decision != "compressed"` sa zapíše `PSMDLRAW1` wrapper, nie väčší huge-anchor blob |
-| Roundtrip | `compress_to_psmdl_bytes` overí `decode_psmdl_bytes(file_bytes) == payload` pred návratom |
-| `--require-compression` | `PsmdlCompressionRefusedError`, CLI exit code `2`, výstupný súbor sa nevytvorí |
-| Chyby | Neplatný magic → `ValueError`; CLI chyby → exit `1` (súbor neexistuje, corrupt magic) |
-| CLI výstup | Jednoriadkový súhrn s `decision`, `file_format`, actual `raw_bytes` / `compressed_bytes` — bez estimated-bit hype |
+| input | raw bytes | `.psmdl` bytes | outcome |
+|-------|-----------|----------------|---------|
+| random_bytes_128 | 128 | 140 | raw fallback |
+| repeating_pattern | 128 | 140 | raw fallback |
+| README.md | 11548 | 11560 | raw fallback |
+| AGENTS.md | 9904 | 9916 | raw fallback |
+| huge_anchor_file.py | 5182 | 5194 | raw fallback |
+| square_generated_64 | 256 | 49 | synthetic huge-anchor win |
 
-Žiadne zavádzajúce compression claims v kóde ani výstupe.
+Interpretation:
 
-## 3. Files changed
+- exact roundtrip verified for all benchmark cases
+- random bytes remained raw fallback
+- small real repo files remained raw fallback
+- `square_generated_64` is a synthetic mechanism check, not general compression proof
+- `--require-compression` refuses raw-fallback cases and succeeds for the synthetic compressed case
 
-- `src/primesymbolicmdl/huge_anchor_file_benchmark.py` — nový deterministický benchmark
-- `tests/test_huge_anchor_file_benchmark.py` — minimálny test benchmarku
+## Scientific Guardrails
 
-**Nezmenené:** `huge_anchor_file.py`, `huge_anchor_file_cli.py`, dokumentácia (`README.md` stále neobsahuje CLI usage).
+- exact roundtrip is mandatory
+- raw fallback is normal and often expected
+- actual bytes are stronger evidence than estimated bits
+- random-byte sanity is required
+- synthetic wins validate mechanism only
+- do not claim universal compression without established corpora and full cost accounting
+- generated snapshots are not proof of compression quality
 
-## 4. Commands run
+## Current Risks
 
-```fish
-cd /home/agile/compress
-.venv/bin/pytest -q
-.venv/bin/pytest -q tests/test_huge_anchor_file_benchmark.py
-PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark
-PYTHONPATH=src /usr/bin/python3.14 -c "..."  # audit error handling
-```
+- no entropy coder exists yet
+- the small in-repo benchmark does not compress real text/source files
+- raw fallback has container overhead and can make `.psmdl` larger than raw input
+- benchmark runtime is around 90–115 seconds for the current in-repo set
+- public documentation must stay non-hype
+- estimated wins can still diverge from actual serialized bytes because of container overhead
+- exact prime support remains limited to the 64-bit line in the scaled-prime branch
 
-**Poznámka k Python invokácii:**
+## Recommended Next Strategy
 
-- `.venv/bin/pytest` — funguje
-- `.venv/bin/python -m ...` — `sys.executable` smeruje na Cursor appimage, **nefunguje** pre `-m pytest`
-- `PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark` — **funguje**
+Do not start with another large theory cycle.
 
-## 5. Full test results
+Recommended order:
 
-```
-277 passed in 114.76s (0:01:54)
-```
+1. keep public documentation aligned with actual CLI behavior
+2. build a small honest external-corpus benchmark harness for actual `.psmdl` file sizes
+3. only then consider container overhead reduction or entropy coding
 
-Predchádzajúci stav: 276 passed. Nový test: `test_huge_anchor_file_benchmark_runs_and_reports_honest_sizes`.
+The next Worker task should stay bounded:
 
-## 6. Benchmark table (actual byte sizes)
+- external corpus benchmark only
+- no new algorithms unless required for reporting
+- report actual bytes, decisions, and roundtrip status honestly
 
-| name | raw_bytes | psmdl_bytes | decision | file_format | roundtrip | `--require-compression` | note |
-|------|-----------|-------------|----------|-------------|-----------|-------------------------|------|
-| random_bytes_128 | 128 | 140 | raw_fallback | raw_fallback | OK | refused | deterministic random sanity |
-| repeating_pattern | 128 | 140 | raw_fallback | raw_fallback | OK | refused | ABCD repeat |
-| README.md | 11548 | 11560 | raw_fallback | raw_fallback | OK | refused | repo text file |
-| AGENTS.md | 9904 | 9916 | raw_fallback | raw_fallback | OK | refused | repo text file |
-| huge_anchor_file.py | 5182 | 5194 | raw_fallback | raw_fallback | OK | refused | repo python source |
-| square_generated_64 | 256 | 49 | **compressed** | huge_anchor | OK | ok | synthetic structure-compatible |
+## What The Next Orchestrator Must Not Do
 
-**Preklep v mene:** `random_bytes_128` = 128 B raw (32 blokov × 4 B pri `width_bits=32`).
+- must not claim universal compression
+- must not treat synthetic wins as broad proof
+- must not skip tests
+- must not give the Worker a large mixed-scope task
+- must not prioritize entropy coding before honest external benchmarking unless strategy explicitly changes
+- must not let stale handoff files replace current repository state
 
-## 7. Roundtrip verification
+## Closing Note
 
-Všetkých **6/6** benchmark prípadov: `decompress_file` po `compress_file` vráti **presne rovnaké bajty** ako vstup.
+When a serious AP session ends, update both:
 
-Doplnkový audit error paths:
-- `decode_psmdl_bytes(b'BADMAGIC...')` → `Unsupported .psmdl file magic`
-- `decode_psmdl_bytes(b'PSMDLRAW1')` → `Raw .psmdl payload is truncated`
-- CLI decompress na corrupt `.psmdl` → exit `1`
+- `NEXT_ORCHESTRATOR.md` for strategic continuation
+- `NEXT_AGENT.md` for the next Worker task
 
-## 8. Raw fallback / `--require-compression` behavior
-
-**Default (bez `--require-compression`):**
-- Ak huge-anchor blob nie je menší ako raw → zapíše sa `PSMDLRAW1` kontajner
-- Overhead: typicky **+12 B** oproti raw (magic 8 + version 1 + varint + padding efekt)
-- Roundtrip zostáva exact, ale `.psmdl` je **väčší** než pôvodný súbor
-
-**S `--require-compression`:**
-- Pri raw_fallback: **odmietnutie**, exit code `2`, žiadny výstupný súbor
-- Pri skutočnej kompresii (`square_generated_64`): **úspech**, exit code `0`
-
-**Náhodné bajty:** `raw_fallback`, `.psmdl` väčší než raw — **žiadny falošný compression win**.
-
-## 9. Warnings and limitations
-
-- Raw fallback kontajner pridáva overhead; na reálnych textoch/Python zdrojoch `.psmdl` je vždy väčší než raw.
-- `repeating_pattern` tiež raw_fallback — kontajnerový overhead preváži (známe z huge-anchor binary demo).
-- Jediný actual win je na **syntetickom** `square_generated` — nie dôkaz všeobecnej kompresie.
-- Benchmark beží ~90–115 s (search + rerank na každom vstupe).
-- `README.md` ešte nepopisuje CLI príkazy.
-- `ap_snapshot.fish` nebol spustený.
-- Žiadne git operácie, žiadne nové závislosti, žiadne sieťové volania.
-
-## 10. Suggested next smallest step
-
-Pridať krátku sekciu do `README.md` s CLI príkazmi a upozornením na raw-fallback overhead; potom benchmarkovať na malom korpuse reálnych binárnych súborov mimo repa (temp files) a reportovať len actual bytes — bez tvrdenia o univerzálnej kompresii.
+Keep one dominant purpose per artifact.

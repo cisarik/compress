@@ -2,7 +2,7 @@
 
 ## 2. Timestamp
 
-- Generated: `2026-06-11T23:46:39+02:00`
+- Generated: `2026-06-12T10:27:06+02:00`
 
 ## 3. Repo Root
 
@@ -14,2206 +14,408 @@
 
 ## 5. HEAD Commit
 
-- HEAD: `7fd2bb5d33a437b1ca47abf81e32732ae406c664`
+- HEAD: `d86fb4f83becaf87d50f5c635bb5946bf8bdb23f`
 
 ## 6. Python Info
 
-- command -v python: `/home/agile/compress/.venv/bin/python`
+- command -v python: `/usr/bin/python`
 - python --version: `Python 3.14.5`
-- which python: `/home/agile/compress/.venv/bin/python`
-- sys.executable: `/home/agile/compress/.venv/bin/python`
-- sys.prefix: `/home/agile/compress/.venv`
+- which python: `/usr/bin/python`
+- sys.executable: `/usr/bin/python`
+- sys.prefix: `/usr`
 - .venv exists: `yes`
-- active python inside .venv: `yes`
+- active python inside .venv: `no`
+
+> WARNING: .venv exists but active python is not the project virtual environment.
 
 ## 7. Git Status
 
 ```text
- M .gitignore
- M AGENTS.md
+ M NEXT_ORCHESTRATOR.md
  M README.md
- M docs/research_plan.md
- M src/primesymbolicmdl/gui.py
- M src/primesymbolicmdl/image_datasets.py
- M src/primesymbolicmdl/index_branch.py
- M src/primesymbolicmdl/optimizers/base.py
- M src/primesymbolicmdl/optimizers/gplite_adapter.py
- M src/primesymbolicmdl/optimizers/registry.py
- M src/primesymbolicmdl/optimizers/soma.py
- M src/primesymbolicmdl/sim_demo.py
- M src/primesymbolicmdl/simulation.py
- M tests/test_gui_import.py
- M tests/test_index_branch.py
- M tests/test_optimizers.py
- M tests/test_sim_demo.py
- M tests/test_simulation.py
-?? AP.md
-?? AP_ORCHESTRATOR.md
-?? AP_WORKER.md
-?? BOOT.md
-?? BRAIN.md
-?? CHAT.md
-?? COORDINATOR_PROTOCOL.md
-?? NEXT_ORCHESTRATOR.md
-?? scripts/
-?? src/primesymbolicmdl/ap_rpc.py
-?? src/primesymbolicmdl/bitstream.py
-?? src/primesymbolicmdl/huge_anchor_binary.py
-?? src/primesymbolicmdl/huge_anchor_binary_demo.py
-?? src/primesymbolicmdl/huge_anchor_branch.py
-?? src/primesymbolicmdl/huge_anchor_datasets.py
-?? src/primesymbolicmdl/huge_anchor_demo.py
-?? src/primesymbolicmdl/huge_anchor_models.py
-?? src/primesymbolicmdl/huge_anchor_search.py
-?? src/primesymbolicmdl/huge_blocks.py
-?? src/primesymbolicmdl/image_ablation.py
-?? src/primesymbolicmdl/image_context_laws.py
-?? src/primesymbolicmdl/image_law_branch.py
-?? src/primesymbolicmdl/image_predictor_branch.py
-?? src/primesymbolicmdl/image_predictors.py
-?? src/primesymbolicmdl/optimizers/image_gplite.py
-?? src/primesymbolicmdl/optimizers/image_predictor.py
-?? src/primesymbolicmdl/optimizers/image_soma.py
-?? src/primesymbolicmdl/prime_bigint.py
-?? src/primesymbolicmdl/residual_binary.py
-?? src/primesymbolicmdl/residual_codecs.py
-?? src/primesymbolicmdl/scaled_prime_demo.py
-?? src/primesymbolicmdl/scaled_prime_index.py
-?? src/primesymbolicmdl/scaled_prime_search.py
-?? tests/test_ap_rpc.py
-?? tests/test_bitstream.py
-?? tests/test_huge_anchor_binary.py
-?? tests/test_huge_anchor_binary_demo.py
-?? tests/test_huge_anchor_branch.py
-?? tests/test_huge_anchor_datasets.py
-?? tests/test_huge_anchor_demo.py
-?? tests/test_huge_anchor_models.py
-?? tests/test_huge_anchor_search.py
-?? tests/test_huge_blocks.py
-?? tests/test_image_ablation.py
-?? tests/test_image_context_laws.py
-?? tests/test_image_gplite_optimizer.py
-?? tests/test_image_law_branch.py
-?? tests/test_image_predictor_branch.py
-?? tests/test_image_predictor_optimizer.py
-?? tests/test_image_predictors.py
-?? tests/test_image_soma_optimizer.py
-?? tests/test_prime_bigint.py
-?? tests/test_residual_binary.py
-?? tests/test_residual_codecs.py
-?? tests/test_scaled_prime_demo.py
-?? tests/test_scaled_prime_index.py
-?? tests/test_scaled_prime_search.py
 ```
 
 ## 8. Diff Stat
 
 ```text
- .gitignore                                        |   4 +
- AGENTS.md                                         |  87 ++-
- README.md                                         | 182 +++++-
- docs/research_plan.md                             |  83 ++-
- src/primesymbolicmdl/gui.py                       | 643 +++++++++++++++++++---
- src/primesymbolicmdl/image_datasets.py            |   6 +
- src/primesymbolicmdl/index_branch.py              |  12 +-
- src/primesymbolicmdl/optimizers/base.py           |   3 +-
- src/primesymbolicmdl/optimizers/gplite_adapter.py |   7 +-
- src/primesymbolicmdl/optimizers/registry.py       |   8 +-
- src/primesymbolicmdl/optimizers/soma.py           |   5 +
- src/primesymbolicmdl/sim_demo.py                  |  22 +-
- src/primesymbolicmdl/simulation.py                | 264 ++++++++-
- tests/test_gui_import.py                          |  14 +
- tests/test_index_branch.py                        |   2 +
- tests/test_optimizers.py                          |  53 +-
- tests/test_sim_demo.py                            |   7 +
- tests/test_simulation.py                          | 113 +++-
- 18 files changed, 1416 insertions(+), 99 deletions(-)
+ NEXT_ORCHESTRATOR.md | 201 ++++++++++++++++++++++++++++++++-------------------
+ README.md            |  56 +++++++++++++-
+ 2 files changed, 182 insertions(+), 75 deletions(-)
 ```
 
 ## 9. Full Diff
 
 ```diff
-diff --git a/.gitignore b/.gitignore
-index ffa590b..815855b 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -44,6 +44,7 @@ Thumbs.db
+diff --git a/NEXT_ORCHESTRATOR.md b/NEXT_ORCHESTRATOR.md
+index 8e76745..1c59cdb 100644
+--- a/NEXT_ORCHESTRATOR.md
++++ b/NEXT_ORCHESTRATOR.md
+@@ -1,104 +1,159 @@
+-### Report for ORCHESTRATOR_CHAT
++# NEXT_ORCHESTRATOR.md — Strategic Handoff
  
- # Local runtime notes or scratch outputs
- *.log
-+.ap/
+-## 1. Summary
++This file is the handoff for the **next Orchestrator**, not the Worker.
  
- # Large generated model / array artifacts
- *.pt
-@@ -54,3 +55,6 @@ Thumbs.db
- *.gguf
- *.npy
- *.npz
-+
-+# Session handoff archives
-+NEXT_AGENT_*.md
-diff --git a/AGENTS.md b/AGENTS.md
-index 341bf23..97c7198 100644
---- a/AGENTS.md
-+++ b/AGENTS.md
-@@ -36,23 +36,48 @@ Random bytes must always be included as a sanity check. A transform that loses t
+-Audit a benchmark nového `.psmdl` file CLI sú **dokončené**. Implementácia je konzistentná, exact roundtrip funguje na všetkých testovaných vstupoch a správanie je úprimné: reálne súbory z repa aj náhodné/repeated dáta končia ako **raw fallback** (`.psmdl` je väčší kvôli kontajneru), jediný skutočný huge-anchor win v benchmarke je **syntetický** `square_generated_64` (256 → 49 B). Pridaný bol malý opakovateľný benchmark skript s jedným testom.
++The Worker should read `NEXT_AGENT.md` instead.
  
- - Make small diffs.
- - Run tests after every meaningful change.
--- Do not run git commands.
-+- Do not run git write commands unless explicitly permitted.
-+- Forbidden git write commands include `git add`, `git commit`, `git push`, `git reset`, and `git checkout`.
-+- Allowed read-only git commands for snapshot generation, status reports, and diff inspection include `git status`, `git diff`, `git diff --stat`, `git rev-parse`, `git branch --show-current`, and `git ls-files`.
- - Do not create local shims for third-party tools such as pytest. If a required tool is missing, report the dependency and the exact install command.
- - Report changed files and test results clearly.
- - Use `NEXT_AGENT.md` as the single authoritative handoff file for the next Codex agent.
-+- `NEXT_ORCHESTRATOR.md` is the strategic handoff for the next Orchestrator and should not be casually overwritten by the Worker.
- - Do not create `NEXT_PROMPT.md`, `NEXT_PROMPT2.md`, `NEXT_PROMPT3.md`, or similar chains of prompt files.
- - When preparing a handoff, overwrite `NEXT_AGENT.md` with the current state and the current next task.
-+- During an explicit closing or handoff task, update both `NEXT_AGENT.md` and `NEXT_ORCHESTRATOR.md` when the session is expected to continue.
- - After the handoff is consumed, the file may be deleted or replaced, but there should still be only one active handoff file at a time.
+-## 2. Files inspected
++## Recommended Read Order
  
- ## Analytic Programming
+-- `src/primesymbolicmdl/huge_anchor_file.py`
+-- `src/primesymbolicmdl/huge_anchor_file_cli.py`
+-- `tests/test_huge_anchor_file_cli.py`
++1. `NEXT_ORCHESTRATOR.md`
++2. `NEXT_AGENT.md`
++3. `BOOT.md`
++4. `.ap/current_status.md`
++5. `.ap/last_report.md`
++6. `BRAIN.md` only when deeper context is needed
++
++## Big Picture
++
++PrimeSymbolicMDL is an experimental lossless compression research harness.
++
++The project tests anchor-and-residual transforms under honest MDL accounting and, where implemented, honest actual byte accounting.
++
++Prime anchors are one candidate anchor family, not a privileged truth.
++
++The repository is benchmark-driven, deterministic, and exactly reversible.
++
++## Analytic Programming / Coordinator Protocol
++
++AP is active in this repository.
++
++Core roles:
++
++- `COOPERATOR` (user)
++- `ORCHESTRATOR`
++- `WORKER`
  
- - In this repository, "Analytic programming" means structured communication aimed at an orchestrator-style workflow.
-+- `AP_ORCHESTRATOR.md` is the orchestrator-side doctrine that complements `AP_WORKER.md`.
- - When useful, provide a complete, explicit operational report instead of a casual summary.
- - Prefer a stable report heading such as `### Report for ORCHESTRATOR_CHAT` when the work benefits from machine-readable handoff or orchestration.
- - Explain the real state, the safety checks, the commands run, the outputs that matter, and the remaining risks.
- - Do not fake success, hidden work, or compression wins.
- - If a future Codex agent continues the project, assume this communication style is preferred unless the user asks otherwise.
+-**Audit zistenia:**
++Important protocol files:
  
-+## Analytic Coding Repo Snapshot Protocol
-+
-+- After a meaningful change, the worker should run `fish scripts/ap_snapshot.fish --run-tests`.
-+- `BRAIN.md` is the detailed repository snapshot for an Orchestrator or follow-on worker.
-+- `BOOT.md` is the shorter boot summary for fast context loading.
-+- These snapshot files do not replace tests.
-+- These snapshot files must not be used as evidence of compression performance.
-+- Read-only git commands are allowed for snapshot generation, status reports, and diff inspection.
-+- Git write commands remain forbidden unless explicitly permitted.
-+
-+## Coordinator Protocol
-+
-+- Coordinator Protocol is the file-based RPC extension on top of Analytic Programming.
-+- The repository remains the source of truth; chat and snapshots remain supporting artifacts.
-+- RPC scratch directories live under `.ap/rpc/` and are created on demand.
-+- Read-only RPC methods such as `repo.status`, `repo.diff_stat`, `repo.list_files`, and `repo.get_file` are allowed by default.
-+- Write RPC is forbidden unless the explicit task permits it.
-+- Secrets access, network access, and git write commands remain forbidden.
-+- Targeted RPC fetches are preferred when the Orchestrator needs one file or one bounded state view instead of a full diff dump.
-+
- ## Architecture Phases
+-| Oblasť | Hodnotenie |
+-|--------|------------|
+-| Formát | `decode_psmdl_bytes` rozlišuje `PSMDLHA1` (huge-anchor) vs `PSMDLRAW1` (raw fallback) podľa magic |
+-| Raw fallback | Pri `decision != "compressed"` sa zapíše `PSMDLRAW1` wrapper, nie väčší huge-anchor blob |
+-| Roundtrip | `compress_to_psmdl_bytes` overí `decode_psmdl_bytes(file_bytes) == payload` pred návratom |
+-| `--require-compression` | `PsmdlCompressionRefusedError`, CLI exit code `2`, výstupný súbor sa nevytvorí |
+-| Chyby | Neplatný magic → `ValueError`; CLI chyby → exit `1` (súbor neexistuje, corrupt magic) |
+-| CLI výstup | Jednoriadkový súhrn s `decision`, `file_format`, actual `raw_bytes` / `compressed_bytes` — bez estimated-bit hype |
++- `AP.md`
++- `AP_ORCHESTRATOR.md`
++- `AP_WORKER.md`
++- `AGENTS.md`
++- `COORDINATOR_PROTOCOL.md`
  
- 1. deterministic baseline and bit accounting
-@@ -72,6 +97,39 @@ Random bytes must always be included as a sanity check. A transform that loses t
- - Keep this branch separate from predictor-only experiments.
- - Do not introduce PySR or heavier symbolic regression dependencies at this stage.
+-Žiadne zavádzajúce compression claims v kóde ani výstupe.
++Important handoff and snapshot files:
  
-+## Scaled Prime-index Branch
-+
-+- The scaled prime-index experiment packs bytes into larger Python integer blocks and tests `x = prev_prime(index << shift) + diff`.
-+- The decoder must reconstruct the prime anchor deterministically from the transmitted index and model parameters.
-+- Exact primality in this branch is currently limited to `width_bits <= 64`.
-+- Do not pretend that arbitrary-size primality is implemented when it is not.
-+- Always count model bits, parameter bits, headers, flags, index bits, residual codec bits, and raw escapes.
-+- Random-data losses are expected and must be reported honestly.
-+
-+## Huge Anchor Portfolio
-+
-+- The huge anchor portfolio generalizes the same index-plus-diff idea across multiple anchor families.
-+- Every family must still satisfy exact-lossless decode from transmitted model parameters, indices, residuals, flags, and raw escapes.
-+- `scaled_prime` is only one family and must compete against simpler families such as `linear_shift`, `affine_shift`, `multiple`, and `square`.
-+- Synthetic favorable datasets are valid mechanism checks, not proof of broad usefulness.
-+- Random bytes remain a mandatory sanity baseline.
-+- A portfolio win only matters when the full transmitted cost beats raw storage after honest accounting.
-+
-+## Huge-anchor Binary Proof-of-concept
-+
-+- Distinguish estimated accounting from actual byte output.
-+- `estimated_total_bits` are useful for search, but `actual_bits = len(compressed_bytes) * 8` are the stronger evidence.
-+- A synthetic actual-byte win only proves that one exact binary path can emit a smaller blob for compatible generated structure.
-+- Random bytes must remain in the report and must not be dressed up as a fake compression win.
-+- If the binary container loses to raw bytes, report the loss honestly.
-+
-+## Actual-size Reranking
-+
-+- Use estimated MDL cost as a search heuristic, not as the final binary truth.
-+- For the huge-anchor binary path, rerank top estimated candidates by real `compressed_bytes` when the task calls for actual-size selection.
-+- If estimated and actual winners diverge, report the divergence explicitly.
-+- Actual byte size is the stronger proof because it includes real container overhead.
-+
- ## Optimizer Architecture
+-## 3. Files changed
++- `NEXT_ORCHESTRATOR.md` = strategic Orchestrator handoff
++- `NEXT_AGENT.md` = immediate Worker handoff
++- `BOOT.md` = short generated boot summary
++- `BRAIN.md` = detailed generated repository snapshot
++- `CHAT.md` = append-only coordination ledger
  
- - Keep optimizer names and registry wiring explicit and testable.
-@@ -79,6 +137,33 @@ Random bytes must always be included as a sanity check. A transform that loses t
- - Reuse shared accounting and roundtrip machinery across optimizer families whenever possible.
- - Compare optimizers on the same raw-bit baseline and the same MDL-style accounting.
+-- `src/primesymbolicmdl/huge_anchor_file_benchmark.py` — nový deterministický benchmark
+-- `tests/test_huge_anchor_file_benchmark.py` — minimálny test benchmarku
++Current read-only RPC methods:
  
-+## Image-aware Search Optimizers
-+
-+- `Image-predictor` is the manual fairness baseline for small grayscale image experiments.
-+- `Image-GP-lite` searches tiny decoder-known expression trees over 2D pixel context.
-+- `Image-SOMA` tunes a fixed-point linear 2D predictor over the same decoder-known context.
-+- All image-aware branches must reuse the shared residual codec layer.
-+- A synthetic dataset win matters only when `total_bits < raw_bits` after full accounting.
-+- Synthetic image wins are debugging and research signals, not proof of universal compression.
-+
-+## Image-GP-lite Primitive Ablations
-+
-+- `local` means only decoder-known neighborhood context.
-+- `ramp` means local context plus procedural coordinate ramps.
-+- `structure` means ramp context plus explicit block/parity primitives.
-+- Checker-like wins under `structure` are valid only as primitive baselines and must be reported as such.
-+- Any image GP benchmark that omits the primitive set label is incomplete and not safely comparable.
-+
-+## Residual Codec Layer
-+
-+- Predictors and anchor laws both create residual streams.
-+- Residual streams should be costed through shared deterministic codec candidates when possible.
-+- Fixed-width signed residuals are a baseline, not a permanent truth.
-+- Zero-run-length coding is a valid small baseline for sparse residual streams.
-+- Byte-RLE is a valid baseline for raw-like repeated byte streams.
-+- Do not call this entropy coding or pretend it is ANS/arithmetic coding.
-+- Exact roundtrip remains mandatory for any residual codec path.
-+
- ## GUI Research Cockpit
+-**Nezmenené:** `huge_anchor_file.py`, `huge_anchor_file_cli.py`, dokumentácia (`README.md` stále neobsahuje CLI usage).
++- `repo.status`
++- `repo.diff_stat`
++- `repo.list_files`
++- `repo.get_file`
  
- - The GUI is for small deterministic research simulations, not benchmark theater.
+-## 4. Commands run
++The repository remains the source of truth.
++
++Chat and snapshots are supporting artifacts, not proof of compression performance.
++
++## What Has Been Solved So Far
++
++- deterministic baseline and bit accounting
++- prime-anchor and indexed anchor-law branches
++- huge-anchor portfolio across multiple families
++- shared residual codec layer
++- huge-anchor binary container with actual-size reranking
++- `.psmdl` file CLI for huge-anchor compression and decompression
++- deterministic in-repo file benchmark for actual `.psmdl` byte sizes
++- AP / Coordinator Protocol infrastructure
++- GUI research cockpit for small grayscale simulations
++- pytest coverage for roundtrip and random-data sanity
++
++## Current Compression Evidence
++
++Latest verified tests:
++
++- `277 passed`
++
++File path exists:
++
++- `src/primesymbolicmdl/huge_anchor_file.py`
++- `src/primesymbolicmdl/huge_anchor_file_cli.py`
++- `src/primesymbolicmdl/huge_anchor_file_benchmark.py`
+ 
+-```fish
+-cd /home/agile/compress
+-.venv/bin/pytest -q
+-.venv/bin/pytest -q tests/test_huge_anchor_file_benchmark.py
+-PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark
+-PYTHONPATH=src /usr/bin/python3.14 -c "..."  # audit error handling
+-```
++Benchmark summary from the in-repo deterministic file benchmark:
+ 
+-**Poznámka k Python invokácii:**
++| input | raw bytes | `.psmdl` bytes | outcome |
++|-------|-----------|----------------|---------|
++| random_bytes_128 | 128 | 140 | raw fallback |
++| repeating_pattern | 128 | 140 | raw fallback |
++| README.md | 11548 | 11560 | raw fallback |
++| AGENTS.md | 9904 | 9916 | raw fallback |
++| huge_anchor_file.py | 5182 | 5194 | raw fallback |
++| square_generated_64 | 256 | 49 | synthetic huge-anchor win |
+ 
+-- `.venv/bin/pytest` — funguje
+-- `.venv/bin/python -m ...` — `sys.executable` smeruje na Cursor appimage, **nefunguje** pre `-m pytest`
+-- `PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark` — **funguje**
++Interpretation:
+ 
+-## 5. Full test results
++- exact roundtrip verified for all benchmark cases
++- random bytes remained raw fallback
++- small real repo files remained raw fallback
++- `square_generated_64` is a synthetic mechanism check, not general compression proof
++- `--require-compression` refuses raw-fallback cases and succeeds for the synthetic compressed case
+ 
+-```
+-277 passed in 114.76s (0:01:54)
+-```
++## Scientific Guardrails
+ 
+-Predchádzajúci stav: 276 passed. Nový test: `test_huge_anchor_file_benchmark_runs_and_reports_honest_sizes`.
++- exact roundtrip is mandatory
++- raw fallback is normal and often expected
++- actual bytes are stronger evidence than estimated bits
++- random-byte sanity is required
++- synthetic wins validate mechanism only
++- do not claim universal compression without established corpora and full cost accounting
++- generated snapshots are not proof of compression quality
+ 
+-## 6. Benchmark table (actual byte sizes)
++## Current Risks
+ 
+-| name | raw_bytes | psmdl_bytes | decision | file_format | roundtrip | `--require-compression` | note |
+-|------|-----------|-------------|----------|-------------|-----------|-------------------------|------|
+-| random_bytes_128 | 128 | 140 | raw_fallback | raw_fallback | OK | refused | deterministic random sanity |
+-| repeating_pattern | 128 | 140 | raw_fallback | raw_fallback | OK | refused | ABCD repeat |
+-| README.md | 11548 | 11560 | raw_fallback | raw_fallback | OK | refused | repo text file |
+-| AGENTS.md | 9904 | 9916 | raw_fallback | raw_fallback | OK | refused | repo text file |
+-| huge_anchor_file.py | 5182 | 5194 | raw_fallback | raw_fallback | OK | refused | repo python source |
+-| square_generated_64 | 256 | 49 | **compressed** | huge_anchor | OK | ok | synthetic structure-compatible |
++- no entropy coder exists yet
++- the small in-repo benchmark does not compress real text/source files
++- raw fallback has container overhead and can make `.psmdl` larger than raw input
++- benchmark runtime is around 90–115 seconds for the current in-repo set
++- public documentation must stay non-hype
++- estimated wins can still diverge from actual serialized bytes because of container overhead
++- exact prime support remains limited to the 64-bit line in the scaled-prime branch
+ 
+-**Preklep v mene:** `random_bytes_128` = 128 B raw (32 blokov × 4 B pri `width_bits=32`).
++## Recommended Next Strategy
+ 
+-## 7. Roundtrip verification
++Do not start with another large theory cycle.
+ 
+-Všetkých **6/6** benchmark prípadov: `decompress_file` po `compress_file` vráti **presne rovnaké bajty** ako vstup.
++Recommended order:
+ 
+-Doplnkový audit error paths:
+-- `decode_psmdl_bytes(b'BADMAGIC...')` → `Unsupported .psmdl file magic`
+-- `decode_psmdl_bytes(b'PSMDLRAW1')` → `Raw .psmdl payload is truncated`
+-- CLI decompress na corrupt `.psmdl` → exit `1`
++1. keep public documentation aligned with actual CLI behavior
++2. build a small honest external-corpus benchmark harness for actual `.psmdl` file sizes
++3. only then consider container overhead reduction or entropy coding
+ 
+-## 8. Raw fallback / `--require-compression` behavior
++The next Worker task should stay bounded:
+ 
+-**Default (bez `--require-compression`):**
+-- Ak huge-anchor blob nie je menší ako raw → zapíše sa `PSMDLRAW1` kontajner
+-- Overhead: typicky **+12 B** oproti raw (magic 8 + version 1 + varint + padding efekt)
+-- Roundtrip zostáva exact, ale `.psmdl` je **väčší** než pôvodný súbor
++- external corpus benchmark only
++- no new algorithms unless required for reporting
++- report actual bytes, decisions, and roundtrip status honestly
+ 
+-**S `--require-compression`:**
+-- Pri raw_fallback: **odmietnutie**, exit code `2`, žiadny výstupný súbor
+-- Pri skutočnej kompresii (`square_generated_64`): **úspech**, exit code `0`
++## What The Next Orchestrator Must Not Do
+ 
+-**Náhodné bajty:** `raw_fallback`, `.psmdl` väčší než raw — **žiadny falošný compression win**.
++- must not claim universal compression
++- must not treat synthetic wins as broad proof
++- must not skip tests
++- must not give the Worker a large mixed-scope task
++- must not prioritize entropy coding before honest external benchmarking unless strategy explicitly changes
++- must not let stale handoff files replace current repository state
+ 
+-## 9. Warnings and limitations
++## Closing Note
+ 
+-- Raw fallback kontajner pridáva overhead; na reálnych textoch/Python zdrojoch `.psmdl` je vždy väčší než raw.
+-- `repeating_pattern` tiež raw_fallback — kontajnerový overhead preváži (známe z huge-anchor binary demo).
+-- Jediný actual win je na **syntetickom** `square_generated` — nie dôkaz všeobecnej kompresie.
+-- Benchmark beží ~90–115 s (search + rerank na každom vstupe).
+-- `README.md` ešte nepopisuje CLI príkazy.
+-- `ap_snapshot.fish` nebol spustený.
+-- Žiadne git operácie, žiadne nové závislosti, žiadne sieťové volania.
++When a serious AP session ends, update both:
+ 
+-## 10. Suggested next smallest step
++- `NEXT_ORCHESTRATOR.md` for strategic continuation
++- `NEXT_AGENT.md` for the next Worker task
+ 
+-Pridať krátku sekciu do `README.md` s CLI príkazmi a upozornením na raw-fallback overhead; potom benchmarkovať na malom korpuse reálnych binárnych súborov mimo repa (temp files) a reportovať len actual bytes — bez tvrdenia o univerzálnej kompresii.
+\ No newline at end of file
++Keep one dominant purpose per artifact.
 diff --git a/README.md b/README.md
-index 7af3eae..1c72b0a 100644
+index 1c72b0a..90fa54e 100644
 --- a/README.md
 +++ b/README.md
-@@ -21,6 +21,8 @@ This repository is for honest measurement, not compression hype. A transform is
- - a small deterministic evolutionary search over indexed anchor families
- - a GP-lite indexed anchor law search over tiny expression trees
+@@ -23,6 +23,8 @@ This repository is for honest measurement, not compression hype. A transform is
  - a modular optimizer registry with GP-lite, SOMA, and honest placeholders
-+- a shared residual codec layer with fixed-width, zero-RLE, and byte-RLE research baselines
-+- an experimental huge-anchor binary bitstream container with exact byte-length measurement
+ - a shared residual codec layer with fixed-width, zero-RLE, and byte-RLE research baselines
+ - an experimental huge-anchor binary bitstream container with exact byte-length measurement
++- a `.psmdl` file CLI for huge-anchor compression and decompression
++- a deterministic in-repo file benchmark for actual `.psmdl` byte sizes
  - a small Tkinter research cockpit for grayscale image simulations
  - pytest coverage for round-trip and random-data sanity checks
  
-@@ -31,28 +33,200 @@ The new GP-lite branch evolves decoder-known anchor laws `A(i)`.
- - The encoder stores an index `i` plus a residual `x - A(i)`.
- - The law is only useful if total transmitted bits beat raw fallback.
- - This is different from a predictor-only model because the decoder reconstructs anchors from the transmitted index and the law tree.
--- The current cost model still uses fixed-width index and residual accounting.
-+- The current cost model uses fixed-width index accounting and a small residual codec selector baseline.
- - Entropy coding, PySR, and heavier symbolic regression remain intentionally deferred.
+@@ -81,6 +83,56 @@ Estimated MDL accounting remains the fast search heuristic, but it is no longer
+ - An estimated win can still become `raw_fallback` after real byte serialization.
+ - Actual compressed bytes are the stronger evidence because they include headers, alignment, and real residual payload size.
  
-+## Scaled Prime-index Branch
++## PSMDL File CLI
 +
-+The repository now also includes a scaled prime-index experiment over larger Python integer blocks.
++The repository includes a small file CLI for the huge-anchor binary path.
 +
-+- Bytes can be packed into big-endian Python integer blocks up to 128 bits for reversible block experiments.
-+- The current exact prime-anchor branch is intentionally limited to `width_bits <= 64`.
-+- The model tries `x = prev_prime(index << shift) + diff`.
-+- In this construction, `index` is smaller than the original block value and the decoder reconstructs the prime anchor from `index` and `shift`.
-+- The model only matters when the full transmitted cost of flags, indices, residual payload, escapes, headers, and model parameters beats raw storage.
-+- Arbitrary-size exact prime search is deferred. This branch does not fake primality above 64-bit integers.
-+- Random data is expected to often lose against raw storage, and that is an honest result.
-+- This branch currently ships as a CLI and testable module, not yet as a GUI-integrated optimizer.
++This is **not** a general-purpose compressor. It is a research file interface for exact-lossless experiments with honest actual-byte reporting.
 +
-+## Huge Anchor Portfolio
-+
-+The huge anchor portfolio generalizes the scaled prime-index branch into a broader family benchmark.
-+
-+- Each family tests the same idea: `x = anchor(index, params) + diff`.
-+- `scaled_prime` is only one family inside that larger search space.
-+- Other current families include `linear_shift`, `affine_shift`, `multiple`, and `square`.
-+- If a simpler family beats `scaled_prime`, that is important evidence against prime-anchor special pleading.
-+- Synthetic wins are useful because they validate the exact-lossless mechanism and full accounting, not because they prove universal compression.
-+- Random-byte sanity remains mandatory.
-+- The real result only matters when total transmitted bits beat raw storage after counting model, parameter, header, flag, index, residual, and escape costs.
-+
-+## Huge-anchor Binary Proof-of-concept
-+
-+The repository now also includes a first real binary container for huge-anchor payloads.
-+
-+- Earlier huge-anchor experiments used exact research payloads plus estimated bit accounting.
-+- The new container produces real `compressed_bytes` and therefore real `actual_bits = len(blob) * 8`.
-+- A synthetic win now means more than a promising estimate: the branch can emit a smaller exact-decodable blob for structure-compatible generated data.
-+- Random-byte sanity remains mandatory. If the binary container loses to raw bytes, that is the correct result.
-+- This is still not a universal file compressor. It is a narrow proof that one exact binary huge-anchor path can sometimes beat raw bytes on favorable synthetic data.
-+
-+## Actual-size Reranking
-+
-+Estimated MDL accounting remains the fast search heuristic, but it is no longer the final judge for the binary huge-anchor path.
-+
-+- The search still finds promising candidates by estimated `total_bits`.
-+- The binary stage now serializes the top `N` estimated candidates and reranks them by real `compressed_bytes`.
-+- This makes container overhead visible instead of assumed away.
-+- An estimated win can still become `raw_fallback` after real byte serialization.
-+- Actual compressed bytes are the stronger evidence because they include headers, alignment, and real residual payload size.
-+
-+## Residual Codec Layer
-+
-+Predictors and anchor laws both create a residual stream:
-+
-+```text
-+x = predicted_or_anchor + residual
-+```
-+
-+This repository now includes a small shared residual codec layer so different branches can compare against the same residual backend.
-+
-+- `fixed_signed` is the deterministic fixed-width signed baseline.
-+- `zero_rle` is a deterministic zero-run-length baseline for residual streams with many zeros.
-+- `byte_rle` is a raw-like baseline for repeated pixel bytes.
-+- `raw_bytes` remains the honest fallback baseline for byte streams.
-+
-+This is still not ANS or arithmetic coding. Entropy coding remains deferred. Exact roundtrip remains mandatory for any branch that claims decode support.
-+
- ## Optimizer Architecture
- 
--The repository now exposes a small optimizer registry with four visible choices:
-+The repository now exposes a small optimizer registry with seven visible choices:
- 
- - `GP-lite`: the existing tree-based indexed anchor-law search
- - `SOMA`: a small continuous-parameter migration optimizer over affine and quadratic anchor laws
- - `GP`: an honest placeholder for future richer topology search
- - `ADAM`: an honest placeholder for future differentiable parameter tuning
-+- `Image-predictor`: a deterministic 2D grayscale predictor baseline with exact residual roundtrip
-+- `Image-GP-lite`: a deterministic expression-tree search over 2D pixel context
-+- `Image-SOMA`: a deterministic fixed-point linear search over 2D pixel context
- 
- All optimizers are judged by the same idea: the result only matters if `total_bits < raw_bits` after counting model, parameter, index, residual, flag, header, and escape costs.
- 
-+## Image-aware Search Optimizers
-+
-+The repository now separates a fair manual baseline from two image-aware search branches:
-+
-+- `Image-predictor` is the manual baseline over small decoder-known 2D predictors.
-+- `Image-GP-lite` searches tiny expression trees over decoder-known pixel context.
-+- `Image-SOMA` tunes a fixed-point linear predictor over decoder-known pixel context.
-+- All three reuse the same shared residual codec layer.
-+- A result only matters if `total_bits < raw_bits`.
-+- Synthetic gradients, checkerboards, and ramps are useful for deterministic debugging, not as proof of universal compression.
-+
-+## Image-GP-lite Primitive Ablations
-+
-+`Image-GP-lite` can now be run with explicit primitive sets:
-+
-+- `local` uses only decoder-known neighborhood context such as `left`, `up`, and `up_left`.
-+- `ramp` adds procedural coordinate ramps such as `x_ramp`, `y_ramp`, and `diag_ramp`.
-+- `structure` adds block/parity primitives intended for checker-like and piecewise structure baselines.
-+
-+Important interpretation rules:
-+
-+- `checker_parity` wins are valid only as explicit primitive baselines, not as evidence that the search discovered a universal image law.
-+- Ablation reports must include the primitive set name or they are not comparable.
-+- Synthetic wins still need the same `total_bits < raw_bits` accounting rule as every other branch.
-+
- ## GUI Research Cockpit
- 
- The first GUI is a stdlib Tkinter cockpit focused on generated grayscale image simulations.
- 
- - It lets you choose an optimizer and a tiny image dataset.
- - It reports raw size in bits and estimated transmitted size in bits.
-+- It can also report which residual codec or raw-byte baseline won under the current accounting.
- - It is a research UI, not a final file compressor.
--- Estimated bit accounting is still fixed-width; entropy coding is deferred.
-+- Estimated bit accounting now includes a small residual codec selector, but entropy coding is still deferred.
-+
-+## Analytic Coding Snapshots
-+
-+Use the fish snapshot helper to generate an agent-readable repository state:
++Compress:
 +
 +```fish
-+fish scripts/ap_snapshot.fish
-+fish scripts/ap_snapshot.fish --run-tests
++PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli compress --input in.bin --output out.psmdl --width-bits 32
 +```
 +
-+This generates:
-+
-+- `BRAIN.md`
-+- `BOOT.md`
-+
-+These files are intended for orchestration and repository-state handoff, not as proof of compression quality.
-+
-+## Analytic Programming / Analytic Coding
-+
-+Recommended interactive fish workflow:
++Decompress:
 +
 +```fish
-+source .venv/bin/activate.fish
++PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli decompress --input out.psmdl --output restored.bin
 +```
 +
-+Core AP commands:
++Optional strict mode:
 +
 +```fish
-+fish scripts/ap_snapshot.fish --run-tests
-+fish scripts/ap_chat_append.fish --role worker --message "..." --tldr "..."
-+fish scripts/ap_cycle_close.fish --message "..." --tldr "..."
++... --require-compression
 +```
 +
-+AP artifact roles:
++If the huge-anchor blob is not smaller than the raw input, `--require-compression` refuses to write output.
 +
-+- `AP.md` is the system-wide protocol.
-+- `COORDINATOR_PROTOCOL.md` extends AP with file-based RPC.
-+- `AP_ORCHESTRATOR.md` explains the orchestrator-side discipline.
-+- `AP_WORKER.md` is the Worker doctrine.
-+- `NEXT_ORCHESTRATOR.md` is the strategic handoff for the next Orchestrator.
-+- `BRAIN.md` and `BOOT.md` are generated repository snapshots.
++### File formats
 +
-+## Coordinator Protocol
++- `PSMDLHA1` = actual huge-anchor compressed payload
++- `PSMDLRAW1` = raw fallback wrapper used when huge-anchor compression does not beat raw bytes
 +
-+Coordinator Protocol is a file-based, repo-centered RPC proof of concept for `COOPERATOR`, `ORCHESTRATOR`, and `WORKER`.
++Default behavior stores a safe raw fallback when compression does not win. That keeps exact roundtrip, but the `.psmdl` file can be **larger** than the original input because of container overhead.
 +
-+- The repository remains the source of truth.
-+- `BRAIN.md` and `BOOT.md` remain broad snapshots.
-+- `CHAT.md` remains the append-only coordination ledger.
-+- RPC is the narrow lane for targeted status and file requests.
-+- This means the Orchestrator does not always need the whole diff when it only needs one file or one status view.
-+- The Orchestrator should request exact repo information via RPC instead of guessing from partial context.
-+- The default RPC surface is read-only and preserves the same safety model: no secrets access, no network dependency, and no git write commands.
-+- A continuation session should ideally start with `NEXT_ORCHESTRATOR.md` and `NEXT_AGENT.md`.
++### In-repo benchmark summary
 +
-+RPC commands:
++Deterministic benchmark command:
 +
 +```fish
-+fish scripts/ap_rpc_call.fish --method repo.status
-+fish scripts/ap_rpc_call.fish --method repo.get_file --path AP.md
-+fish scripts/ap_rpc_request.fish --method repo.get_file --path src/primesymbolicmdl/simulation.py
-+fish scripts/ap_rpc_handle_next.fish
++PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark
 +```
 +
-+Scaled-prime demo command:
++Current honest results from the in-repo set:
 +
-+```bash
-+python -m primesymbolicmdl.scaled_prime_demo
-+```
++- random bytes: raw fallback
++- repeating pattern: raw fallback
++- small repo text/source files (`README.md`, `AGENTS.md`, Python source): raw fallback
++- `square_generated_64`: synthetic actual win, `256 B -> 49 B`
 +
-+Huge-anchor portfolio demo command:
++Synthetic wins validate the exact mechanism only. They are not evidence of universal compression.
 +
-+```bash
-+python -m primesymbolicmdl.huge_anchor_demo
-+```
-+
-+Huge-anchor binary demo command:
-+
-+```bash
-+python -m primesymbolicmdl.huge_anchor_binary_demo
-+```
+ ## Residual Codec Layer
  
- ## Run Tests
+ Predictors and anchor laws both create a residual stream:
+@@ -257,5 +309,5 @@ This version does not yet implement:
  
-@@ -84,4 +258,4 @@ This version does not yet implement:
  - entropy coding
  - heavy symbolic regression search
- - benchmark corpora integration
--- binary file format packaging
-+- general file format packaging beyond the current huge-anchor proof-of-concept
-diff --git a/docs/research_plan.md b/docs/research_plan.md
-index f0fa60a..4c48343 100644
---- a/docs/research_plan.md
-+++ b/docs/research_plan.md
-@@ -27,6 +27,16 @@ PrimeSymbolicMDL should advance in small, benchmarkable steps.
- - Which residual coding choices materially improve total cost?
- - Which structured sources, if any, benefit from prime anchors after honest accounting?
- 
-+## Residual Codec Layer
-+
-+Predictors and anchor laws create residual streams.
-+
-+- A residual stream should be evaluated through a shared codec layer, not hand-waved as a single hardcoded width forever.
-+- The current research layer now compares small deterministic candidates such as fixed-width signed residuals and zero-run-length coding.
-+- Raw-like byte streams can also be compared against a byte-RLE baseline.
-+- This is still not ANS or arithmetic coding.
-+- Exact roundtrip remains mandatory.
-+
- ## GP-lite Indexed Anchor Law Search
- 
- This phase evolves small decoder-known anchor laws `A(i)` rather than only choosing from fixed hand-written anchor families.
-@@ -34,24 +44,93 @@ This phase evolves small decoder-known anchor laws `A(i)` rather than only choos
- - The encoder stores index `i` plus residual.
- - The candidate law only matters when full transmitted cost beats raw fallback.
- - This branch is different from predictor-only anchors because decoding reconstructs anchors from the law and the stored index.
--- The current accounting is still fixed-width and does not pretend to be entropy coding.
-+- The current accounting uses a small residual codec selector baseline and still does not pretend to be entropy coding.
- - PySR and more advanced symbolic regression remain deferred until the smaller deterministic baseline is well characterized.
- 
-+## Scaled Prime-index Branch
-+
-+The original prime-index-plus-diff hypothesis now has a more explicit scaled form:
-+
-+```text
-+x = prev_prime(index << shift) + diff
-+```
-+
-+- Input bytes are packed into reversible big-endian Python integer blocks.
-+- The branch searches a small local neighborhood around `index = x >> shift`.
-+- The decoder reconstructs the prime anchor from the stored index and model parameters instead of transmitting the prime directly.
-+- Full accounting still includes model bits, parameter bits, headers, per-block flags, index bits, residual payload bits, and raw escapes.
-+- The current exact prime utility is deliberately limited to `width_bits <= 64`.
-+- Exact arbitrary-size prime anchors are deferred until there is a credible need and a clear cost model for them.
-+- A result matters only when `total_bits < raw_bits`.
-+- This branch is currently evaluated through direct modules and CLI demo, not through the GUI cockpit.
-+
-+## Huge Anchor Portfolio
-+
-+The next generalization is a portfolio of anchor families over the same huge-block interface.
-+
-+- Every family is tested under the same exact-lossless equation: `x = anchor(index, params) + diff`.
-+- `scaled_prime` becomes one candidate family, not a privileged answer.
-+- Simpler families such as `linear_shift`, `affine_shift`, `multiple`, and `square` can beat the prime family, and that is a meaningful result.
-+- Synthetic generated wins validate the mechanism and the accounting pipeline, not universal compression.
-+- Random-byte sanity remains required because a branch that loses on random data is behaving normally.
-+- The actual research goal remains the same: find cases where full transmitted cost beats raw storage honestly.
-+
-+## Huge-anchor Binary Proof-of-concept
-+
-+The next checkpoint after estimated accounting is an actual binary payload.
-+
-+- Estimated `total_bits` remain useful for model search, ranking, and quick ablations.
-+- Actual `compressed_bytes` are stronger evidence because they include real container overhead and real byte alignment.
-+- A synthetic actual-byte win only proves that the mechanism can emit a smaller exact-lossless blob for data generated by a compatible anchor family.
-+- Random-byte sanity remains required. A binary loss on random data is expected behavior, not a bug.
-+- This proof-of-concept is intentionally narrow and stdlib-only. It is not yet a general file compression format.
-+
-+## Actual-size Reranking
-+
-+The next refinement is to stop trusting estimated search ranking as the final answer.
-+
-+- Estimated accounting is still the right fast heuristic for broad candidate search.
-+- Actual-size reranking serializes the top estimated candidates and chooses by real `compressed_bytes`.
-+- This catches cases where estimated wins disappear once container overhead is counted honestly.
-+- Actual byte measurement is therefore the stronger compression signal for the binary path.
-+
- ## Optimizer Architecture
- 
- The optimizer layer now separates the research harness into pluggable strategies.
- 
- - GP-lite searches tiny expression trees.
- - SOMA tunes continuous parameters of small affine and quadratic anchor-law families.
-+- Image-GP-lite searches tiny expression trees over decoder-known 2D pixel context.
-+- Image-SOMA tunes a fixed-point linear predictor over decoder-known 2D pixel context.
- - Future GP will target richer tree and topology search.
- - Future ADAM will target differentiable parameter tuning.
- 
- All of them are measured against the same honest bit accounting. A candidate matters only when full transmitted cost beats raw fallback.
- 
-+## Image-aware Search Optimizers
-+
-+The current image research branch now has three distinct roles:
-+
-+- `Image-predictor` is the fair manual baseline.
-+- `Image-GP-lite` explores small context laws over `left`, `up`, `up_left`, and simple ramps.
-+- `Image-SOMA` explores fixed-point linear combinations of the same decoder-known context.
-+
-+All three branches share the same residual codec layer. A synthetic dataset win is only interesting when the full transmitted cost beats raw fallback, and it is still not evidence of universal compression.
-+
-+## Image-GP-lite Primitive Ablations
-+
-+The image GP branch now needs explicit primitive-set reporting:
-+
-+- `local` means only decoder-known neighborhood context.
-+- `ramp` means local context plus procedural coordinate ramps.
-+- `structure` means ramp context plus explicit block/parity primitives.
-+
-+These primitive sets are intentionally not equivalent. A checker-like win under `structure` is a valid primitive baseline, but it must not be confused with a win discovered from purely local context. Benchmarks without the primitive set label are incomplete.
-+
- ## GUI Research Cockpit
- 
- The first GUI is intentionally narrow and uses generated grayscale images as a headless-friendly simulation target.
- 
- - Image simulation is not final file compression.
- - The GUI is a cockpit for optimizer comparison, not a claim of general compression performance.
--- Estimated bit accounting is still fixed-width and entropy coding remains deferred.
-+- Estimated bit accounting now includes a small residual codec selector baseline and entropy coding remains deferred.
-diff --git a/src/primesymbolicmdl/gui.py b/src/primesymbolicmdl/gui.py
-index 2e58d2a..8211085 100644
---- a/src/primesymbolicmdl/gui.py
-+++ b/src/primesymbolicmdl/gui.py
-@@ -3,10 +3,12 @@
- from __future__ import annotations
- 
- from dataclasses import dataclass
-+from pathlib import Path
- 
--from .image_datasets import GrayImage, get_image_dataset_names, make_image_dataset
-+from .image_datasets import GrayImage, get_image_dataset_names, make_gray_image, make_image_dataset
-+from .optimizers.image_gplite import available_image_gplite_primitive_sets
- from .optimizers.registry import get_optimizer_names
--from .simulation import format_simulation_report, run_image_simulation
-+from .simulation import format_simulation_report, run_gray_image_simulation
- 
- 
- def tkinter_available() -> bool:
-@@ -42,10 +44,18 @@ def ensure_tkinter():
- 
-     try:
-         import tkinter as tk
--        from tkinter import messagebox, ttk
-+        from tkinter import filedialog, messagebox, ttk
-     except ModuleNotFoundError as exc:
-         raise RuntimeError("Tkinter is unavailable; install the system package 'tk'.") from exc
--    return tk, ttk, messagebox
-+    return tk, ttk, messagebox, filedialog
-+
-+
-+@dataclass
-+class _CanvasPanel:
-+    """Spoji canvas s titulkom nad nim."""
-+
-+    title_var: object
-+    canvas: object
- 
- 
- @dataclass
-@@ -59,6 +69,7 @@ class _GuiState:
-     seed: int
-     population_size: int
-     generations: int
-+    image_gplite_primitive_set: str
-     max_index: int | None
-     strict_lower: bool
- 
-@@ -67,27 +78,48 @@ class ResearchCockpit:
-     """Jednoduche synchronne GUI pre prve porovnania optimizerov."""
- 
-     def __init__(self) -> None:
--        tk, ttk, messagebox = ensure_tkinter()
-+        tk, ttk, messagebox, filedialog = ensure_tkinter()
-         self._tk = tk
-         self._ttk = ttk
-         self._messagebox = messagebox
-+        self._filedialog = filedialog
-         self.root = tk.Tk()
-         self.root.title("PrimeSymbolicMDL Research Cockpit")
--
--        self.optimizer_var = tk.StringVar(value=get_optimizer_names()[0])
--        self.dataset_var = tk.StringVar(value=get_image_dataset_names()[0])
-+        self.root.geometry("1480x980")
-+
-+        optimizer_names = get_optimizer_names()
-+        dataset_names = get_image_dataset_names()
-+        self.optimizer_var = tk.StringVar(value=optimizer_names[0])
-+        self.dataset_var = tk.StringVar(value=dataset_names[0])
-+        self.preview_mode_var = tk.StringVar(value="Residuals")
-+        self.source_var = tk.StringVar(value="dataset")
-+        self.loaded_path_var = tk.StringVar(value="No file loaded")
-+        self.status_var = tk.StringVar(
-+            value="Choose a generated dataset or load a small PNG/GIF/PGM/PPM image."
-+        )
-         self.width_var = tk.StringVar(value="32")
-         self.height_var = tk.StringVar(value="32")
-         self.seed_var = tk.StringVar(value="1234")
-         self.population_var = tk.StringVar(value="24")
-         self.generations_var = tk.StringVar(value="12")
-+        self.image_gplite_primitive_set_var = tk.StringVar(value="full")
-         self.max_index_var = tk.StringVar(value="31")
-         self.strict_lower_var = tk.BooleanVar(value=False)
- 
--        self.canvas = tk.Canvas(self.root, width=128, height=128, bg="white", highlightthickness=1)
--        self.output = tk.Text(self.root, width=72, height=18, wrap="word")
-+        self.loaded_image: GrayImage | None = None
-+        self.active_image: GrayImage | None = None
-+        self._results_by_name: dict[str, dict] = {}
-+
-+        self.original_panel: _CanvasPanel | None = None
-+        self.coded_panel: _CanvasPanel | None = None
-+        self.decoded_panel: _CanvasPanel | None = None
-+        self.history_canvas = None
-+        self.results_tree = None
-+        self.output = None
-+
-         self._build_layout()
--        self._refresh_preview()
-+        self._clear_results()
-+        self._refresh_preview(clear_results=False)
- 
-     def run(self) -> None:
-         """Spusti Tkinter event loop."""
-@@ -95,40 +127,172 @@ class ResearchCockpit:
-         self.root.mainloop()
- 
-     def _build_layout(self) -> None:
--        """Postavi jednoduchy formular, canvas a textovy vystup."""
-+        """Postavi formular, preview panely, tabulku a report."""
- 
-         frame = self._ttk.Frame(self.root, padding=12)
-         frame.grid(row=0, column=0, sticky="nsew")
-         self.root.columnconfigure(0, weight=1)
-         self.root.rowconfigure(0, weight=1)
--
--        controls = [
--            ("Optimizer", self._ttk.Combobox(frame, textvariable=self.optimizer_var, values=get_optimizer_names(), state="readonly")),
--            ("Dataset", self._ttk.Combobox(frame, textvariable=self.dataset_var, values=get_image_dataset_names(), state="readonly")),
--            ("Width", self._ttk.Entry(frame, textvariable=self.width_var)),
--            ("Height", self._ttk.Entry(frame, textvariable=self.height_var)),
--            ("Seed", self._ttk.Entry(frame, textvariable=self.seed_var)),
--            ("Population", self._ttk.Entry(frame, textvariable=self.population_var)),
--            ("Generations", self._ttk.Entry(frame, textvariable=self.generations_var)),
--            ("Max index", self._ttk.Entry(frame, textvariable=self.max_index_var)),
--        ]
--
--        for row, (label, widget) in enumerate(controls):
--            self._ttk.Label(frame, text=label).grid(row=row, column=0, sticky="w", padx=(0, 8), pady=4)
--            widget.grid(row=row, column=1, sticky="ew", pady=4)
--
-         frame.columnconfigure(1, weight=1)
-+        frame.rowconfigure(2, weight=1)
-+
-+        controls = self._ttk.LabelFrame(frame, text="Input and search", padding=12)
-+        controls.grid(row=0, column=0, sticky="nsw", padx=(0, 12))
-+        controls.columnconfigure(1, weight=1)
-+
-+        self._ttk.Label(controls, text="Source").grid(row=0, column=0, sticky="w", padx=(0, 8), pady=4)
-+        source_row = self._ttk.Frame(controls)
-+        source_row.grid(row=0, column=1, sticky="ew", pady=4)
-+        self._ttk.Radiobutton(
-+            source_row,
-+            text="Generated",
-+            variable=self.source_var,
-+            value="dataset",
-+            command=self._refresh_preview,
-+        ).grid(row=0, column=0, sticky="w")
-+        self._ttk.Radiobutton(
-+            source_row,
-+            text="Loaded file",
-+            variable=self.source_var,
-+            value="file",
-+            command=self._refresh_preview,
-+        ).grid(row=0, column=1, sticky="w", padx=(8, 0))
-+
-+        row_index = 1
-+        dataset_box = self._ttk.Combobox(controls, textvariable=self.dataset_var, values=get_image_dataset_names(), state="readonly")
-+        preview_box = self._ttk.Combobox(controls, textvariable=self.preview_mode_var, values=("Residuals", "Anchors"), state="readonly")
-+        primitive_box = self._ttk.Combobox(
-+            controls,
-+            textvariable=self.image_gplite_primitive_set_var,
-+            values=available_image_gplite_primitive_sets(),
-+            state="readonly",
-+        )
-+        controls_spec = [
-+            ("Optimizer", self._ttk.Combobox(controls, textvariable=self.optimizer_var, values=get_optimizer_names(), state="readonly")),
-+            ("Dataset", dataset_box),
-+            ("View", preview_box),
-+            ("Width", self._ttk.Entry(controls, textvariable=self.width_var)),
-+            ("Height", self._ttk.Entry(controls, textvariable=self.height_var)),
-+            ("Seed", self._ttk.Entry(controls, textvariable=self.seed_var)),
-+            ("Population", self._ttk.Entry(controls, textvariable=self.population_var)),
-+            ("Generations", self._ttk.Entry(controls, textvariable=self.generations_var)),
-+            ("Image-GP set", primitive_box),
-+            ("Max index", self._ttk.Entry(controls, textvariable=self.max_index_var)),
-+        ]
- 
--        strict_box = self._ttk.Checkbutton(frame, text="Strict lower anchor", variable=self.strict_lower_var)
--        strict_box.grid(row=len(controls), column=0, columnspan=2, sticky="w", pady=(8, 8))
--
--        button_row = len(controls) + 1
--        self._ttk.Button(frame, text="Run simulation", command=self._run_simulation).grid(row=button_row, column=0, sticky="w", pady=(0, 8))
--        self._ttk.Button(frame, text="Refresh preview", command=self._refresh_preview).grid(row=button_row, column=1, sticky="e", pady=(0, 8))
-+        for label, widget in controls_spec:
-+            self._ttk.Label(controls, text=label).grid(row=row_index, column=0, sticky="w", padx=(0, 8), pady=4)
-+            widget.grid(row=row_index, column=1, sticky="ew", pady=4)
-+            row_index += 1
-+
-+        strict_box = self._ttk.Checkbutton(controls, text="Strict lower anchor", variable=self.strict_lower_var)
-+        strict_box.grid(row=row_index, column=0, columnspan=2, sticky="w", pady=(8, 4))
-+        row_index += 1
-+
-+        file_row = self._ttk.Frame(controls)
-+        file_row.grid(row=row_index, column=0, columnspan=2, sticky="ew", pady=(8, 4))
-+        file_row.columnconfigure(1, weight=1)
-+        self._ttk.Button(file_row, text="Load image", command=self._load_image).grid(row=0, column=0, sticky="w")
-+        self._ttk.Label(file_row, textvariable=self.loaded_path_var, wraplength=260).grid(
-+            row=0,
-+            column=1,
-+            sticky="w",
-+            padx=(8, 0),
-+        )
-+        row_index += 1
-+
-+        button_row = self._ttk.Frame(controls)
-+        button_row.grid(row=row_index, column=0, columnspan=2, sticky="ew", pady=(8, 4))
-+        button_row.columnconfigure(1, weight=1)
-+        self._ttk.Button(button_row, text="Run selected", command=self._run_selected_optimizer).grid(row=0, column=0, sticky="w")
-+        self._ttk.Button(button_row, text="Run all", command=self._run_all_optimizers).grid(row=0, column=1, sticky="w", padx=(8, 0))
-+        self._ttk.Button(button_row, text="Refresh input", command=self._refresh_preview).grid(row=0, column=2, sticky="e")
-+        row_index += 1
-+
-+        self._ttk.Label(controls, textvariable=self.status_var, wraplength=320).grid(
-+            row=row_index,
-+            column=0,
-+            columnspan=2,
-+            sticky="w",
-+            pady=(12, 0),
-+        )
- 
--        self.canvas.grid(row=0, column=2, rowspan=button_row + 1, padx=(16, 0), sticky="n")
--        self.output.grid(row=button_row + 1, column=0, columnspan=3, sticky="nsew", pady=(8, 0))
--        frame.rowconfigure(button_row + 1, weight=1)
-+        preview_frame = self._ttk.LabelFrame(frame, text="Image views", padding=12)
-+        preview_frame.grid(row=0, column=1, sticky="nsew")
-+        preview_frame.columnconfigure(0, weight=1)
-+        preview_frame.columnconfigure(1, weight=1)
-+        preview_frame.columnconfigure(2, weight=1)
-+        preview_frame.rowconfigure(1, weight=1)
-+
-+        self.original_panel = self._build_panel(preview_frame, 0, "Input image")
-+        self.coded_panel = self._build_panel(preview_frame, 1, "Residuals / anchors")
-+        self.decoded_panel = self._build_panel(preview_frame, 2, "Decoded image")
-+
-+        history_title = self._ttk.Label(preview_frame, text="Search history (total_bits vs raw_bits)")
-+        history_title.grid(row=2, column=0, columnspan=3, sticky="w", pady=(12, 4))
-+        self.history_canvas = self._tk.Canvas(preview_frame, width=960, height=210, bg="white", highlightthickness=1)
-+        self.history_canvas.grid(row=3, column=0, columnspan=3, sticky="ew")
-+
-+        lower_frame = self._ttk.Frame(frame)
-+        lower_frame.grid(row=1, column=0, columnspan=2, sticky="nsew", pady=(12, 0))
-+        lower_frame.columnconfigure(0, weight=1)
-+        lower_frame.columnconfigure(1, weight=1)
-+        lower_frame.rowconfigure(0, weight=1)
-+
-+        result_frame = self._ttk.LabelFrame(lower_frame, text="Optimizer comparison", padding=12)
-+        result_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 8))
-+        result_frame.columnconfigure(0, weight=1)
-+        result_frame.rowconfigure(0, weight=1)
-+
-+        columns = ("optimizer", "status", "raw_bytes", "total_bytes", "saving_bytes", "ratio")
-+        self.results_tree = self._ttk.Treeview(result_frame, columns=columns, show="headings", height=8)
-+        headings = {
-+            "optimizer": "Optimizer",
-+            "status": "Status",
-+            "raw_bytes": "Raw B",
-+            "total_bytes": "Est B",
-+            "saving_bytes": "Saved B",
-+            "ratio": "Ratio",
-+        }
-+        widths = {
-+            "optimizer": 120,
-+            "status": 120,
-+            "raw_bytes": 80,
-+            "total_bytes": 80,
-+            "saving_bytes": 90,
-+            "ratio": 80,
-+        }
-+        for key in columns:
-+            self.results_tree.heading(key, text=headings[key])
-+            self.results_tree.column(key, width=widths[key], anchor="center", stretch=(key == "optimizer"))
-+        self.results_tree.grid(row=0, column=0, sticky="nsew")
-+        self.results_tree.bind("<<TreeviewSelect>>", self._on_result_selected)
-+
-+        tree_scroll = self._ttk.Scrollbar(result_frame, orient="vertical", command=self.results_tree.yview)
-+        tree_scroll.grid(row=0, column=1, sticky="ns")
-+        self.results_tree.configure(yscrollcommand=tree_scroll.set)
-+
-+        report_frame = self._ttk.LabelFrame(lower_frame, text="Detailed report", padding=12)
-+        report_frame.grid(row=0, column=1, sticky="nsew")
-+        report_frame.columnconfigure(0, weight=1)
-+        report_frame.rowconfigure(0, weight=1)
-+        self.output = self._tk.Text(report_frame, width=72, height=18, wrap="word")
-+        self.output.grid(row=0, column=0, sticky="nsew")
-+
-+        text_scroll = self._ttk.Scrollbar(report_frame, orient="vertical", command=self.output.yview)
-+        text_scroll.grid(row=0, column=1, sticky="ns")
-+        self.output.configure(yscrollcommand=text_scroll.set)
-+        dataset_box.bind("<<ComboboxSelected>>", self._refresh_preview)
-+        preview_box.bind("<<ComboboxSelected>>", self._refresh_selected_view)
-+
-+    def _build_panel(self, parent, column: int, title: str) -> _CanvasPanel:
-+        """Vytvori jeden obrazkovy panel s titulkom a canvasom."""
-+
-+        title_var = self._tk.StringVar(value=title)
-+        self._ttk.Label(parent, textvariable=title_var).grid(row=0, column=column, sticky="w", pady=(0, 4))
-+        canvas = self._tk.Canvas(parent, width=280, height=280, bg="white", highlightthickness=1)
-+        canvas.grid(row=1, column=column, sticky="nsew", padx=(0 if column == 0 else 8, 0))
-+        return _CanvasPanel(title_var=title_var, canvas=canvas)
- 
-     def _parse_state(self) -> _GuiState:
-         """Nacita a validuje hodnoty z formulára."""
-@@ -141,61 +305,410 @@ class ResearchCockpit:
-             seed=int(self.seed_var.get().strip()),
-             population_size=parse_positive_int(self.population_var.get()),
-             generations=parse_positive_int(self.generations_var.get()),
-+            image_gplite_primitive_set=self.image_gplite_primitive_set_var.get(),
-             max_index=parse_optional_int(self.max_index_var.get()),
-             strict_lower=bool(self.strict_lower_var.get()),
-         )
- 
--    def _run_simulation(self) -> None:
--        """Spusti vybranu simulaciu a vypise textovy report."""
-+    def _load_image(self) -> None:
-+        """Nacita lokalny obrazok podporeny Tk PhotoImage a prevedie ho na grayscale."""
-+
-+        path = self._filedialog.askopenfilename(
-+            title="Load image",
-+            filetypes=[
-+                ("Tk image files", "*.png *.gif *.pgm *.ppm"),
-+                ("PNG", "*.png"),
-+                ("GIF", "*.gif"),
-+                ("PGM", "*.pgm"),
-+                ("PPM", "*.ppm"),
-+                ("All files", "*.*"),
-+            ],
-+        )
-+        if not path:
-+            return
-+
-+        try:
-+            image = self._load_tk_image(path)
-+        except Exception as exc:
-+            self._messagebox.showerror("Image load error", str(exc))
-+            return
-+
-+        self.loaded_image = image
-+        self.source_var.set("file")
-+        self.loaded_path_var.set(str(Path(path).name))
-+        self.width_var.set(str(image.width))
-+        self.height_var.set(str(image.height))
-+        self.status_var.set(
-+            f"Loaded {Path(path).name} as {image.width}x{image.height} grayscale. "
-+            "Large images may be slow in this research UI."
-+        )
-+        self._refresh_preview()
-+
-+    def _load_tk_image(self, path: str) -> GrayImage:
-+        """Nacita obrazok cez Tk a vrati grayscale pixely bez externych kniznic."""
-+
-+        photo = self._tk.PhotoImage(file=path)
-+        width = int(photo.width())
-+        height = int(photo.height())
-+        pixels = bytearray()
-+        for y in range(height):
-+            for x in range(width):
-+                pixels.append(self._pixel_to_gray(photo.get(x, y)))
-+        return make_gray_image(Path(path).name, width, height, bytes(pixels))
-+
-+    def _pixel_to_gray(self, value) -> int:
-+        """Prevedie Tk pixel na 8-bit grayscale."""
-+
-+        if isinstance(value, tuple):
-+            if len(value) >= 3:
-+                red, green, blue = (int(channel) for channel in value[:3])
-+                return (299 * red + 587 * green + 114 * blue) // 1000
-+            if len(value) == 1:
-+                return int(value[0])
-+
-+        if isinstance(value, str):
-+            if value.startswith("#") and len(value) == 7:
-+                red = int(value[1:3], 16)
-+                green = int(value[3:5], 16)
-+                blue = int(value[5:7], 16)
-+                return (299 * red + 587 * green + 114 * blue) // 1000
-+            red16, green16, blue16 = self.root.winfo_rgb(value)
-+            red = red16 // 257
-+            green = green16 // 257
-+            blue = blue16 // 257
-+            return (299 * red + 587 * green + 114 * blue) // 1000
-+
-+        raise ValueError(f"Unsupported pixel format from Tk image loader: {value!r}")
-+
-+    def _run_selected_optimizer(self) -> None:
-+        """Spusti iba aktualne vybrany optimizer."""
-+
-+        self._run_optimizers([self.optimizer_var.get()])
-+
-+    def _run_all_optimizers(self) -> None:
-+        """Spusti vsetky registrovane optimizery nad tym istym vstupom."""
-+
-+        self._run_optimizers(get_optimizer_names())
-+
-+    def _run_optimizers(self, optimizer_names: list[str]) -> None:
-+        """Spusti sadu optimizerov a naplni tabulku vysledkov."""
- 
-         try:
-             state = self._parse_state()
--            result = run_image_simulation(
--                state.optimizer_name,
--                dataset_name=state.dataset_name,
--                image_width=state.image_width,
--                image_height=state.image_height,
--                seed=state.seed,
--                population_size=state.population_size,
--                generations=state.generations,
--                max_index=state.max_index,
--                strict_lower=state.strict_lower,
--            )
--            self._refresh_preview()
-+            image = self._resolve_image(state)
-         except Exception as exc:
-             self._messagebox.showerror("Simulation error", str(exc))
-             return
- 
--        self.output.delete("1.0", self._tk.END)
--        self.output.insert(self._tk.END, format_simulation_report(result))
-+        self.active_image = image
-+        self.status_var.set(f"Running {len(optimizer_names)} optimizer(s) on {image.name} ({image.width}x{image.height})...")
-+        self.root.update_idletasks()
-+
-+        results = []
-+        for optimizer_name in optimizer_names:
-+            try:
-+                result = run_gray_image_simulation(
-+                    optimizer_name,
-+                    image,
-+                    seed=state.seed,
-+                    population_size=state.population_size,
-+                    generations=state.generations,
-+                    image_gplite_primitive_set=state.image_gplite_primitive_set,
-+                    max_index=state.max_index,
-+                    strict_lower=state.strict_lower,
-+                )
-+            except Exception as exc:
-+                result = self._error_result(optimizer_name, image, str(exc))
-+            results.append(result)
-+
-+        self._store_results(results)
-+        best = min(results, key=lambda item: (item["total_bits"], item["optimizer_name"]))
-+        self._select_result(best["optimizer_name"])
-+        self.status_var.set(
-+            f"Finished {len(results)} optimizer(s). "
-+            f"Best total_bits={best['total_bits']} with {best['optimizer_name']}."
-+        )
- 
--    def _refresh_preview(self) -> None:
--        """Prekresli maly grayscale preview aktualneho datasetu."""
-+    def _error_result(self, optimizer_name: str, image: GrayImage, message: str) -> dict:
-+        """Vrati stabilny error vysledok, aby GUI ostalo citatelne."""
-+
-+        raw_bits = len(image.pixels) * 8
-+        raw_bytes = len(image.pixels)
-+        return {
-+            "optimizer_name": optimizer_name,
-+            "status": "error",
-+            "dataset_name": image.name,
-+            "image_width": image.width,
-+            "image_height": image.height,
-+            "raw_bits": raw_bits,
-+            "total_bits": raw_bits,
-+            "saving_bits": 0,
-+            "ratio_vs_raw": 1.0,
-+            "raw_bytes": raw_bytes,
-+            "total_bytes_estimate": raw_bytes,
-+            "saving_bytes_estimate": 0,
-+            "best_model": "error",
-+            "history": [],
-+            "details": {"message": message},
-+        }
-+
-+    def _resolve_image(self, state: _GuiState) -> GrayImage:
-+        """Vrati aktivny vstupny obrazok podla zvoleneho zdroja."""
-+
-+        if self.source_var.get() == "file":
-+            if self.loaded_image is None:
-+                raise ValueError("No file image is loaded.")
-+            return self.loaded_image
-+        return make_image_dataset(state.dataset_name, state.image_width, state.image_height, state.seed)
-+
-+    def _refresh_preview(self, _event=None, clear_results: bool = True) -> None:
-+        """Prekresli vstupny obrazok a pripadne zneplatni stare vysledky."""
- 
-         try:
--            width = parse_positive_int(self.width_var.get())
--            height = parse_positive_int(self.height_var.get())
--            seed = int(self.seed_var.get().strip())
-+            state = self._parse_state()
-+            image = self._resolve_image(state)
-         except Exception:
-             return
- 
--        image = make_image_dataset(self.dataset_var.get(), width, height, seed)
--        self._draw_image(image)
-+        self.active_image = image
-+        if self.original_panel is not None:
-+            self.original_panel.title_var.set(f"Input image: {image.name} ({image.width}x{image.height})")
-+            self._draw_image(self.original_panel.canvas, image)
-+        if clear_results:
-+            self._clear_results()
-+
-+    def _refresh_selected_view(self, _event=None) -> None:
-+        """Prekresli coded panel pre aktualne vybrany vysledok bez resetu."""
-+
-+        if self.results_tree is None:
-+            return
-+        selection = self.results_tree.selection()
-+        if not selection:
-+            return
-+        optimizer_name = selection[0]
-+        result = self._results_by_name.get(optimizer_name)
-+        if result is not None:
-+            self._draw_result_images(result)
-+
-+    def _store_results(self, results: list[dict]) -> None:
-+        """Nahradi tabulku vysledkov novym behom."""
-+
-+        self._results_by_name = {result["optimizer_name"]: result for result in results}
-+        self._clear_tree()
-+        for result in results:
-+            self.results_tree.insert(
-+                "",
-+                "end",
-+                iid=result["optimizer_name"],
-+                values=(
-+                    result["optimizer_name"],
-+                    result["status"],
-+                    result["raw_bytes"],
-+                    result["total_bytes_estimate"],
-+                    result["saving_bytes_estimate"],
-+                    f"{result['ratio_vs_raw']:.3f}",
-+                ),
-+            )
-+
-+    def _clear_results(self) -> None:
-+        """Vymaze stare vysledky a necha iba vstupny preview."""
-+
-+        self._results_by_name = {}
-+        self._clear_tree()
-+        if self.output is not None:
-+            self.output.delete("1.0", self._tk.END)
-+        self._draw_history(None)
-+        if self.coded_panel is not None:
-+            self.coded_panel.title_var.set("Residuals / anchors")
-+            self._draw_placeholder(self.coded_panel.canvas, "Run an optimizer to inspect the coded view.")
-+        if self.decoded_panel is not None:
-+            self.decoded_panel.title_var.set("Decoded image")
-+            self._draw_placeholder(self.decoded_panel.canvas, "Run an optimizer to inspect exact reconstruction.")
-+
-+    def _clear_tree(self) -> None:
-+        """Vymaze vsetky riadky v tabulke vysledkov."""
-+
-+        if self.results_tree is None:
-+            return
-+        for item_id in self.results_tree.get_children():
-+            self.results_tree.delete(item_id)
-+
-+    def _select_result(self, optimizer_name: str) -> None:
-+        """Programovo vyberie riadok a zobrazi detail vysledku."""
-+
-+        if self.results_tree is None or optimizer_name not in self._results_by_name:
-+            return
-+        self.results_tree.selection_set(optimizer_name)
-+        self.results_tree.focus(optimizer_name)
-+        self._show_result(self._results_by_name[optimizer_name])
-+
-+    def _on_result_selected(self, _event=None) -> None:
-+        """Zareaguje na manualny vyber riadku v tabulke."""
-+
-+        if self.results_tree is None:
-+            return
-+        selection = self.results_tree.selection()
-+        if not selection:
-+            return
-+        optimizer_name = selection[0]
-+        result = self._results_by_name.get(optimizer_name)
-+        if result is not None:
-+            self._show_result(result)
-+
-+    def _show_result(self, result: dict) -> None:
-+        """Zobrazi detail vybraneho optimizera."""
-+
-+        if self.output is not None:
-+            self.output.delete("1.0", self._tk.END)
-+            self.output.insert(self._tk.END, format_simulation_report(result))
-+        self._draw_history(result)
-+        self._draw_result_images(result)
-+
-+    def _draw_result_images(self, result: dict) -> None:
-+        """Prekresli coded a decoded pohlad pre vybrany vysledok."""
-+
-+        preview = result.get("preview")
-+        if self.active_image is not None and self.original_panel is not None:
-+            self._draw_image(self.original_panel.canvas, self.active_image)
-+
-+        if not isinstance(preview, dict):
-+            self._draw_fallback_result_images(result)
-+            return
-+
-+        coded_key = "residual_image" if self.preview_mode_var.get() == "Residuals" else "anchor_image"
-+        coded_title = str(preview.get("residual_label", "Residuals"))
-+        if coded_key == "anchor_image":
-+            coded_title = str(preview.get("anchor_label", "Anchors"))
-+
-+        coded_image = preview[coded_key]
-+        decoded_image = preview["decoded_image"]
-+        residual_codec = result.get("details", {}).get("residual_codec")
-+
-+        if self.coded_panel is not None:
-+            codec_suffix = f" codec={residual_codec}" if residual_codec else ""
-+            self.coded_panel.title_var.set(
-+                f"{coded_title}{codec_suffix}: min_residual={preview['min_residual']} max_residual={preview['max_residual']} escapes={preview['escaped_count']}"
-+            )
-+            self._draw_image(self.coded_panel.canvas, coded_image)
-+        if self.decoded_panel is not None:
-+            self.decoded_panel.title_var.set(
-+                f"Decoded: exact_roundtrip={preview['roundtrip_ok']}"
-+            )
-+            self._draw_image(self.decoded_panel.canvas, decoded_image)
-+
-+    def _draw_fallback_result_images(self, result: dict) -> None:
-+        """Zobrazi placeholder alebo raw fallback, ked preview nie je dostupny."""
-+
-+        if self.active_image is None:
-+            return
-+
-+        if self.coded_panel is not None:
-+            self.coded_panel.title_var.set("Coded view unavailable")
-+            self._draw_placeholder(
-+                self.coded_panel.canvas,
-+                "This optimizer does not expose a law-based coded image preview.",
-+            )
-+
-+        if self.decoded_panel is None:
-+            return
-+
-+        if result["best_model"] == "raw_fallback":
-+            self.decoded_panel.title_var.set("Decoded image: raw fallback")
-+            self._draw_image(self.decoded_panel.canvas, self.active_image)
-+            return
-+
-+        self.decoded_panel.title_var.set("Decoded image unavailable")
-+        self._draw_placeholder(
-+            self.decoded_panel.canvas,
-+            "No exact decoded preview is available for this result.",
-+        )
-+
-+    def _draw_history(self, result: dict | None) -> None:
-+        """Nakresli priebeh total_bits pre vybrany search."""
-+
-+        if self.history_canvas is None:
-+            return
-+
-+        canvas = self.history_canvas
-+        canvas.delete("all")
-+        width = int(canvas.cget("width"))
-+        height = int(canvas.cget("height"))
-+
-+        left = 48
-+        right = width - 16
-+        top = 16
-+        bottom = height - 28
-+        canvas.create_rectangle(left, top, right, bottom, outline="#999999")
-+
-+        if result is None:
-+            self._draw_placeholder(canvas, "Run an optimizer to see total_bits history.")
-+            return
-+
-+        history = result.get("history", [])
-+        raw_bits = int(result["raw_bits"])
-+        canvas.create_line(left, top, right, top, fill="#ffffff")
-+
-+        if not history:
-+            self._draw_placeholder(canvas, "No search history is available for this optimizer.")
-+            return
- 
--    def _draw_image(self, image: GrayImage) -> None:
-+        totals = [int(item.get("total_bits", raw_bits)) for item in history]
-+        generations = [int(item.get("generation", index)) for index, item in enumerate(history)]
-+        max_bits = max(max(totals), raw_bits)
-+        min_bits = min(min(totals), raw_bits)
-+        span = max(1, max_bits - min_bits)
-+
-+        def project_x(index: int) -> float:
-+            if len(generations) == 1:
-+                return (left + right) / 2
-+            return left + ((right - left) * index / (len(generations) - 1))
-+
-+        def project_y(bits: int) -> float:
-+            return bottom - ((bits - min_bits) * (bottom - top) / span)
-+
-+        raw_y = project_y(raw_bits)
-+        canvas.create_line(left, raw_y, right, raw_y, fill="#cc3333", dash=(4, 4), width=2)
-+        canvas.create_text(left, raw_y - 10, anchor="w", text=f"raw_bits={raw_bits}", fill="#aa2222")
-+
-+        points = []
-+        for index, total_bits in enumerate(totals):
-+            points.extend((project_x(index), project_y(total_bits)))
-+        if len(points) >= 4:
-+            canvas.create_line(*points, fill="#1f5d9b", width=3, smooth=False)
-+
-+        for index, total_bits in enumerate(totals):
-+            x_coord = project_x(index)
-+            y_coord = project_y(total_bits)
-+            canvas.create_oval(x_coord - 3, y_coord - 3, x_coord + 3, y_coord + 3, fill="#1f5d9b", outline="#1f5d9b")
-+            canvas.create_text(x_coord, bottom + 12, text=str(generations[index]), fill="#333333")
-+
-+        canvas.create_text(left, top - 8, anchor="w", text=f"best total_bits={min(totals)}", fill="#333333")
-+        canvas.create_text(right, top - 8, anchor="e", text=result["optimizer_name"], fill="#333333")
-+        canvas.create_text(left, bottom + 12, anchor="w", text="generation", fill="#333333")
-+
-+    def _draw_placeholder(self, canvas, text: str) -> None:
-+        """Vymaze canvas a zobrazi textovy placeholder."""
-+
-+        canvas.delete("all")
-+        width = int(canvas.cget("width"))
-+        height = int(canvas.cget("height"))
-+        canvas.create_text(width // 2, height // 2, width=max(120, width - 24), text=text, fill="#666666")
-+
-+    def _draw_image(self, canvas, image: GrayImage) -> None:
-         """Nakresli grayscale obrazok ako siet malych stvorcov."""
- 
--        scale = max(1, min(8, 160 // max(image.width, image.height)))
-+        max_canvas = 280
-+        scale = max(1, min(8, max_canvas // max(image.width, image.height)))
-         canvas_width = image.width * scale
-         canvas_height = image.height * scale
--        self.canvas.config(width=canvas_width, height=canvas_height)
--        self.canvas.delete("all")
-+        canvas.config(width=canvas_width, height=canvas_height)
-+        canvas.delete("all")
- 
-         for y in range(image.height):
-             for x in range(image.width):
-                 pixel = image.pixels[(y * image.width) + x]
-                 color = f"#{pixel:02x}{pixel:02x}{pixel:02x}"
--                self.canvas.create_rectangle(
-+                canvas.create_rectangle(
-                     x * scale,
-                     y * scale,
-                     (x + 1) * scale,
-diff --git a/src/primesymbolicmdl/image_datasets.py b/src/primesymbolicmdl/image_datasets.py
-index 43a7d45..79f4b1c 100644
---- a/src/primesymbolicmdl/image_datasets.py
-+++ b/src/primesymbolicmdl/image_datasets.py
-@@ -16,6 +16,12 @@ class GrayImage:
-     pixels: bytes
- 
- 
-+def make_gray_image(name: str, width: int, height: int, pixels: bytes) -> GrayImage:
-+    """Vytvori grayscale obrazok aj pre externe nacitane pixely."""
-+
-+    return _image(name, width, height, bytes(pixels))
-+
-+
- def make_gradient_image(width: int = 32, height: int = 32) -> GrayImage:
-     """Vrati vodorovny gradient od ciernej po bielu."""
- 
-diff --git a/src/primesymbolicmdl/index_branch.py b/src/primesymbolicmdl/index_branch.py
-index 3ce038d..8ed4c4c 100644
---- a/src/primesymbolicmdl/index_branch.py
-+++ b/src/primesymbolicmdl/index_branch.py
-@@ -5,8 +5,9 @@ from __future__ import annotations
- import math
- 
- from .anchor_laws import LawNode, anchor_value, law_model_bits, law_parameter_bits, render_law
--from .bitcost import bits_raw, bits_signed_range, bits_unsigned_range
-+from .bitcost import bits_raw, bits_unsigned_range
- from .blocks import SUPPORTED_WIDTHS, bytes_to_uint_blocks, uint_blocks_to_bytes
-+from .residual_codecs import choose_best_residual_codec
- 
- _FIXED_HEADER_BITS = 32
- 
-@@ -89,11 +90,8 @@ def estimate_law_cost(
-     else:
-         index_bits = 0
- 
--    if residuals:
--        residual_width = bits_signed_range(min(int(value) for value in residuals), max(int(value) for value in residuals))
--        residual_bits = residual_width * len(residuals)
--    else:
--        residual_bits = 0
-+    residual_codec = choose_best_residual_codec([int(value) for value in residuals])
-+    residual_bits = residual_codec.bits
- 
-     model_bits = _law_model_bits(law)
-     parameter_bits = _law_parameter_bits(law)
-@@ -117,6 +115,8 @@ def estimate_law_cost(
-         "flag_bits": flag_bits,
-         "index_bits": index_bits,
-         "residual_bits": residual_bits,
-+        "residual_codec": residual_codec.codec_name,
-+        "residual_codec_details": dict(residual_codec.details),
-         "escape_bits": escape_bits,
-         "total_bits": total_bits,
-         "saving_bits": saving_bits,
-diff --git a/src/primesymbolicmdl/optimizers/base.py b/src/primesymbolicmdl/optimizers/base.py
-index 72572ad..ed98d24 100644
---- a/src/primesymbolicmdl/optimizers/base.py
-+++ b/src/primesymbolicmdl/optimizers/base.py
-@@ -2,7 +2,7 @@
- 
- from __future__ import annotations
- 
--from dataclasses import dataclass
-+from dataclasses import dataclass, field
- from typing import Protocol
- 
- 
-@@ -17,6 +17,7 @@ class OptimizerRequest:
-     generations: int
-     max_index: int | None
-     strict_lower: bool
-+    metadata: dict[str, object] = field(default_factory=dict)
- 
- 
- @dataclass(frozen=True)
-diff --git a/src/primesymbolicmdl/optimizers/gplite_adapter.py b/src/primesymbolicmdl/optimizers/gplite_adapter.py
-index 9ecc607..79c6a01 100644
---- a/src/primesymbolicmdl/optimizers/gplite_adapter.py
-+++ b/src/primesymbolicmdl/optimizers/gplite_adapter.py
-@@ -32,7 +32,12 @@ class GPLiteOptimizer:
-             strict_lower=request.strict_lower,
-         )
-         details = dict(result)
--        details.pop("best_law", None)
-+        details["decoder_model"] = details.pop("best_law", None)
-+        best_cost = result.get("best_cost", {})
-+        if isinstance(best_cost, dict):
-+            details["residual_bits"] = best_cost.get("residual_bits")
-+            details["residual_codec"] = best_cost.get("residual_codec")
-+            details["residual_codec_details"] = best_cost.get("residual_codec_details")
-         return OptimizerResult(
-             optimizer_name=self.name(),
-             status="ok",
-diff --git a/src/primesymbolicmdl/optimizers/registry.py b/src/primesymbolicmdl/optimizers/registry.py
-index db8ab05..4ce45a3 100644
---- a/src/primesymbolicmdl/optimizers/registry.py
-+++ b/src/primesymbolicmdl/optimizers/registry.py
-@@ -4,6 +4,9 @@ from __future__ import annotations
- 
- from .base import OptimizerRequest, OptimizerResult
- from .gplite_adapter import GPLiteOptimizer
-+from .image_gplite import ImageGPLiteOptimizer
-+from .image_predictor import ImagePredictorOptimizer
-+from .image_soma import ImageSomaOptimizer
- from .placeholders import make_adam_placeholder, make_gp_placeholder
- from .soma import SomaOptimizer
- 
-@@ -12,9 +15,12 @@ _OPTIMIZERS = {
-     "SOMA": SomaOptimizer(),
-     "GP": make_gp_placeholder(),
-     "ADAM": make_adam_placeholder(),
-+    "Image-predictor": ImagePredictorOptimizer(),
-+    "Image-GP-lite": ImageGPLiteOptimizer(),
-+    "Image-SOMA": ImageSomaOptimizer(),
- }
- 
--_ORDER = ["GP-lite", "SOMA", "GP", "ADAM"]
-+_ORDER = ["GP-lite", "SOMA", "GP", "ADAM", "Image-predictor", "Image-GP-lite", "Image-SOMA"]
- 
- 
- def get_optimizer_names() -> list[str]:
-diff --git a/src/primesymbolicmdl/optimizers/soma.py b/src/primesymbolicmdl/optimizers/soma.py
-index 282abd1..684c5d8 100644
---- a/src/primesymbolicmdl/optimizers/soma.py
-+++ b/src/primesymbolicmdl/optimizers/soma.py
-@@ -151,8 +151,13 @@ def run_soma_search(request: OptimizerRequest) -> OptimizerResult:
-         ratio_vs_raw=best_cost["ratio_vs_raw"],
-         history=history,
-         details={
-+            "decoder_model": best_law,
-             "best_cost": best_cost,
-+            "residual_bits": best_cost.get("residual_bits"),
-+            "residual_codec": best_cost.get("residual_codec"),
-+            "residual_codec_details": best_cost.get("residual_codec_details"),
-             "max_index": resolved_max_index,
-+            "strict_lower": request.strict_lower,
-             "note": "Float parameters are estimated research parameters, not a final codec format.",
-         },
-     )
-diff --git a/src/primesymbolicmdl/sim_demo.py b/src/primesymbolicmdl/sim_demo.py
-index fe1749e..ce8d79f 100644
---- a/src/primesymbolicmdl/sim_demo.py
-+++ b/src/primesymbolicmdl/sim_demo.py
-@@ -2,14 +2,14 @@
- 
- from __future__ import annotations
- 
-+from .image_ablation import format_image_ablation_table, run_image_gplite_ablation
- from .simulation import format_simulation_report, run_image_simulation
- 
- 
- def run_demo() -> list[dict]:
--    """Spusti dva male demo behy nad gradientom."""
-+    """Spusti malu sadu rychlych demo behov nad obrazkami."""
- 
-     shared = {
--        "dataset_name": "gradient",
-         "image_width": 16,
-         "image_height": 16,
-         "seed": 1234,
-@@ -19,19 +19,31 @@ def run_demo() -> list[dict]:
-         "strict_lower": False,
-     }
-     return [
--        run_image_simulation("GP-lite", **shared),
--        run_image_simulation("SOMA", **shared),
-+        run_image_simulation("Image-predictor", dataset_name="gradient", **shared),
-+        run_image_simulation("Image-GP-lite", dataset_name="gradient", **shared),
-+        run_image_simulation("Image-SOMA", dataset_name="gradient", **shared),
-+        run_image_simulation("Image-predictor", dataset_name="checker", **shared),
-+        run_image_simulation("Image-GP-lite", dataset_name="checker", **shared),
-+        run_image_simulation("GP-lite", dataset_name="gradient", **shared),
-+        run_image_simulation("SOMA", dataset_name="gradient", **shared),
-     ]
- 
- 
- def main() -> None:
--    """Vypise reporty pre GP-lite a SOMA."""
-+    """Vypise reporty pre rychlu sadu obrazkovych demo behov."""
- 
-     for index, result in enumerate(run_demo()):
-         if index:
-             print()
-         print(format_simulation_report(result))
- 
-+    print()
-+    print("## Image-GP-lite primitive ablation summary: gradient")
-+    print(format_image_ablation_table(run_image_gplite_ablation("gradient", width=16, height=16, seed=1234, population_size=16, generations=8)))
-+    print()
-+    print("## Image-GP-lite primitive ablation summary: checker")
-+    print(format_image_ablation_table(run_image_gplite_ablation("checker", width=16, height=16, seed=1234, population_size=16, generations=8)))
-+
- 
- if __name__ == "__main__":
-     main()
-diff --git a/src/primesymbolicmdl/simulation.py b/src/primesymbolicmdl/simulation.py
-index 3b844de..572d8c7 100644
---- a/src/primesymbolicmdl/simulation.py
-+++ b/src/primesymbolicmdl/simulation.py
-@@ -2,24 +2,43 @@
- 
- from __future__ import annotations
- 
--from .image_datasets import make_image_dataset
-+from .image_datasets import GrayImage, make_gray_image, make_image_dataset
-+from .image_law_branch import build_image_law_trace, decode_image_law_payload
-+from .image_predictor_branch import build_image_predictor_trace, decode_image_predictor_payload
-+from .index_branch import encode_block_with_law, roundtrip_law_payload
- from .optimizers import OptimizerRequest, run_optimizer
-+from .optimizers.image_soma import build_image_soma_trace, decode_image_soma_payload
-+from .residual_codecs import choose_best_byte_codec
- 
- 
--def run_image_simulation(
-+def bits_to_bytes_ceil(bit_count: int) -> int:
-+    """Prevedie bitovy odhad na konzervativny pocet bajtov."""
-+
-+    if bit_count < 0:
-+        raise ValueError("bit_count must be non-negative")
-+    return (bit_count + 7) // 8
-+
-+
-+def run_gray_image_simulation(
-     optimizer_name: str,
--    dataset_name: str = "gradient",
--    image_width: int = 32,
--    image_height: int = 32,
-+    image: GrayImage,
-     seed: int = 1234,
-     population_size: int = 32,
-     generations: int = 20,
-     max_index: int | None = None,
-     strict_lower: bool = False,
-+    image_gplite_primitive_set: str | None = None,
- ) -> dict:
--    """Spusti vybrany optimizer nad generovanym grayscale datasetom."""
-+    """Spusti vybrany optimizer nad konkretnym grayscale obrazkom."""
-+
-+    metadata = {
-+        "image_width": image.width,
-+        "image_height": image.height,
-+        "dataset_name": image.name,
-+    }
-+    if image_gplite_primitive_set is not None:
-+        metadata["image_gplite_primitive_set"] = image_gplite_primitive_set
- 
--    image = make_image_dataset(dataset_name, image_width, image_height, seed)
-     request = OptimizerRequest(
-         data=image.pixels,
-         width_bits=8,
-@@ -28,9 +47,25 @@ def run_image_simulation(
-         generations=generations,
-         max_index=max_index,
-         strict_lower=strict_lower,
-+        metadata=metadata,
-     )
-     result = run_optimizer(optimizer_name, request)
--    return {
-+    details = dict(result.details)
-+    best_cost = details.get("best_cost")
-+    if isinstance(best_cost, dict):
-+        for key in ("residual_bits", "residual_codec", "residual_codec_details"):
-+            if key not in details and key in best_cost:
-+                details[key] = best_cost[key]
-+    raw_byte_codec = choose_best_byte_codec(image.pixels)
-+    details["raw_byte_codec"] = raw_byte_codec.codec_name
-+    details["raw_byte_codec_bits"] = raw_byte_codec.bits
-+    details["raw_byte_codec_ratio_vs_raw"] = _ratio(raw_byte_codec.bits, result.raw_bits)
-+    details["raw_byte_codec_details"] = dict(raw_byte_codec.details)
-+    preview = build_result_preview(image, details)
-+    raw_bytes = len(image.pixels)
-+    total_bytes_estimate = bits_to_bytes_ceil(result.total_bits)
-+    saving_bytes_estimate = raw_bytes - total_bytes_estimate
-+    payload = {
-         "optimizer_name": result.optimizer_name,
-         "status": result.status,
-         "dataset_name": image.name,
-@@ -40,15 +75,177 @@ def run_image_simulation(
-         "total_bits": result.total_bits,
-         "saving_bits": result.saving_bits,
-         "ratio_vs_raw": result.ratio_vs_raw,
-+        "raw_bytes": raw_bytes,
-+        "total_bytes_estimate": total_bytes_estimate,
-+        "saving_bytes_estimate": saving_bytes_estimate,
-         "best_model": result.best_model,
-         "history": result.history,
--        "details": dict(result.details),
-+        "details": details,
-+    }
-+    if preview is not None:
-+        payload["preview"] = preview
-+    return payload
-+
-+
-+def run_image_simulation(
-+    optimizer_name: str,
-+    dataset_name: str = "gradient",
-+    image_width: int = 32,
-+    image_height: int = 32,
-+    seed: int = 1234,
-+    population_size: int = 32,
-+    generations: int = 20,
-+    max_index: int | None = None,
-+    strict_lower: bool = False,
-+    image_gplite_primitive_set: str | None = None,
-+) -> dict:
-+    """Spusti vybrany optimizer nad generovanym grayscale datasetom."""
-+
-+    image = make_image_dataset(dataset_name, image_width, image_height, seed)
-+    return run_gray_image_simulation(
-+        optimizer_name,
-+        image,
-+        seed=seed,
-+        population_size=population_size,
-+        generations=generations,
-+        max_index=max_index,
-+        strict_lower=strict_lower,
-+        image_gplite_primitive_set=image_gplite_primitive_set,
-+    )
-+
-+
-+def build_result_preview(image: GrayImage, details: dict) -> dict | None:
-+    """Vrati preview pre law-based alebo image-predictor branch."""
-+
-+    preview = build_law_image_preview(image, details)
-+    if preview is not None:
-+        return preview
-+    preview = build_image_law_preview(image, details)
-+    if preview is not None:
-+        return preview
-+    preview = build_image_soma_preview(image, details)
-+    if preview is not None:
-+        return preview
-+    return build_image_predictor_preview(image, details)
-+
-+
-+def build_law_image_preview(image: GrayImage, details: dict) -> dict | None:
-+    """Vrati anchor, residual a decoded preview pre law-based vysledok."""
-+
-+    decoder_model = details.get("decoder_model")
-+    max_index = details.get("max_index")
-+    if decoder_model is None or not isinstance(max_index, int):
-+        return None
-+
-+    strict_lower = bool(details.get("strict_lower", False))
-+    encoded = [
-+        encode_block_with_law(pixel, decoder_model, max_index, strict_lower)
-+        for pixel in image.pixels
-+    ]
-+    anchor_pixels = bytes(entry["anchor"] for entry in encoded)
-+    residual_pixels = bytes(entry["residual"] for entry in encoded)
-+    decoded_pixels = roundtrip_law_payload(image.pixels, 8, decoder_model, max_index, strict_lower)
-+    return {
-+        "anchor_image": make_gray_image(f"{image.name}:anchors", image.width, image.height, anchor_pixels),
-+        "residual_image": make_gray_image(f"{image.name}:residuals", image.width, image.height, residual_pixels),
-+        "decoded_image": make_gray_image(f"{image.name}:decoded", image.width, image.height, decoded_pixels),
-+        "anchor_label": "Anchors",
-+        "residual_label": "Residuals",
-+        "escaped_count": sum(1 for entry in encoded if entry["escaped"]),
-+        "min_residual": min(residual_pixels, default=0),
-+        "max_residual": max(residual_pixels, default=0),
-+        "roundtrip_ok": decoded_pixels == image.pixels,
-+    }
-+
-+
-+def build_image_predictor_preview(image: GrayImage, details: dict) -> dict | None:
-+    """Vrati predictor, residual a decoded preview pre image predictor."""
-+
-+    model = details.get("predictor_model")
-+    if model is None:
-+        return None
-+
-+    trace = build_image_predictor_trace(image, model)
-+    payload = details.get("payload")
-+    if isinstance(payload, dict):
-+        decoded_pixels = decode_image_predictor_payload(payload)
-+    else:
-+        decoded_pixels = trace["decoded_pixels"]
-+
-+    residual_visual = bytes(_signed_residual_to_visual(value) for value in trace["residuals"])
-+    return {
-+        "anchor_image": make_gray_image(f"{image.name}:predictor", image.width, image.height, trace["predicted_pixels"]),
-+        "residual_image": make_gray_image(f"{image.name}:residuals", image.width, image.height, residual_visual),
-+        "decoded_image": make_gray_image(f"{image.name}:decoded", image.width, image.height, decoded_pixels),
-+        "anchor_label": "Predictor",
-+        "residual_label": "Residuals+128",
-+        "escaped_count": 0,
-+        "min_residual": trace["min_residual"],
-+        "max_residual": trace["max_residual"],
-+        "roundtrip_ok": decoded_pixels == image.pixels,
-+    }
-+
-+
-+def build_image_law_preview(image: GrayImage, details: dict) -> dict | None:
-+    """Vrati predictor, residual a decoded preview pre image-law branch."""
-+
-+    law = details.get("image_law_model")
-+    if law is None:
-+        return None
-+
-+    trace = build_image_law_trace(image, law)
-+    payload = details.get("payload")
-+    if isinstance(payload, dict):
-+        decoded_pixels = decode_image_law_payload(payload)
-+    else:
-+        decoded_pixels = trace["decoded_pixels"]
-+
-+    residual_visual = bytes(_signed_residual_to_visual(value) for value in trace["residuals"])
-+    return {
-+        "anchor_image": make_gray_image(f"{image.name}:predictor_law", image.width, image.height, trace["predicted_pixels"]),
-+        "residual_image": make_gray_image(f"{image.name}:residuals", image.width, image.height, residual_visual),
-+        "decoded_image": make_gray_image(f"{image.name}:decoded", image.width, image.height, decoded_pixels),
-+        "anchor_label": "Predictor law",
-+        "residual_label": "Residuals+128",
-+        "escaped_count": 0,
-+        "min_residual": trace["min_residual"],
-+        "max_residual": trace["max_residual"],
-+        "roundtrip_ok": decoded_pixels == image.pixels,
-+    }
-+
-+
-+def build_image_soma_preview(image: GrayImage, details: dict) -> dict | None:
-+    """Vrati predictor, residual a decoded preview pre fixed-point Image-SOMA."""
-+
-+    model = details.get("image_soma_model")
-+    if model is None:
-+        return None
-+
-+    trace = build_image_soma_trace(image, model)
-+    payload = details.get("payload")
-+    if isinstance(payload, dict):
-+        decoded_pixels = decode_image_soma_payload(payload)
-+    else:
-+        decoded_pixels = trace["decoded_pixels"]
-+
-+    residual_visual = bytes(_signed_residual_to_visual(value) for value in trace["residuals"])
-+    return {
-+        "anchor_image": make_gray_image(f"{image.name}:predictor_soma", image.width, image.height, trace["predicted_pixels"]),
-+        "residual_image": make_gray_image(f"{image.name}:residuals", image.width, image.height, residual_visual),
-+        "decoded_image": make_gray_image(f"{image.name}:decoded", image.width, image.height, decoded_pixels),
-+        "anchor_label": "Predictor soma",
-+        "residual_label": "Residuals+128",
-+        "escaped_count": 0,
-+        "min_residual": trace["min_residual"],
-+        "max_residual": trace["max_residual"],
-+        "roundtrip_ok": decoded_pixels == image.pixels,
-     }
- 
- 
- def format_simulation_report(result: dict) -> str:
-     """Vrati citatelny textovy report pre CLI alebo GUI."""
- 
-+    details = result.get("details", {})
-     lines = [
-         f"optimizer: {result['optimizer_name']}",
-         f"status: {result['status']}",
-@@ -56,9 +253,23 @@ def format_simulation_report(result: dict) -> str:
-         f"raw_bits: {result['raw_bits']}",
-         f"total_bits: {result['total_bits']}",
-         f"saving_bits: {result['saving_bits']}",
-+        f"raw_bytes: {result.get('raw_bytes', bits_to_bytes_ceil(result['raw_bits']))}",
-+        f"total_bytes_estimate: {result.get('total_bytes_estimate', bits_to_bytes_ceil(result['total_bits']))}",
-+        f"saving_bytes_estimate: {result.get('saving_bytes_estimate', 0)}",
-         f"ratio_vs_raw: {result['ratio_vs_raw']:.3f}",
-         f"best_model: {result['best_model']}",
-     ]
-+    if result["total_bits"] < result["raw_bits"]:
-+        lines.append("decision: WIN beats raw under current accounting")
-+    else:
-+        lines.append("decision: use raw fallback; current model loses to raw")
-+    would_use_fallback = details.get("would_use_fallback")
-+    if not isinstance(would_use_fallback, bool):
-+        would_use_fallback = result["total_bits"] >= result["raw_bits"]
-+    lines.append(
-+        "fallback_recommendation: "
-+        + ("use_raw_fallback" if would_use_fallback else "use_model_under_current_accounting")
-+    )
-     history = result.get("history", [])
-     if history:
-         lines.append("history:")
-@@ -68,9 +279,42 @@ def format_simulation_report(result: dict) -> str:
-                 f"  gen={item.get('generation', '?')} total_bits={item.get('total_bits', '?')} "
-                 f"saving_bits={item.get('saving_bits', '?')} best={best_label}"
-             )
--    details = result.get("details", {})
-     if details.get("message"):
-         lines.append(f"note: {details['message']}")
-     if details.get("note"):
-         lines.append(f"note: {details['note']}")
-+    if details.get("primitive_set"):
-+        primitive_label = str(details["primitive_set"])
-+        resolved = details.get("resolved_primitive_set")
-+        if isinstance(resolved, str) and resolved != primitive_label:
-+            primitive_label = f"{primitive_label} -> {resolved}"
-+        lines.append(f"primitive_set: {primitive_label}")
-+    if details.get("residual_codec"):
-+        lines.append(f"residual_codec: {details['residual_codec']}")
-+    if details.get("residual_bits") is not None:
-+        lines.append(f"residual_bits: {details['residual_bits']}")
-+    if details.get("raw_byte_codec"):
-+        lines.append(f"raw_byte_codec: {details['raw_byte_codec']}")
-+        lines.append(f"raw_byte_codec_bits: {details['raw_byte_codec_bits']}")
-+        lines.append(f"raw_byte_codec_ratio_vs_raw: {details['raw_byte_codec_ratio_vs_raw']:.3f}")
-+    preview = result.get("preview")
-+    if isinstance(preview, dict):
-+        lines.append(f"roundtrip_preview_ok: {preview.get('roundtrip_ok', False)}")
-+        lines.append(f"escaped_pixels: {preview.get('escaped_count', 0)}")
-+        lines.append(f"min_residual: {preview.get('min_residual', 0)}")
-+        lines.append(f"max_residual: {preview.get('max_residual', 0)}")
-     return "\n".join(lines)
-+
-+
-+def _signed_residual_to_visual(value: int) -> int:
-+    """Prevedie signed residual na zobrazitelny grayscale proxy."""
-+
-+    return max(0, min(255, int(value) + 128))
-+
-+
-+def _ratio(total_bits: int, raw_bits: int) -> float:
-+    """Vrati pomer bitovej ceny voci raw baseline."""
-+
-+    if raw_bits == 0:
-+        return 0.0 if total_bits == 0 else float("inf")
-+    return total_bits / raw_bits
-diff --git a/tests/test_gui_import.py b/tests/test_gui_import.py
-index 3b783ed..604427d 100644
---- a/tests/test_gui_import.py
-+++ b/tests/test_gui_import.py
-@@ -1,8 +1,22 @@
- import importlib
- 
-+from primesymbolicmdl.optimizers.image_gplite import available_image_gplite_primitive_sets
-+
- 
- def test_gui_module_imports_headlessly() -> None:
-     module = importlib.import_module("primesymbolicmdl.gui")
- 
-     assert hasattr(module, "main")
-     assert hasattr(module, "parse_optional_int")
-+
-+
-+def test_gui_registry_names_include_image_aware_optimizers() -> None:
-+    module = importlib.import_module("primesymbolicmdl.gui")
-+    names = module.get_optimizer_names()
-+
-+    assert "Image-GP-lite" in names
-+    assert "Image-SOMA" in names
-+
-+
-+def test_gui_supports_image_gplite_primitive_set_choices() -> None:
-+    assert available_image_gplite_primitive_sets() == ["local", "ramp", "structure", "full"]
-diff --git a/tests/test_index_branch.py b/tests/test_index_branch.py
-index fb7021a..7d2537b 100644
---- a/tests/test_index_branch.py
-+++ b/tests/test_index_branch.py
-@@ -47,6 +47,8 @@ def test_estimate_law_cost_returns_required_fields() -> None:
-         "flag_bits",
-         "index_bits",
-         "residual_bits",
-+        "residual_codec",
-+        "residual_codec_details",
-         "escape_bits",
-         "total_bits",
-         "saving_bits",
-diff --git a/tests/test_optimizers.py b/tests/test_optimizers.py
-index d943b41..212228c 100644
---- a/tests/test_optimizers.py
-+++ b/tests/test_optimizers.py
-@@ -2,7 +2,7 @@ from primesymbolicmdl.optimizers import OptimizerRequest, get_optimizer_names, r
- 
- 
- def test_optimizer_registry_names_are_stable() -> None:
--    assert get_optimizer_names() == ["GP-lite", "SOMA", "GP", "ADAM"]
-+    assert get_optimizer_names() == ["GP-lite", "SOMA", "GP", "ADAM", "Image-predictor", "Image-GP-lite", "Image-SOMA"]
- 
- 
- def test_can_run_gplite_optimizer_on_tiny_data() -> None:
-@@ -53,3 +53,54 @@ def test_placeholders_return_not_implemented() -> None:
- 
-     assert gp_result.status == "not_implemented"
-     assert adam_result.status == "not_implemented"
-+
-+
-+def test_can_run_image_predictor_optimizer_on_tiny_image() -> None:
-+    request = OptimizerRequest(
-+        data=b"\x00\x40\x80\xc0",
-+        width_bits=8,
-+        seed=1234,
-+        population_size=8,
-+        generations=4,
-+        max_index=3,
-+        strict_lower=False,
-+        metadata={"image_width": 2, "image_height": 2, "dataset_name": "tiny"},
-+    )
-+    result = run_optimizer("Image-predictor", request)
-+
-+    assert result.status == "ok"
-+    assert result.optimizer_name == "Image-predictor"
-+
-+
-+def test_can_run_image_gplite_optimizer_on_tiny_image() -> None:
-+    request = OptimizerRequest(
-+        data=b"\x00\x40\x80\xc0",
-+        width_bits=8,
-+        seed=1234,
-+        population_size=8,
-+        generations=4,
-+        max_index=3,
-+        strict_lower=False,
-+        metadata={"image_width": 2, "image_height": 2, "dataset_name": "tiny"},
-+    )
-+    result = run_optimizer("Image-GP-lite", request)
-+
-+    assert result.status == "ok"
-+    assert result.optimizer_name == "Image-GP-lite"
-+
-+
-+def test_can_run_image_soma_optimizer_on_tiny_image() -> None:
-+    request = OptimizerRequest(
-+        data=b"\x00\x40\x80\xc0",
-+        width_bits=8,
-+        seed=1234,
-+        population_size=8,
-+        generations=4,
-+        max_index=3,
-+        strict_lower=False,
-+        metadata={"image_width": 2, "image_height": 2, "dataset_name": "tiny"},
-+    )
-+    result = run_optimizer("Image-SOMA", request)
-+
-+    assert result.status == "ok"
-+    assert result.optimizer_name == "Image-SOMA"
-diff --git a/tests/test_sim_demo.py b/tests/test_sim_demo.py
-index 90e3a81..f99b865 100644
---- a/tests/test_sim_demo.py
-+++ b/tests/test_sim_demo.py
-@@ -10,5 +10,12 @@ def test_sim_demo_runs_and_prints_reports() -> None:
-         sim_demo.main()
- 
-     output = stdout.getvalue()
-+    assert "optimizer: Image-predictor" in output
-+    assert "optimizer: Image-GP-lite" in output
-+    assert "optimizer: Image-SOMA" in output
-     assert "optimizer: GP-lite" in output
-     assert "optimizer: SOMA" in output
-+    assert "residual_codec:" in output
-+    assert "raw_byte_codec:" in output
-+    assert "## Image-GP-lite primitive ablation summary: gradient" in output
-+    assert "primitive_set" in output
-diff --git a/tests/test_simulation.py b/tests/test_simulation.py
-index 02c1120..0f6b506 100644
---- a/tests/test_simulation.py
-+++ b/tests/test_simulation.py
-@@ -1,4 +1,5 @@
--from primesymbolicmdl.simulation import format_simulation_report, run_image_simulation
-+from primesymbolicmdl.image_datasets import make_gray_image, make_image_dataset
-+from primesymbolicmdl.simulation import bits_to_bytes_ceil, format_simulation_report, run_gray_image_simulation, run_image_simulation
- 
- 
- def test_run_image_simulation_returns_required_fields() -> None:
-@@ -21,6 +22,9 @@ def test_run_image_simulation_returns_required_fields() -> None:
-         "total_bits",
-         "saving_bits",
-         "ratio_vs_raw",
-+        "raw_bytes",
-+        "total_bytes_estimate",
-+        "saving_bytes_estimate",
-         "best_model",
-         "history",
-         "details",
-@@ -31,7 +35,7 @@ def test_run_image_simulation_returns_required_fields() -> None:
- 
- def test_format_simulation_report_returns_readable_text() -> None:
-     result = run_image_simulation(
--        "GP-lite",
-+        "Image-predictor",
-         dataset_name="gradient",
-         image_width=8,
-         image_height=8,
-@@ -43,6 +47,12 @@ def test_format_simulation_report_returns_readable_text() -> None:
- 
-     assert "optimizer:" in report
-     assert "raw_bits:" in report
-+    assert "raw_bytes:" in report
-+    assert "total_bytes_estimate:" in report
-+    assert "decision:" in report
-+    assert "fallback_recommendation:" in report
-+    assert "residual_codec:" in report
-+    assert "raw_byte_codec:" in report
- 
- 
- def test_gplite_and_soma_both_run_on_tiny_gradient() -> None:
-@@ -53,7 +63,106 @@ def test_gplite_and_soma_both_run_on_tiny_gradient() -> None:
-     assert right["status"] == "ok"
- 
- 
-+def test_image_gplite_and_image_soma_run_on_tiny_gradient() -> None:
-+    left = run_image_simulation("Image-GP-lite", "gradient", 8, 8, population_size=8, generations=4, max_index=7)
-+    right = run_image_simulation("Image-SOMA", "gradient", 8, 8, population_size=8, generations=4, max_index=7)
-+
-+    assert left["status"] == "ok"
-+    assert right["status"] == "ok"
-+    assert left["details"]["residual_codec"] == "fixed_signed"
-+    assert right["details"]["residual_codec"] == "fixed_signed"
-+
-+
-+def test_image_gplite_simulation_accepts_primitive_set_metadata() -> None:
-+    result = run_image_simulation(
-+        "Image-GP-lite",
-+        "checker",
-+        8,
-+        8,
-+        population_size=8,
-+        generations=4,
-+        max_index=7,
-+        image_gplite_primitive_set="structure",
-+    )
-+
-+    assert result["status"] == "ok"
-+    assert result["details"]["resolved_primitive_set"] == "structure"
-+    assert "primitive_set:" in format_simulation_report(result)
-+
-+
-+def test_image_predictor_runs_on_tiny_gradient() -> None:
-+    result = run_image_simulation("Image-predictor", "gradient", 8, 8, population_size=8, generations=4, max_index=7)
-+
-+    assert result["status"] == "ok"
-+    assert result["best_model"] == "x_ramp"
-+    assert result["details"]["residual_codec"] == "fixed_signed"
-+    assert result["details"]["raw_byte_codec"] in {"raw_bytes", "byte_rle"}
-+    assert result["preview"]["roundtrip_ok"] is True
-+
-+
- def test_gp_placeholder_returns_not_implemented() -> None:
-     result = run_image_simulation("GP", "gradient", 8, 8, population_size=8, generations=4, max_index=7)
- 
-     assert result["status"] == "not_implemented"
-+
-+
-+def test_bits_to_bytes_ceil_rounds_up() -> None:
-+    assert bits_to_bytes_ceil(0) == 0
-+    assert bits_to_bytes_ceil(8) == 1
-+    assert bits_to_bytes_ceil(9) == 2
-+
-+
-+def test_run_gray_image_simulation_accepts_external_image() -> None:
-+    image = make_gray_image("external", 4, 4, bytes(range(16)))
-+    result = run_gray_image_simulation(
-+        "GP-lite",
-+        image,
-+        population_size=8,
-+        generations=4,
-+        max_index=7,
-+    )
-+
-+    assert result["dataset_name"] == "external"
-+    assert result["image_width"] == 4
-+    assert result["image_height"] == 4
-+    assert result["details"]["raw_byte_codec"] in {"raw_bytes", "byte_rle"}
-+
-+
-+def test_law_based_preview_roundtrips_for_gplite_and_soma() -> None:
-+    gplite_result = run_image_simulation("GP-lite", "gradient", 8, 8, population_size=8, generations=4, max_index=7)
-+    soma_result = run_image_simulation("SOMA", "gradient", 8, 8, population_size=8, generations=4, max_index=7)
-+    original = make_image_dataset("gradient", 8, 8, 1234)
-+
-+    for result in (gplite_result, soma_result):
-+        preview = result["preview"]
-+        assert preview["roundtrip_ok"] is True
-+        assert preview["decoded_image"].pixels == original.pixels
-+        assert len(preview["residual_image"].pixels) == 64
-+
-+
-+def test_image_predictor_preview_roundtrips_for_gradient() -> None:
-+    result = run_image_simulation("Image-predictor", "gradient", 8, 8, population_size=8, generations=4, max_index=7)
-+    original = make_image_dataset("gradient", 8, 8, 1234)
-+    preview = result["preview"]
-+
-+    assert preview["anchor_label"] == "Predictor"
-+    assert preview["residual_label"] == "Residuals+128"
-+    assert preview["decoded_image"].pixels == original.pixels
-+
-+
-+def test_image_gplite_preview_roundtrips_for_gradient() -> None:
-+    result = run_image_simulation("Image-GP-lite", "gradient", 8, 8, population_size=8, generations=4, max_index=7)
-+    original = make_image_dataset("gradient", 8, 8, 1234)
-+    preview = result["preview"]
-+
-+    assert preview["roundtrip_ok"] is True
-+    assert preview["decoded_image"].pixels == original.pixels
-+
-+
-+def test_image_soma_preview_roundtrips_for_gradient() -> None:
-+    result = run_image_simulation("Image-SOMA", "gradient", 8, 8, population_size=8, generations=4, max_index=7)
-+    original = make_image_dataset("gradient", 8, 8, 1234)
-+    preview = result["preview"]
-+
-+    assert preview["roundtrip_ok"] is True
-+    assert preview["decoded_image"].pixels == original.pixels
+-- benchmark corpora integration
+-- general file format packaging beyond the current huge-anchor proof-of-concept
++- external benchmark corpora integration
++- entropy-backed general-purpose file compression
 ```
 
 ## 10. Test Output
 
 - Test status: `passed`
-- Test runner: `python -m pytest -q`
+- Test runner: `project virtual environment python -m pytest -q`
 
 ```text
-........................................................................ [ 26%]
-........................................................................ [ 53%]
-........................................................................ [ 80%]
-...................................................                      [100%]
-267 passed in 21.93s
+........................................................................ [ 25%]
+........................................................................ [ 51%]
+........................................................................ [ 77%]
+.............................................................            [100%]
+277 passed in 122.06s (0:02:02)
 ```
 
 ## 11. Relevant File Tree
 
-- `.gitignore` (663 bytes)
 - `AGENTS.md` (9904 bytes)
 - `AP.md` (4742 bytes)
 - `AP_WORKER.md` (15495 bytes)
-- `CHAT.md` (24560 bytes)
+- `CHAT.md` (27677 bytes)
 - `COORDINATOR_PROTOCOL.md` (4691 bytes)
-- `README.md` (11548 bytes)
 - `docs/research_plan.md` (7097 bytes)
+- `.gitignore` (663 bytes)
 - `pyproject.toml` (481 bytes)
+- `README.md` (13274 bytes)
 - `scripts/ap_chat_append.fish` (3258 bytes)
 - `scripts/ap_cycle_close.fish` (7131 bytes)
 - `scripts/ap_rpc_call.fish` (2224 bytes)
 - `scripts/ap_rpc_handle_next.fish` (2764 bytes)
 - `scripts/ap_rpc_request.fish` (2156 bytes)
 - `scripts/ap_snapshot.fish` (11453 bytes)
-- `src/PrimeSymbolicMDL.egg-info/PKG-INFO` (1598 bytes)
-- `src/PrimeSymbolicMDL.egg-info/SOURCES.txt` (629 bytes)
-- `src/PrimeSymbolicMDL.egg-info/dependency_links.txt` (1 bytes)
-- `src/PrimeSymbolicMDL.egg-info/requires.txt` (14 bytes)
-- `src/PrimeSymbolicMDL.egg-info/top_level.txt` (17 bytes)
-- `src/primesymbolicmdl/__init__.py` (188 bytes)
 - `src/primesymbolicmdl/anchor_laws.py` (6188 bytes)
 - `src/primesymbolicmdl/ap_rpc.py` (12732 bytes)
 - `src/primesymbolicmdl/bitcost.py` (4143 bytes)
 - `src/primesymbolicmdl/bitstream.py` (5249 bytes)
 - `src/primesymbolicmdl/blocks.py` (1612 bytes)
 - `src/primesymbolicmdl/codec.py` (2739 bytes)
+- `src/PrimeSymbolicMDL.egg-info/dependency_links.txt` (1 bytes)
+- `src/PrimeSymbolicMDL.egg-info/PKG-INFO` (11805 bytes)
+- `src/PrimeSymbolicMDL.egg-info/requires.txt` (14 bytes)
+- `src/PrimeSymbolicMDL.egg-info/SOURCES.txt` (3353 bytes)
+- `src/PrimeSymbolicMDL.egg-info/top_level.txt` (17 bytes)
 - `src/primesymbolicmdl/evolution.py` (11032 bytes)
 - `src/primesymbolicmdl/experiments.py` (4680 bytes)
 - `src/primesymbolicmdl/gui.py` (29699 bytes)
-- `src/primesymbolicmdl/huge_anchor_binary.py` (20537 bytes)
 - `src/primesymbolicmdl/huge_anchor_binary_demo.py` (3330 bytes)
+- `src/primesymbolicmdl/huge_anchor_binary.py` (20537 bytes)
 - `src/primesymbolicmdl/huge_anchor_branch.py` (12350 bytes)
 - `src/primesymbolicmdl/huge_anchor_datasets.py` (2697 bytes)
 - `src/primesymbolicmdl/huge_anchor_demo.py` (4000 bytes)
+- `src/primesymbolicmdl/huge_anchor_file_benchmark.py` (4369 bytes)
+- `src/primesymbolicmdl/huge_anchor_file_cli.py` (3145 bytes)
+- `src/primesymbolicmdl/huge_anchor_file.py` (5182 bytes)
 - `src/primesymbolicmdl/huge_anchor_models.py` (6808 bytes)
 - `src/primesymbolicmdl/huge_anchor_search.py` (6378 bytes)
 - `src/primesymbolicmdl/huge_blocks.py` (1722 bytes)
@@ -2224,14 +426,15 @@ index 02c1120..0f6b506 100644
 - `src/primesymbolicmdl/image_predictor_branch.py` (7406 bytes)
 - `src/primesymbolicmdl/image_predictors.py` (4121 bytes)
 - `src/primesymbolicmdl/index_branch.py` (6703 bytes)
+- `src/primesymbolicmdl/__init__.py` (188 bytes)
 - `src/primesymbolicmdl/law_demo.py` (1365 bytes)
 - `src/primesymbolicmdl/law_search.py` (11824 bytes)
-- `src/primesymbolicmdl/optimizers/__init__.py` (343 bytes)
 - `src/primesymbolicmdl/optimizers/base.py` (1133 bytes)
 - `src/primesymbolicmdl/optimizers/gplite_adapter.py` (1811 bytes)
 - `src/primesymbolicmdl/optimizers/image_gplite.py` (18472 bytes)
 - `src/primesymbolicmdl/optimizers/image_predictor.py` (3577 bytes)
 - `src/primesymbolicmdl/optimizers/image_soma.py` (19187 bytes)
+- `src/primesymbolicmdl/optimizers/__init__.py` (343 bytes)
 - `src/primesymbolicmdl/optimizers/placeholders.py` (1855 bytes)
 - `src/primesymbolicmdl/optimizers/registry.py` (1354 bytes)
 - `src/primesymbolicmdl/optimizers/soma.py` (9779 bytes)
@@ -2254,11 +457,13 @@ index 02c1120..0f6b506 100644
 - `tests/test_evolution.py` (1930 bytes)
 - `tests/test_experiments.py` (1648 bytes)
 - `tests/test_gui_import.py` (714 bytes)
-- `tests/test_huge_anchor_binary.py` (4823 bytes)
 - `tests/test_huge_anchor_binary_demo.py` (990 bytes)
+- `tests/test_huge_anchor_binary.py` (4823 bytes)
 - `tests/test_huge_anchor_branch.py` (3273 bytes)
 - `tests/test_huge_anchor_datasets.py` (828 bytes)
 - `tests/test_huge_anchor_demo.py` (811 bytes)
+- `tests/test_huge_anchor_file_benchmark.py` (995 bytes)
+- `tests/test_huge_anchor_file_cli.py` (5679 bytes)
 - `tests/test_huge_anchor_models.py` (1661 bytes)
 - `tests/test_huge_anchor_search.py` (2415 bytes)
 - `tests/test_huge_blocks.py` (1456 bytes)
@@ -2288,71 +493,6 @@ index 02c1120..0f6b506 100644
 - `tests/test_simulation.py` (5996 bytes)
 
 ## 12. Selected File Contents
-
-## File: `.gitignore`
-
-```gitignore
-# Python bytecode and caches
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Virtual environments
-.venv/
-venv/
-env/
-.env
-.env.*
-!.env.example
-
-# Test and coverage artifacts
-.pytest_cache/
-.coverage
-.coverage.*
-htmlcov/
-
-# Build and packaging artifacts
-build/
-dist/
-site/
-*.egg-info/
-.eggs/
-pip-wheel-metadata/
-
-# Tool caches
-.mypy_cache/
-.ruff_cache/
-.pyre/
-
-# Temporary files and folders
-tmp/
-temp/
-*.tmp
-*.temp
-
-# Local editor / OS files
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
-
-# Local runtime notes or scratch outputs
-*.log
-.ap/
-
-# Large generated model / array artifacts
-*.pt
-*.pth
-*.ckpt
-*.safetensors
-*.onnx
-*.gguf
-*.npy
-*.npz
-
-# Session handoff archives
-NEXT_AGENT_*.md
-```
 
 ## File: `AGENTS.md`
 
@@ -4090,6 +2230,98 @@ Files changed:
 - tests/test_sim_demo.py
 - tests/test_simulation.py
 
+## 2026-06-11T23:47:02+02:00 | role=worker
+
+Message:
+Closed session with orchestrator handoff Status note: Cycle close result: tests passed and snapshot refreshed.
+
+TLDR:
+- Added NEXT_ORCHESTRATOR.md and documented orchestrator-side continuation strategy. | Test status: passed | Snapshot status: generated
+
+Commands run:
+- python -m pytest -q
+- fish scripts/ap_snapshot.fish --run-tests
+
+Files changed:
+- .gitignore
+- AGENTS.md
+- AP.md
+- AP_ORCHESTRATOR.md
+- AP_WORKER.md
+- CHAT.md
+- COORDINATOR_PROTOCOL.md
+- NEXT_ORCHESTRATOR.md
+- README.md
+- docs/research_plan.md
+- scripts/ap_chat_append.fish
+- scripts/ap_cycle_close.fish
+- scripts/ap_rpc_call.fish
+- scripts/ap_rpc_handle_next.fish
+- scripts/ap_rpc_request.fish
+- scripts/ap_snapshot.fish
+- src/primesymbolicmdl/ap_rpc.py
+- src/primesymbolicmdl/bitstream.py
+- src/primesymbolicmdl/gui.py
+- src/primesymbolicmdl/huge_anchor_binary.py
+- src/primesymbolicmdl/huge_anchor_binary_demo.py
+- src/primesymbolicmdl/huge_anchor_branch.py
+- src/primesymbolicmdl/huge_anchor_datasets.py
+- src/primesymbolicmdl/huge_anchor_demo.py
+- src/primesymbolicmdl/huge_anchor_models.py
+- src/primesymbolicmdl/huge_anchor_search.py
+- src/primesymbolicmdl/huge_blocks.py
+- src/primesymbolicmdl/image_ablation.py
+- src/primesymbolicmdl/image_context_laws.py
+- src/primesymbolicmdl/image_datasets.py
+- src/primesymbolicmdl/image_law_branch.py
+- src/primesymbolicmdl/image_predictor_branch.py
+- src/primesymbolicmdl/image_predictors.py
+- src/primesymbolicmdl/index_branch.py
+- src/primesymbolicmdl/optimizers/base.py
+- src/primesymbolicmdl/optimizers/gplite_adapter.py
+- src/primesymbolicmdl/optimizers/image_gplite.py
+- src/primesymbolicmdl/optimizers/image_predictor.py
+- src/primesymbolicmdl/optimizers/image_soma.py
+- src/primesymbolicmdl/optimizers/registry.py
+- src/primesymbolicmdl/optimizers/soma.py
+- src/primesymbolicmdl/prime_bigint.py
+- src/primesymbolicmdl/residual_binary.py
+- src/primesymbolicmdl/residual_codecs.py
+- src/primesymbolicmdl/scaled_prime_demo.py
+- src/primesymbolicmdl/scaled_prime_index.py
+- src/primesymbolicmdl/scaled_prime_search.py
+- src/primesymbolicmdl/sim_demo.py
+- src/primesymbolicmdl/simulation.py
+- tests/test_ap_rpc.py
+- tests/test_bitstream.py
+- tests/test_gui_import.py
+- tests/test_huge_anchor_binary.py
+- tests/test_huge_anchor_binary_demo.py
+- tests/test_huge_anchor_branch.py
+- tests/test_huge_anchor_datasets.py
+- tests/test_huge_anchor_demo.py
+- tests/test_huge_anchor_models.py
+- tests/test_huge_anchor_search.py
+- tests/test_huge_blocks.py
+- tests/test_image_ablation.py
+- tests/test_image_context_laws.py
+- tests/test_image_gplite_optimizer.py
+- tests/test_image_law_branch.py
+- tests/test_image_predictor_branch.py
+- tests/test_image_predictor_optimizer.py
+- tests/test_image_predictors.py
+- tests/test_image_soma_optimizer.py
+- tests/test_index_branch.py
+- tests/test_optimizers.py
+- tests/test_prime_bigint.py
+- tests/test_residual_binary.py
+- tests/test_residual_codecs.py
+- tests/test_scaled_prime_demo.py
+- tests/test_scaled_prime_index.py
+- tests/test_scaled_prime_search.py
+- tests/test_sim_demo.py
+- tests/test_simulation.py
+
 ```
 
 ## File: `COORDINATOR_PROTOCOL.md`
@@ -4251,6 +2483,240 @@ Candidate follow-up methods:
 These should remain bounded, inspectable, and explicit about safety before any write-capable expansion is allowed.
 ```
 
+## File: `docs/research_plan.md`
+
+```markdown
+# Research Plan
+
+PrimeSymbolicMDL should advance in small, benchmarkable steps.
+
+## Roadmap
+
+1. Baseline reversible transforms
+2. Honest MDL bit accounting
+3. Prime-anchor ablations
+4. GP-lite indexed anchor law search
+5. Modular optimizer architecture
+6. GUI research cockpit
+7. Entropy coder
+8. Symbolic regression / PySR later
+9. Benchmark suite
+
+## Guardrails
+
+- Prime anchors are experimental and must compete against other anchor families.
+- Exact lossless reconstruction is mandatory for every codec path.
+- Random bytes remain a required sanity baseline.
+- "A transform is only useful if total transmitted cost is lower than fallback."
+
+## Near-Term Questions
+
+- When should anchors be transmitted directly versus as indices?
+- Which residual coding choices materially improve total cost?
+- Which structured sources, if any, benefit from prime anchors after honest accounting?
+
+## Residual Codec Layer
+
+Predictors and anchor laws create residual streams.
+
+- A residual stream should be evaluated through a shared codec layer, not hand-waved as a single hardcoded width forever.
+- The current research layer now compares small deterministic candidates such as fixed-width signed residuals and zero-run-length coding.
+- Raw-like byte streams can also be compared against a byte-RLE baseline.
+- This is still not ANS or arithmetic coding.
+- Exact roundtrip remains mandatory.
+
+## GP-lite Indexed Anchor Law Search
+
+This phase evolves small decoder-known anchor laws `A(i)` rather than only choosing from fixed hand-written anchor families.
+
+- The encoder stores index `i` plus residual.
+- The candidate law only matters when full transmitted cost beats raw fallback.
+- This branch is different from predictor-only anchors because decoding reconstructs anchors from the law and the stored index.
+- The current accounting uses a small residual codec selector baseline and still does not pretend to be entropy coding.
+- PySR and more advanced symbolic regression remain deferred until the smaller deterministic baseline is well characterized.
+
+## Scaled Prime-index Branch
+
+The original prime-index-plus-diff hypothesis now has a more explicit scaled form:
+
+```text
+x = prev_prime(index << shift) + diff
+```
+
+- Input bytes are packed into reversible big-endian Python integer blocks.
+- The branch searches a small local neighborhood around `index = x >> shift`.
+- The decoder reconstructs the prime anchor from the stored index and model parameters instead of transmitting the prime directly.
+- Full accounting still includes model bits, parameter bits, headers, per-block flags, index bits, residual payload bits, and raw escapes.
+- The current exact prime utility is deliberately limited to `width_bits <= 64`.
+- Exact arbitrary-size prime anchors are deferred until there is a credible need and a clear cost model for them.
+- A result matters only when `total_bits < raw_bits`.
+- This branch is currently evaluated through direct modules and CLI demo, not through the GUI cockpit.
+
+## Huge Anchor Portfolio
+
+The next generalization is a portfolio of anchor families over the same huge-block interface.
+
+- Every family is tested under the same exact-lossless equation: `x = anchor(index, params) + diff`.
+- `scaled_prime` becomes one candidate family, not a privileged answer.
+- Simpler families such as `linear_shift`, `affine_shift`, `multiple`, and `square` can beat the prime family, and that is a meaningful result.
+- Synthetic generated wins validate the mechanism and the accounting pipeline, not universal compression.
+- Random-byte sanity remains required because a branch that loses on random data is behaving normally.
+- The actual research goal remains the same: find cases where full transmitted cost beats raw storage honestly.
+
+## Huge-anchor Binary Proof-of-concept
+
+The next checkpoint after estimated accounting is an actual binary payload.
+
+- Estimated `total_bits` remain useful for model search, ranking, and quick ablations.
+- Actual `compressed_bytes` are stronger evidence because they include real container overhead and real byte alignment.
+- A synthetic actual-byte win only proves that the mechanism can emit a smaller exact-lossless blob for data generated by a compatible anchor family.
+- Random-byte sanity remains required. A binary loss on random data is expected behavior, not a bug.
+- This proof-of-concept is intentionally narrow and stdlib-only. It is not yet a general file compression format.
+
+## Actual-size Reranking
+
+The next refinement is to stop trusting estimated search ranking as the final answer.
+
+- Estimated accounting is still the right fast heuristic for broad candidate search.
+- Actual-size reranking serializes the top estimated candidates and chooses by real `compressed_bytes`.
+- This catches cases where estimated wins disappear once container overhead is counted honestly.
+- Actual byte measurement is therefore the stronger compression signal for the binary path.
+
+## Optimizer Architecture
+
+The optimizer layer now separates the research harness into pluggable strategies.
+
+- GP-lite searches tiny expression trees.
+- SOMA tunes continuous parameters of small affine and quadratic anchor-law families.
+- Image-GP-lite searches tiny expression trees over decoder-known 2D pixel context.
+- Image-SOMA tunes a fixed-point linear predictor over decoder-known 2D pixel context.
+- Future GP will target richer tree and topology search.
+- Future ADAM will target differentiable parameter tuning.
+
+All of them are measured against the same honest bit accounting. A candidate matters only when full transmitted cost beats raw fallback.
+
+## Image-aware Search Optimizers
+
+The current image research branch now has three distinct roles:
+
+- `Image-predictor` is the fair manual baseline.
+- `Image-GP-lite` explores small context laws over `left`, `up`, `up_left`, and simple ramps.
+- `Image-SOMA` explores fixed-point linear combinations of the same decoder-known context.
+
+All three branches share the same residual codec layer. A synthetic dataset win is only interesting when the full transmitted cost beats raw fallback, and it is still not evidence of universal compression.
+
+## Image-GP-lite Primitive Ablations
+
+The image GP branch now needs explicit primitive-set reporting:
+
+- `local` means only decoder-known neighborhood context.
+- `ramp` means local context plus procedural coordinate ramps.
+- `structure` means ramp context plus explicit block/parity primitives.
+
+These primitive sets are intentionally not equivalent. A checker-like win under `structure` is a valid primitive baseline, but it must not be confused with a win discovered from purely local context. Benchmarks without the primitive set label are incomplete.
+
+## GUI Research Cockpit
+
+The first GUI is intentionally narrow and uses generated grayscale images as a headless-friendly simulation target.
+
+- Image simulation is not final file compression.
+- The GUI is a cockpit for optimizer comparison, not a claim of general compression performance.
+- Estimated bit accounting now includes a small residual codec selector baseline and entropy coding remains deferred.
+```
+
+## File: `.gitignore`
+
+```gitignore
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build and packaging artifacts
+build/
+dist/
+site/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Tool caches
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# Temporary files and folders
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Local editor / OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local runtime notes or scratch outputs
+*.log
+.ap/
+
+# Large generated model / array artifacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.gguf
+*.npy
+*.npz
+
+# Session handoff archives
+NEXT_AGENT_*.md
+```
+
+## File: `pyproject.toml`
+
+```toml
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PrimeSymbolicMDL"
+version = "0.1.0"
+description = "Experimental MDL-guided anchor-and-residual compression harness."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+```
+
 ## File: `README.md`
 
 ```markdown
@@ -4279,6 +2745,8 @@ This repository is for honest measurement, not compression hype. A transform is 
 - a modular optimizer registry with GP-lite, SOMA, and honest placeholders
 - a shared residual codec layer with fixed-width, zero-RLE, and byte-RLE research baselines
 - an experimental huge-anchor binary bitstream container with exact byte-length measurement
+- a `.psmdl` file CLI for huge-anchor compression and decompression
+- a deterministic in-repo file benchmark for actual `.psmdl` byte sizes
 - a small Tkinter research cockpit for grayscale image simulations
 - pytest coverage for round-trip and random-data sanity checks
 
@@ -4336,6 +2804,56 @@ Estimated MDL accounting remains the fast search heuristic, but it is no longer 
 - This makes container overhead visible instead of assumed away.
 - An estimated win can still become `raw_fallback` after real byte serialization.
 - Actual compressed bytes are the stronger evidence because they include headers, alignment, and real residual payload size.
+
+## PSMDL File CLI
+
+The repository includes a small file CLI for the huge-anchor binary path.
+
+This is **not** a general-purpose compressor. It is a research file interface for exact-lossless experiments with honest actual-byte reporting.
+
+Compress:
+
+```fish
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli compress --input in.bin --output out.psmdl --width-bits 32
+```
+
+Decompress:
+
+```fish
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_cli decompress --input out.psmdl --output restored.bin
+```
+
+Optional strict mode:
+
+```fish
+... --require-compression
+```
+
+If the huge-anchor blob is not smaller than the raw input, `--require-compression` refuses to write output.
+
+### File formats
+
+- `PSMDLHA1` = actual huge-anchor compressed payload
+- `PSMDLRAW1` = raw fallback wrapper used when huge-anchor compression does not beat raw bytes
+
+Default behavior stores a safe raw fallback when compression does not win. That keeps exact roundtrip, but the `.psmdl` file can be **larger** than the original input because of container overhead.
+
+### In-repo benchmark summary
+
+Deterministic benchmark command:
+
+```fish
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark
+```
+
+Current honest results from the in-repo set:
+
+- random bytes: raw fallback
+- repeating pattern: raw fallback
+- small repo text/source files (`README.md`, `AGENTS.md`, Python source): raw fallback
+- `square_generated_64`: synthetic actual win, `256 B -> 49 B`
+
+Synthetic wins validate the exact mechanism only. They are not evidence of universal compression.
 
 ## Residual Codec Layer
 
@@ -4513,177 +3031,8 @@ This version does not yet implement:
 
 - entropy coding
 - heavy symbolic regression search
-- benchmark corpora integration
-- general file format packaging beyond the current huge-anchor proof-of-concept
-```
-
-## File: `docs/research_plan.md`
-
-```markdown
-# Research Plan
-
-PrimeSymbolicMDL should advance in small, benchmarkable steps.
-
-## Roadmap
-
-1. Baseline reversible transforms
-2. Honest MDL bit accounting
-3. Prime-anchor ablations
-4. GP-lite indexed anchor law search
-5. Modular optimizer architecture
-6. GUI research cockpit
-7. Entropy coder
-8. Symbolic regression / PySR later
-9. Benchmark suite
-
-## Guardrails
-
-- Prime anchors are experimental and must compete against other anchor families.
-- Exact lossless reconstruction is mandatory for every codec path.
-- Random bytes remain a required sanity baseline.
-- "A transform is only useful if total transmitted cost is lower than fallback."
-
-## Near-Term Questions
-
-- When should anchors be transmitted directly versus as indices?
-- Which residual coding choices materially improve total cost?
-- Which structured sources, if any, benefit from prime anchors after honest accounting?
-
-## Residual Codec Layer
-
-Predictors and anchor laws create residual streams.
-
-- A residual stream should be evaluated through a shared codec layer, not hand-waved as a single hardcoded width forever.
-- The current research layer now compares small deterministic candidates such as fixed-width signed residuals and zero-run-length coding.
-- Raw-like byte streams can also be compared against a byte-RLE baseline.
-- This is still not ANS or arithmetic coding.
-- Exact roundtrip remains mandatory.
-
-## GP-lite Indexed Anchor Law Search
-
-This phase evolves small decoder-known anchor laws `A(i)` rather than only choosing from fixed hand-written anchor families.
-
-- The encoder stores index `i` plus residual.
-- The candidate law only matters when full transmitted cost beats raw fallback.
-- This branch is different from predictor-only anchors because decoding reconstructs anchors from the law and the stored index.
-- The current accounting uses a small residual codec selector baseline and still does not pretend to be entropy coding.
-- PySR and more advanced symbolic regression remain deferred until the smaller deterministic baseline is well characterized.
-
-## Scaled Prime-index Branch
-
-The original prime-index-plus-diff hypothesis now has a more explicit scaled form:
-
-```text
-x = prev_prime(index << shift) + diff
-```
-
-- Input bytes are packed into reversible big-endian Python integer blocks.
-- The branch searches a small local neighborhood around `index = x >> shift`.
-- The decoder reconstructs the prime anchor from the stored index and model parameters instead of transmitting the prime directly.
-- Full accounting still includes model bits, parameter bits, headers, per-block flags, index bits, residual payload bits, and raw escapes.
-- The current exact prime utility is deliberately limited to `width_bits <= 64`.
-- Exact arbitrary-size prime anchors are deferred until there is a credible need and a clear cost model for them.
-- A result matters only when `total_bits < raw_bits`.
-- This branch is currently evaluated through direct modules and CLI demo, not through the GUI cockpit.
-
-## Huge Anchor Portfolio
-
-The next generalization is a portfolio of anchor families over the same huge-block interface.
-
-- Every family is tested under the same exact-lossless equation: `x = anchor(index, params) + diff`.
-- `scaled_prime` becomes one candidate family, not a privileged answer.
-- Simpler families such as `linear_shift`, `affine_shift`, `multiple`, and `square` can beat the prime family, and that is a meaningful result.
-- Synthetic generated wins validate the mechanism and the accounting pipeline, not universal compression.
-- Random-byte sanity remains required because a branch that loses on random data is behaving normally.
-- The actual research goal remains the same: find cases where full transmitted cost beats raw storage honestly.
-
-## Huge-anchor Binary Proof-of-concept
-
-The next checkpoint after estimated accounting is an actual binary payload.
-
-- Estimated `total_bits` remain useful for model search, ranking, and quick ablations.
-- Actual `compressed_bytes` are stronger evidence because they include real container overhead and real byte alignment.
-- A synthetic actual-byte win only proves that the mechanism can emit a smaller exact-lossless blob for data generated by a compatible anchor family.
-- Random-byte sanity remains required. A binary loss on random data is expected behavior, not a bug.
-- This proof-of-concept is intentionally narrow and stdlib-only. It is not yet a general file compression format.
-
-## Actual-size Reranking
-
-The next refinement is to stop trusting estimated search ranking as the final answer.
-
-- Estimated accounting is still the right fast heuristic for broad candidate search.
-- Actual-size reranking serializes the top estimated candidates and chooses by real `compressed_bytes`.
-- This catches cases where estimated wins disappear once container overhead is counted honestly.
-- Actual byte measurement is therefore the stronger compression signal for the binary path.
-
-## Optimizer Architecture
-
-The optimizer layer now separates the research harness into pluggable strategies.
-
-- GP-lite searches tiny expression trees.
-- SOMA tunes continuous parameters of small affine and quadratic anchor-law families.
-- Image-GP-lite searches tiny expression trees over decoder-known 2D pixel context.
-- Image-SOMA tunes a fixed-point linear predictor over decoder-known 2D pixel context.
-- Future GP will target richer tree and topology search.
-- Future ADAM will target differentiable parameter tuning.
-
-All of them are measured against the same honest bit accounting. A candidate matters only when full transmitted cost beats raw fallback.
-
-## Image-aware Search Optimizers
-
-The current image research branch now has three distinct roles:
-
-- `Image-predictor` is the fair manual baseline.
-- `Image-GP-lite` explores small context laws over `left`, `up`, `up_left`, and simple ramps.
-- `Image-SOMA` explores fixed-point linear combinations of the same decoder-known context.
-
-All three branches share the same residual codec layer. A synthetic dataset win is only interesting when the full transmitted cost beats raw fallback, and it is still not evidence of universal compression.
-
-## Image-GP-lite Primitive Ablations
-
-The image GP branch now needs explicit primitive-set reporting:
-
-- `local` means only decoder-known neighborhood context.
-- `ramp` means local context plus procedural coordinate ramps.
-- `structure` means ramp context plus explicit block/parity primitives.
-
-These primitive sets are intentionally not equivalent. A checker-like win under `structure` is a valid primitive baseline, but it must not be confused with a win discovered from purely local context. Benchmarks without the primitive set label are incomplete.
-
-## GUI Research Cockpit
-
-The first GUI is intentionally narrow and uses generated grayscale images as a headless-friendly simulation target.
-
-- Image simulation is not final file compression.
-- The GUI is a cockpit for optimizer comparison, not a claim of general compression performance.
-- Estimated bit accounting now includes a small residual codec selector baseline and entropy coding remains deferred.
-```
-
-## File: `pyproject.toml`
-
-```toml
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "PrimeSymbolicMDL"
-version = "0.1.0"
-description = "Experimental MDL-guided anchor-and-residual compression harness."
-readme = "README.md"
-requires-python = ">=3.10"
-dependencies = []
-
-[project.optional-dependencies]
-dev = ["pytest"]
-
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
+- external benchmark corpora integration
+- entropy-backed general-purpose file compression
 ```
 
 ## File: `scripts/ap_chat_append.fish`
@@ -5776,120 +4125,6 @@ end
 rm -rf $TMP_DIR
 ```
 
-## File: `src/PrimeSymbolicMDL.egg-info/PKG-INFO`
-
-```text
-Metadata-Version: 2.4
-Name: PrimeSymbolicMDL
-Version: 0.1.0
-Summary: Experimental MDL-guided anchor-and-residual compression harness.
-Requires-Python: >=3.10
-Description-Content-Type: text/markdown
-Provides-Extra: dev
-Requires-Dist: pytest; extra == "dev"
-
-# PrimeSymbolicMDL
-
-PrimeSymbolicMDL is an experimental research harness for lossless compression built around MDL-guided anchor-and-residual coding.
-
-The current `v0` milestone is intentionally conservative:
-
-- it is deterministic and exactly reversible
-- it treats prime anchors as one candidate transform family
-- it falls back to raw storage when the prime-anchor branch is not cheaper
-- it does not yet include entropy coding
-- it does not yet include symbolic regression
-
-This repository is for honest measurement, not compression hype. A transform is only interesting if its full transmitted cost is lower than the fallback after counting metadata, model choices, and residuals.
-
-## Current Components
-
-- fixed-width block packing for 8, 16, 24, and 32 bit blocks
-- prime anchor helpers
-- simple experimental bit-cost accounting
-- a reversible research payload for raw and prime-anchor branches
-- pytest coverage for round-trip and random-data sanity checks
-
-## Run Tests
-
-```bash
-python -m pytest -q
-```
-
-## Development Setup
-
-```bash
-python -m venv .venv
-source .venv/bin/activate.fish
-python -m pip install -U pip
-python -m pip install -e ".[dev]"
-python -m pytest -q
-```
-
-## Status
-
-This version does not yet implement:
-
-- entropy coding
-- symbolic regression search
-- benchmark corpora integration
-- binary file format packaging
-```
-
-## File: `src/PrimeSymbolicMDL.egg-info/SOURCES.txt`
-
-```text
-README.md
-pyproject.toml
-src/PrimeSymbolicMDL.egg-info/PKG-INFO
-src/PrimeSymbolicMDL.egg-info/SOURCES.txt
-src/PrimeSymbolicMDL.egg-info/dependency_links.txt
-src/PrimeSymbolicMDL.egg-info/requires.txt
-src/PrimeSymbolicMDL.egg-info/top_level.txt
-src/primesymbolicmdl/__init__.py
-src/primesymbolicmdl/bitcost.py
-src/primesymbolicmdl/blocks.py
-src/primesymbolicmdl/codec.py
-src/primesymbolicmdl/experiments.py
-src/primesymbolicmdl/prime_anchors.py
-tests/test_bitcost.py
-tests/test_blocks.py
-tests/test_codec_roundtrip.py
-tests/test_experiments.py
-tests/test_prime_anchors.py
-tests/test_random_sanity.py
-tests/test_repository_rules.py```
-
-## File: `src/PrimeSymbolicMDL.egg-info/dependency_links.txt`
-
-```text
-
-```
-
-## File: `src/PrimeSymbolicMDL.egg-info/requires.txt`
-
-```text
-
-[dev]
-pytest
-```
-
-## File: `src/PrimeSymbolicMDL.egg-info/top_level.txt`
-
-```text
-primesymbolicmdl
-```
-
-## File: `src/primesymbolicmdl/__init__.py`
-
-```python
-"""Minimalny verejny povrch pre experimentalny codec."""
-
-from .codec import compress_experimental, decompress_experimental
-
-__all__ = ["compress_experimental", "decompress_experimental"]
-```
-
 ## File: `src/primesymbolicmdl/anchor_laws.py`
 
 ```python
@@ -6919,6 +5154,401 @@ def decompress_experimental(payload: dict) -> bytes:
         return uint_blocks_to_bytes(blocks, width_bits, original_size)
 
     raise ValueError(f"Unsupported codec: {codec}")
+```
+
+## File: `src/PrimeSymbolicMDL.egg-info/dependency_links.txt`
+
+```text
+
+```
+
+## File: `src/PrimeSymbolicMDL.egg-info/PKG-INFO`
+
+```text
+Metadata-Version: 2.4
+Name: PrimeSymbolicMDL
+Version: 0.1.0
+Summary: Experimental MDL-guided anchor-and-residual compression harness.
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+
+# PrimeSymbolicMDL
+
+PrimeSymbolicMDL is an experimental research harness for lossless compression built around MDL-guided anchor-and-residual coding.
+
+The current `v0` milestone is intentionally conservative:
+
+- it is deterministic and exactly reversible
+- it treats prime anchors as one candidate transform family
+- it falls back to raw storage when the prime-anchor branch is not cheaper
+- it does not yet include entropy coding
+- it does not yet include symbolic regression
+
+This repository is for honest measurement, not compression hype. A transform is only interesting if its full transmitted cost is lower than the fallback after counting metadata, model choices, and residuals.
+
+## Current Components
+
+- fixed-width block packing for 8, 16, 24, and 32 bit blocks
+- prime anchor helpers
+- simple experimental bit-cost accounting
+- a reversible research payload for raw and prime-anchor branches
+- a small deterministic evolutionary search over indexed anchor families
+- a GP-lite indexed anchor law search over tiny expression trees
+- a modular optimizer registry with GP-lite, SOMA, and honest placeholders
+- a shared residual codec layer with fixed-width, zero-RLE, and byte-RLE research baselines
+- an experimental huge-anchor binary bitstream container with exact byte-length measurement
+- a small Tkinter research cockpit for grayscale image simulations
+- pytest coverage for round-trip and random-data sanity checks
+
+## GP-lite Indexed Anchor Law Search
+
+The new GP-lite branch evolves decoder-known anchor laws `A(i)`.
+
+- The encoder stores an index `i` plus a residual `x - A(i)`.
+- The law is only useful if total transmitted bits beat raw fallback.
+- This is different from a predictor-only model because the decoder reconstructs anchors from the transmitted index and the law tree.
+- The current cost model uses fixed-width index accounting and a small residual codec selector baseline.
+- Entropy coding, PySR, and heavier symbolic regression remain intentionally deferred.
+
+## Scaled Prime-index Branch
+
+The repository now also includes a scaled prime-index experiment over larger Python integer blocks.
+
+- Bytes can be packed into big-endian Python integer blocks up to 128 bits for reversible block experiments.
+- The current exact prime-anchor branch is intentionally limited to `width_bits <= 64`.
+- The model tries `x = prev_prime(index << shift) + diff`.
+- In this construction, `index` is smaller than the original block value and the decoder reconstructs the prime anchor from `index` and `shift`.
+- The model only matters when the full transmitted cost of flags, indices, residual payload, escapes, headers, and model parameters beats raw storage.
+- Arbitrary-size exact prime search is deferred. This branch does not fake primality above 64-bit integers.
+- Random data is expected to often lose against raw storage, and that is an honest result.
+- This branch currently ships as a CLI and testable module, not yet as a GUI-integrated optimizer.
+
+## Huge Anchor Portfolio
+
+The huge anchor portfolio generalizes the scaled prime-index branch into a broader family benchmark.
+
+- Each family tests the same idea: `x = anchor(index, params) + diff`.
+- `scaled_prime` is only one family inside that larger search space.
+- Other current families include `linear_shift`, `affine_shift`, `multiple`, and `square`.
+- If a simpler family beats `scaled_prime`, that is important evidence against prime-anchor special pleading.
+- Synthetic wins are useful because they validate the exact-lossless mechanism and full accounting, not because they prove universal compression.
+- Random-byte sanity remains mandatory.
+- The real result only matters when total transmitted bits beat raw storage after counting model, parameter, header, flag, index, residual, and escape costs.
+
+## Huge-anchor Binary Proof-of-concept
+
+The repository now also includes a first real binary container for huge-anchor payloads.
+
+- Earlier huge-anchor experiments used exact research payloads plus estimated bit accounting.
+- The new container produces real `compressed_bytes` and therefore real `actual_bits = len(blob) * 8`.
+- A synthetic win now means more than a promising estimate: the branch can emit a smaller exact-decodable blob for structure-compatible generated data.
+- Random-byte sanity remains mandatory. If the binary container loses to raw bytes, that is the correct result.
+- This is still not a universal file compressor. It is a narrow proof that one exact binary huge-anchor path can sometimes beat raw bytes on favorable synthetic data.
+
+## Actual-size Reranking
+
+Estimated MDL accounting remains the fast search heuristic, but it is no longer the final judge for the binary huge-anchor path.
+
+- The search still finds promising candidates by estimated `total_bits`.
+- The binary stage now serializes the top `N` estimated candidates and reranks them by real `compressed_bytes`.
+- This makes container overhead visible instead of assumed away.
+- An estimated win can still become `raw_fallback` after real byte serialization.
+- Actual compressed bytes are the stronger evidence because they include headers, alignment, and real residual payload size.
+
+## Residual Codec Layer
+
+Predictors and anchor laws both create a residual stream:
+
+```text
+x = predicted_or_anchor + residual
+```
+
+This repository now includes a small shared residual codec layer so different branches can compare against the same residual backend.
+
+- `fixed_signed` is the deterministic fixed-width signed baseline.
+- `zero_rle` is a deterministic zero-run-length baseline for residual streams with many zeros.
+- `byte_rle` is a raw-like baseline for repeated pixel bytes.
+- `raw_bytes` remains the honest fallback baseline for byte streams.
+
+This is still not ANS or arithmetic coding. Entropy coding remains deferred. Exact roundtrip remains mandatory for any branch that claims decode support.
+
+## Optimizer Architecture
+
+The repository now exposes a small optimizer registry with seven visible choices:
+
+- `GP-lite`: the existing tree-based indexed anchor-law search
+- `SOMA`: a small continuous-parameter migration optimizer over affine and quadratic anchor laws
+- `GP`: an honest placeholder for future richer topology search
+- `ADAM`: an honest placeholder for future differentiable parameter tuning
+- `Image-predictor`: a deterministic 2D grayscale predictor baseline with exact residual roundtrip
+- `Image-GP-lite`: a deterministic expression-tree search over 2D pixel context
+- `Image-SOMA`: a deterministic fixed-point linear search over 2D pixel context
+
+All optimizers are judged by the same idea: the result only matters if `total_bits < raw_bits` after counting model, parameter, index, residual, flag, header, and escape costs.
+
+## Image-aware Search Optimizers
+
+The repository now separates a fair manual baseline from two image-aware search branches:
+
+- `Image-predictor` is the manual baseline over small decoder-known 2D predictors.
+- `Image-GP-lite` searches tiny expression trees over decoder-known pixel context.
+- `Image-SOMA` tunes a fixed-point linear predictor over decoder-known pixel context.
+- All three reuse the same shared residual codec layer.
+- A result only matters if `total_bits < raw_bits`.
+- Synthetic gradients, checkerboards, and ramps are useful for deterministic debugging, not as proof of universal compression.
+
+## Image-GP-lite Primitive Ablations
+
+`Image-GP-lite` can now be run with explicit primitive sets:
+
+- `local` uses only decoder-known neighborhood context such as `left`, `up`, and `up_left`.
+- `ramp` adds procedural coordinate ramps such as `x_ramp`, `y_ramp`, and `diag_ramp`.
+- `structure` adds block/parity primitives intended for checker-like and piecewise structure baselines.
+
+Important interpretation rules:
+
+- `checker_parity` wins are valid only as explicit primitive baselines, not as evidence that the search discovered a universal image law.
+- Ablation reports must include the primitive set name or they are not comparable.
+- Synthetic wins still need the same `total_bits < raw_bits` accounting rule as every other branch.
+
+## GUI Research Cockpit
+
+The first GUI is a stdlib Tkinter cockpit focused on generated grayscale image simulations.
+
+- It lets you choose an optimizer and a tiny image dataset.
+- It reports raw size in bits and estimated transmitted size in bits.
+- It can also report which residual codec or raw-byte baseline won under the current accounting.
+- It is a research UI, not a final file compressor.
+- Estimated bit accounting now includes a small residual codec selector, but entropy coding is still deferred.
+
+## Analytic Coding Snapshots
+
+Use the fish snapshot helper to generate an agent-readable repository state:
+
+```fish
+fish scripts/ap_snapshot.fish
+fish scripts/ap_snapshot.fish --run-tests
+```
+
+This generates:
+
+- `BRAIN.md`
+- `BOOT.md`
+
+These files are intended for orchestration and repository-state handoff, not as proof of compression quality.
+
+## Analytic Programming / Analytic Coding
+
+Recommended interactive fish workflow:
+
+```fish
+source .venv/bin/activate.fish
+```
+
+Core AP commands:
+
+```fish
+fish scripts/ap_snapshot.fish --run-tests
+fish scripts/ap_chat_append.fish --role worker --message "..." --tldr "..."
+fish scripts/ap_cycle_close.fish --message "..." --tldr "..."
+```
+
+AP artifact roles:
+
+- `AP.md` is the system-wide protocol.
+- `COORDINATOR_PROTOCOL.md` extends AP with file-based RPC.
+- `AP_ORCHESTRATOR.md` explains the orchestrator-side discipline.
+- `AP_WORKER.md` is the Worker doctrine.
+- `NEXT_ORCHESTRATOR.md` is the strategic handoff for the next Orchestrator.
+- `BRAIN.md` and `BOOT.md` are generated repository snapshots.
+
+## Coordinator Protocol
+
+Coordinator Protocol is a file-based, repo-centered RPC proof of concept for `COOPERATOR`, `ORCHESTRATOR`, and `WORKER`.
+
+- The repository remains the source of truth.
+- `BRAIN.md` and `BOOT.md` remain broad snapshots.
+- `CHAT.md` remains the append-only coordination ledger.
+- RPC is the narrow lane for targeted status and file requests.
+- This means the Orchestrator does not always need the whole diff when it only needs one file or one status view.
+- The Orchestrator should request exact repo information via RPC instead of guessing from partial context.
+- The default RPC surface is read-only and preserves the same safety model: no secrets access, no network dependency, and no git write commands.
+- A continuation session should ideally start with `NEXT_ORCHESTRATOR.md` and `NEXT_AGENT.md`.
+
+RPC commands:
+
+```fish
+fish scripts/ap_rpc_call.fish --method repo.status
+fish scripts/ap_rpc_call.fish --method repo.get_file --path AP.md
+fish scripts/ap_rpc_request.fish --method repo.get_file --path src/primesymbolicmdl/simulation.py
+fish scripts/ap_rpc_handle_next.fish
+```
+
+Scaled-prime demo command:
+
+```bash
+python -m primesymbolicmdl.scaled_prime_demo
+```
+
+Huge-anchor portfolio demo command:
+
+```bash
+python -m primesymbolicmdl.huge_anchor_demo
+```
+
+Huge-anchor binary demo command:
+
+```bash
+python -m primesymbolicmdl.huge_anchor_binary_demo
+```
+
+## Run Tests
+
+```bash
+python -m pytest -q
+```
+
+## Run Demos
+
+```bash
+python -m primesymbolicmdl.sim_demo
+python -m primesymbolicmdl.gui
+```
+
+## Development Setup
+
+```bash
+python -m venv .venv
+source .venv/bin/activate.fish
+python -m pip install -U pip
+python -m pip install -e ".[dev]"
+python -m pytest -q
+```
+
+## Status
+
+This version does not yet implement:
+
+- entropy coding
+- heavy symbolic regression search
+- benchmark corpora integration
+- general file format packaging beyond the current huge-anchor proof-of-concept
+```
+
+## File: `src/PrimeSymbolicMDL.egg-info/requires.txt`
+
+```text
+
+[dev]
+pytest
+```
+
+## File: `src/PrimeSymbolicMDL.egg-info/SOURCES.txt`
+
+```text
+README.md
+pyproject.toml
+src/PrimeSymbolicMDL.egg-info/PKG-INFO
+src/PrimeSymbolicMDL.egg-info/SOURCES.txt
+src/PrimeSymbolicMDL.egg-info/dependency_links.txt
+src/PrimeSymbolicMDL.egg-info/requires.txt
+src/PrimeSymbolicMDL.egg-info/top_level.txt
+src/primesymbolicmdl/__init__.py
+src/primesymbolicmdl/anchor_laws.py
+src/primesymbolicmdl/ap_rpc.py
+src/primesymbolicmdl/bitcost.py
+src/primesymbolicmdl/bitstream.py
+src/primesymbolicmdl/blocks.py
+src/primesymbolicmdl/codec.py
+src/primesymbolicmdl/evolution.py
+src/primesymbolicmdl/experiments.py
+src/primesymbolicmdl/gui.py
+src/primesymbolicmdl/huge_anchor_binary.py
+src/primesymbolicmdl/huge_anchor_binary_demo.py
+src/primesymbolicmdl/huge_anchor_branch.py
+src/primesymbolicmdl/huge_anchor_datasets.py
+src/primesymbolicmdl/huge_anchor_demo.py
+src/primesymbolicmdl/huge_anchor_file.py
+src/primesymbolicmdl/huge_anchor_file_cli.py
+src/primesymbolicmdl/huge_anchor_models.py
+src/primesymbolicmdl/huge_anchor_search.py
+src/primesymbolicmdl/huge_blocks.py
+src/primesymbolicmdl/image_ablation.py
+src/primesymbolicmdl/image_context_laws.py
+src/primesymbolicmdl/image_datasets.py
+src/primesymbolicmdl/image_law_branch.py
+src/primesymbolicmdl/image_predictor_branch.py
+src/primesymbolicmdl/image_predictors.py
+src/primesymbolicmdl/index_branch.py
+src/primesymbolicmdl/law_demo.py
+src/primesymbolicmdl/law_search.py
+src/primesymbolicmdl/prime_anchors.py
+src/primesymbolicmdl/prime_bigint.py
+src/primesymbolicmdl/residual_binary.py
+src/primesymbolicmdl/residual_codecs.py
+src/primesymbolicmdl/scaled_prime_demo.py
+src/primesymbolicmdl/scaled_prime_index.py
+src/primesymbolicmdl/scaled_prime_search.py
+src/primesymbolicmdl/sim_demo.py
+src/primesymbolicmdl/simulation.py
+src/primesymbolicmdl/optimizers/__init__.py
+src/primesymbolicmdl/optimizers/base.py
+src/primesymbolicmdl/optimizers/gplite_adapter.py
+src/primesymbolicmdl/optimizers/image_gplite.py
+src/primesymbolicmdl/optimizers/image_predictor.py
+src/primesymbolicmdl/optimizers/image_soma.py
+src/primesymbolicmdl/optimizers/placeholders.py
+src/primesymbolicmdl/optimizers/registry.py
+src/primesymbolicmdl/optimizers/soma.py
+tests/test_anchor_laws.py
+tests/test_ap_rpc.py
+tests/test_bitcost.py
+tests/test_bitstream.py
+tests/test_blocks.py
+tests/test_codec_roundtrip.py
+tests/test_evolution.py
+tests/test_experiments.py
+tests/test_gui_import.py
+tests/test_huge_anchor_binary.py
+tests/test_huge_anchor_binary_demo.py
+tests/test_huge_anchor_branch.py
+tests/test_huge_anchor_datasets.py
+tests/test_huge_anchor_demo.py
+tests/test_huge_anchor_file_cli.py
+tests/test_huge_anchor_models.py
+tests/test_huge_anchor_search.py
+tests/test_huge_blocks.py
+tests/test_image_ablation.py
+tests/test_image_context_laws.py
+tests/test_image_datasets.py
+tests/test_image_gplite_optimizer.py
+tests/test_image_law_branch.py
+tests/test_image_predictor_branch.py
+tests/test_image_predictor_optimizer.py
+tests/test_image_predictors.py
+tests/test_image_soma_optimizer.py
+tests/test_index_branch.py
+tests/test_law_demo.py
+tests/test_law_search.py
+tests/test_optimizers.py
+tests/test_prime_anchors.py
+tests/test_prime_bigint.py
+tests/test_random_sanity.py
+tests/test_repository_rules.py
+tests/test_residual_binary.py
+tests/test_residual_codecs.py
+tests/test_scaled_prime_demo.py
+tests/test_scaled_prime_index.py
+tests/test_scaled_prime_search.py
+tests/test_sim_demo.py
+tests/test_simulation.py```
+
+## File: `src/PrimeSymbolicMDL.egg-info/top_level.txt`
+
+```text
+primesymbolicmdl
 ```
 
 ## File: `src/primesymbolicmdl/evolution.py`
@@ -8149,6 +6779,95 @@ if __name__ == "__main__":
     main()
 ```
 
+## File: `src/primesymbolicmdl/huge_anchor_binary_demo.py`
+
+```python
+"""CLI demo pre skutocne huge-anchor binarne payloady."""
+
+from __future__ import annotations
+
+from .huge_anchor_binary import compress_best_huge_anchor_binary
+from .huge_anchor_datasets import make_huge_anchor_dataset
+
+
+def run_demo() -> list[dict]:
+    """Spusti malu deterministicku sadu benchmarkov nad binarnym kontajnerom."""
+
+    datasets = (
+        "linear_shift_generated",
+        "square_generated",
+        "multiple_generated",
+        "random_bytes",
+        "ascii_small",
+        "repeating_pattern",
+    )
+    widths = (16, 32, 64)
+
+    results: list[dict] = []
+    for dataset_name in datasets:
+        for width_bits in widths:
+            data = make_huge_anchor_dataset(dataset_name, width_bits, count=32, seed=1234)
+            result = compress_best_huge_anchor_binary(data, width_bits=width_bits, allow_raw_fallback=True)
+            results.append(
+                {
+                    "dataset": dataset_name,
+                    **result,
+                }
+            )
+    return results
+
+
+def format_huge_anchor_binary_result(result: dict) -> str:
+    """Vrati stabilny textovy report jedneho binarneho benchmarku."""
+
+    lines = [
+        f"dataset: {result['dataset']}",
+        f"width_bits: {result['width_bits']}",
+        f"estimated_best_model: {result['estimated_best_model_string']} radius={result['estimated_best_search_radius']}",
+        f"actual_best_model: {result['best_model_string']} radius={result['search_radius']}",
+        f"actual_rerank_changed_winner: {result['actual_rerank_changed_winner']}",
+        f"actual_rerank_top_n: {result['actual_rerank_top_n']}",
+        f"raw_bytes: {result['raw_bytes']}",
+        f"compressed_bytes: {result['compressed_bytes']}",
+        f"raw_bits: {result['raw_bits']}",
+        f"actual_bits: {result['actual_bits']}",
+        f"actual_best_estimated_total_bits: {result['estimated_total_bits']}",
+        f"estimated_best_total_bits: {result['estimated_best_total_bits']}",
+        f"actual_saving_bytes: {result['actual_saving_bytes']}",
+        f"actual_saving_bits: {result['actual_saving_bits']}",
+        f"roundtrip_ok: {result['roundtrip_ok']}",
+        f"decision: {result['decision']}",
+        f"estimated_decision: {result['estimated_decision']}",
+        f"residual_codec: {result['residual_codec']}",
+        f"escape_count: {result['escape_count']}",
+        "actual_top_3_candidates:",
+    ]
+    for index, candidate in enumerate(result["actual_rerank_candidates"][:3], start=1):
+        if candidate["status"] == "ok":
+            lines.append(
+                f"{index}. {candidate['model']} radius={candidate['search_radius']} compressed_bytes={candidate['compressed_bytes']} "
+                f"actual_bits={candidate['actual_bits']} estimated_total_bits={candidate['estimated_total_bits']} decision={candidate['decision']}"
+            )
+            continue
+        lines.append(
+            f"{index}. {candidate['model']} radius={candidate['search_radius']} status=error error={candidate.get('error', 'unknown')}"
+        )
+    return "\n".join(lines)
+
+
+def main() -> None:
+    """Vypise binarny huge-anchor report do stdout."""
+
+    for index, result in enumerate(run_demo()):
+        if index:
+            print()
+        print(format_huge_anchor_binary_result(result))
+
+
+if __name__ == "__main__":
+    main()
+```
+
 ## File: `src/primesymbolicmdl/huge_anchor_binary.py`
 
 ```python
@@ -8663,95 +7382,6 @@ def _validate_zero_padding(payload: bytes, used_bits: int, label: str) -> None:
     for byte_value in payload[full_bytes:]:
         if byte_value:
             raise ValueError(f"{label} contains non-zero trailing bytes")
-```
-
-## File: `src/primesymbolicmdl/huge_anchor_binary_demo.py`
-
-```python
-"""CLI demo pre skutocne huge-anchor binarne payloady."""
-
-from __future__ import annotations
-
-from .huge_anchor_binary import compress_best_huge_anchor_binary
-from .huge_anchor_datasets import make_huge_anchor_dataset
-
-
-def run_demo() -> list[dict]:
-    """Spusti malu deterministicku sadu benchmarkov nad binarnym kontajnerom."""
-
-    datasets = (
-        "linear_shift_generated",
-        "square_generated",
-        "multiple_generated",
-        "random_bytes",
-        "ascii_small",
-        "repeating_pattern",
-    )
-    widths = (16, 32, 64)
-
-    results: list[dict] = []
-    for dataset_name in datasets:
-        for width_bits in widths:
-            data = make_huge_anchor_dataset(dataset_name, width_bits, count=32, seed=1234)
-            result = compress_best_huge_anchor_binary(data, width_bits=width_bits, allow_raw_fallback=True)
-            results.append(
-                {
-                    "dataset": dataset_name,
-                    **result,
-                }
-            )
-    return results
-
-
-def format_huge_anchor_binary_result(result: dict) -> str:
-    """Vrati stabilny textovy report jedneho binarneho benchmarku."""
-
-    lines = [
-        f"dataset: {result['dataset']}",
-        f"width_bits: {result['width_bits']}",
-        f"estimated_best_model: {result['estimated_best_model_string']} radius={result['estimated_best_search_radius']}",
-        f"actual_best_model: {result['best_model_string']} radius={result['search_radius']}",
-        f"actual_rerank_changed_winner: {result['actual_rerank_changed_winner']}",
-        f"actual_rerank_top_n: {result['actual_rerank_top_n']}",
-        f"raw_bytes: {result['raw_bytes']}",
-        f"compressed_bytes: {result['compressed_bytes']}",
-        f"raw_bits: {result['raw_bits']}",
-        f"actual_bits: {result['actual_bits']}",
-        f"actual_best_estimated_total_bits: {result['estimated_total_bits']}",
-        f"estimated_best_total_bits: {result['estimated_best_total_bits']}",
-        f"actual_saving_bytes: {result['actual_saving_bytes']}",
-        f"actual_saving_bits: {result['actual_saving_bits']}",
-        f"roundtrip_ok: {result['roundtrip_ok']}",
-        f"decision: {result['decision']}",
-        f"estimated_decision: {result['estimated_decision']}",
-        f"residual_codec: {result['residual_codec']}",
-        f"escape_count: {result['escape_count']}",
-        "actual_top_3_candidates:",
-    ]
-    for index, candidate in enumerate(result["actual_rerank_candidates"][:3], start=1):
-        if candidate["status"] == "ok":
-            lines.append(
-                f"{index}. {candidate['model']} radius={candidate['search_radius']} compressed_bytes={candidate['compressed_bytes']} "
-                f"actual_bits={candidate['actual_bits']} estimated_total_bits={candidate['estimated_total_bits']} decision={candidate['decision']}"
-            )
-            continue
-        lines.append(
-            f"{index}. {candidate['model']} radius={candidate['search_radius']} status=error error={candidate.get('error', 'unknown')}"
-        )
-    return "\n".join(lines)
-
-
-def main() -> None:
-    """Vypise binarny huge-anchor report do stdout."""
-
-    for index, result in enumerate(run_demo()):
-        if index:
-            print()
-        print(format_huge_anchor_binary_result(result))
-
-
-if __name__ == "__main__":
-    main()
 ```
 
 ## File: `src/primesymbolicmdl/huge_anchor_branch.py`
@@ -9302,6 +7932,421 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+```
+
+## File: `src/primesymbolicmdl/huge_anchor_file_benchmark.py`
+
+```python
+"""Deterministicky benchmark pre `.psmdl` file CLI bez univerzalnych tvrdeni."""
+
+from __future__ import annotations
+
+import tempfile
+from dataclasses import dataclass
+from pathlib import Path
+
+from .huge_anchor_datasets import make_huge_anchor_dataset
+from .huge_anchor_file import PsmdlCompressionRefusedError, compress_file, decompress_file
+
+
+@dataclass(frozen=True)
+class BenchmarkRow:
+    """Jeden riadok honest actual-size benchmarku."""
+
+    name: str
+    raw_bytes: int
+    psmdl_bytes: int
+    decision: str
+    file_format: str
+    roundtrip_ok: bool
+    require_compression: str
+    note: str = ""
+
+
+def _benchmark_one(
+    name: str,
+    data: bytes,
+    *,
+    width_bits: int = 32,
+    note: str = "",
+) -> BenchmarkRow:
+    """Skomprimuje jeden vstup do docasneho suboru a overi roundtrip."""
+
+    with tempfile.TemporaryDirectory(prefix="psmdl-bench-") as tmp_dir:
+        tmp = Path(tmp_dir)
+        input_path = tmp / "input.bin"
+        psmdl_path = tmp / "output.psmdl"
+        restored_path = tmp / "restored.bin"
+        input_path.write_bytes(data)
+
+        result = compress_file(input_path, psmdl_path, width_bits=width_bits)
+        restored = decompress_file(psmdl_path, restored_path)
+        roundtrip_ok = restored == data
+
+        require_status = "ok"
+        try:
+            refused_path = tmp / "refused.psmdl"
+            compress_file(input_path, refused_path, width_bits=width_bits, require_compression=True)
+            if result.decision != "compressed":
+                require_status = "unexpected_ok"
+        except PsmdlCompressionRefusedError:
+            if result.decision == "compressed":
+                require_status = "unexpected_refused"
+            else:
+                require_status = "refused"
+        except Exception as error:  # pragma: no cover - defensive
+            require_status = f"error:{error}"
+
+        return BenchmarkRow(
+            name=name,
+            raw_bytes=len(data),
+            psmdl_bytes=result.compressed_bytes,
+            decision=result.decision,
+            file_format=result.file_format,
+            roundtrip_ok=roundtrip_ok,
+            require_compression=require_status,
+            note=note,
+        )
+
+
+def run_benchmark() -> list[BenchmarkRow]:
+    """Spusti maly deterministicky benchmark nad repozitarnymi a syntetickymi vstupmi."""
+
+    repo_root = Path(__file__).resolve().parents[2]
+    rows: list[BenchmarkRow] = []
+
+    rows.append(
+        _benchmark_one(
+            "random_bytes_128",
+            make_huge_anchor_dataset("random_bytes", 32, count=32, seed=1234),
+            note="deterministic random sanity",
+        )
+    )
+    rows.append(
+        _benchmark_one(
+            "repeating_pattern",
+            make_huge_anchor_dataset("repeating_pattern", 32, count=32, seed=1234),
+            note="ABCD repeat",
+        )
+    )
+
+    for rel_path in ("README.md", "AGENTS.md"):
+        source = repo_root / rel_path
+        rows.append(
+            _benchmark_one(
+                rel_path,
+                source.read_bytes(),
+                note="repo text file",
+            )
+        )
+
+    py_source = repo_root / "src" / "primesymbolicmdl" / "huge_anchor_file.py"
+    rows.append(
+        _benchmark_one(
+            "src/primesymbolicmdl/huge_anchor_file.py",
+            py_source.read_bytes(),
+            note="repo python source",
+        )
+    )
+    rows.append(
+        _benchmark_one(
+            "square_generated_64",
+            make_huge_anchor_dataset("square_generated", 64, count=32, seed=1234),
+            width_bits=64,
+            note="synthetic structure-compatible dataset",
+        )
+    )
+    return rows
+
+
+def format_benchmark_table(rows: list[BenchmarkRow]) -> str:
+    """Vrati citatelnu tabulku actual byte sizes."""
+
+    header = (
+        "name | raw_bytes | psmdl_bytes | decision | file_format | roundtrip_ok | require_compression | note"
+    )
+    lines = [header, "-" * len(header)]
+    for row in rows:
+        lines.append(
+            f"{row.name} | {row.raw_bytes} | {row.psmdl_bytes} | {row.decision} | "
+            f"{row.file_format} | {row.roundtrip_ok} | {row.require_compression} | {row.note}"
+        )
+    return "\n".join(lines)
+
+
+def main() -> None:
+    """Vypise honest benchmark tabulku do stdout."""
+
+    print(format_benchmark_table(run_benchmark()))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+## File: `src/primesymbolicmdl/huge_anchor_file_cli.py`
+
+```python
+"""CLI pre huge-anchor `.psmdl` kompresiu a dekompresiu suborov."""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+from .huge_anchor_file import PsmdlCompressionRefusedError, compress_file, decompress_file
+from .huge_blocks import SUPPORTED_HUGE_WIDTHS
+
+
+def _build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="PrimeSymbolicMDL huge-anchor file compression and decompression.",
+    )
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    compress_parser = subparsers.add_parser("compress", help="Compress an input file to .psmdl")
+    compress_parser.add_argument("--input", required=True, help="Path to the raw input file")
+    compress_parser.add_argument("--output", required=True, help="Path to the output .psmdl file")
+    compress_parser.add_argument(
+        "--width-bits",
+        type=int,
+        default=32,
+        choices=sorted(SUPPORTED_HUGE_WIDTHS),
+        help="Huge block width in bits",
+    )
+    compress_parser.add_argument(
+        "--require-compression",
+        action="store_true",
+        help="Refuse to write output when the huge-anchor blob is not smaller than raw",
+    )
+    compress_parser.add_argument(
+        "--actual-rerank-top-n",
+        type=int,
+        default=16,
+        help="How many estimated candidates to rerank by actual serialized size",
+    )
+
+    decompress_parser = subparsers.add_parser("decompress", help="Decompress a .psmdl file")
+    decompress_parser.add_argument("--input", required=True, help="Path to the input .psmdl file")
+    decompress_parser.add_argument("--output", required=True, help="Path to the restored output file")
+    return parser
+
+
+def _format_compress_summary(result) -> str:
+    return (
+        f"decision={result.decision} "
+        f"file_format={result.file_format} "
+        f"width_bits={result.width_bits} "
+        f"raw_bytes={result.raw_bytes} "
+        f"compressed_bytes={result.compressed_bytes} "
+        f"roundtrip_ok={result.roundtrip_ok} "
+        f"best_model={result.best_model_string} "
+        f"search_radius={result.search_radius}"
+    )
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Spusti CLI pre compress alebo decompress."""
+
+    parser = _build_parser()
+    args = parser.parse_args(argv)
+
+    try:
+        if args.command == "compress":
+            result = compress_file(
+                args.input,
+                args.output,
+                width_bits=args.width_bits,
+                require_compression=args.require_compression,
+                actual_rerank_top_n=args.actual_rerank_top_n,
+            )
+            print(_format_compress_summary(result))
+            return 0
+
+        decompress_file(args.input, args.output)
+        print(f"restored_bytes={Path(args.output).stat().st_size}")
+        return 0
+    except PsmdlCompressionRefusedError as error:
+        print(str(error), file=sys.stderr)
+        return 2
+    except (ValueError, RuntimeError, OSError) as error:
+        print(str(error), file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+## File: `src/primesymbolicmdl/huge_anchor_file.py`
+
+```python
+"""Súborový `.psmdl` wrapper pre huge-anchor binárnu kompresiu."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+
+from .bitstream import decode_unsigned_varint, encode_unsigned_varint
+from .huge_anchor_binary import (
+    _MAGIC as _HUGE_ANCHOR_MAGIC,
+    compress_best_huge_anchor_binary,
+    decode_huge_anchor_binary,
+)
+
+_RAW_MAGIC = b"PSMDLRAW1"
+_RAW_VERSION = 1
+
+
+class PsmdlCompressionRefusedError(RuntimeError):
+    """Vznika, ked CLI odmietne zapis, lebo kompresia nie je mensia ako raw."""
+
+
+@dataclass(frozen=True)
+class PsmdlCompressResult:
+    """Vysledok kompresie pred zapisom do suboru."""
+
+    file_bytes: bytes
+    width_bits: int
+    raw_bytes: int
+    compressed_bytes: int
+    decision: str
+    file_format: str
+    roundtrip_ok: bool
+    best_model_string: str
+    search_radius: int
+    estimated_best_model_string: str
+    actual_rerank_changed_winner: bool
+
+
+def encode_raw_psmdl(data: bytes) -> bytes:
+    """Zabali povodne bajty do bezpecneho raw-fallback `.psmdl` kontajnera."""
+
+    payload = bytes(data)
+    output = bytearray()
+    output.extend(_RAW_MAGIC)
+    output.append(_RAW_VERSION)
+    output.extend(encode_unsigned_varint(len(payload)))
+    output.extend(payload)
+    return bytes(output)
+
+
+def decode_raw_psmdl(blob: bytes) -> bytes:
+    """Dekoduje raw-fallback `.psmdl` kontajner."""
+
+    payload = bytes(blob)
+    if not payload.startswith(_RAW_MAGIC):
+        raise ValueError("Unsupported raw .psmdl magic")
+    if len(payload) <= len(_RAW_MAGIC):
+        raise ValueError("Raw .psmdl payload is truncated")
+
+    version = payload[len(_RAW_MAGIC)]
+    if version != _RAW_VERSION:
+        raise ValueError(f"Unsupported raw .psmdl version: {version}")
+
+    offset = len(_RAW_MAGIC) + 1
+    original_size, offset = decode_unsigned_varint(payload, offset)
+    if offset + original_size > len(payload):
+        raise ValueError("Truncated raw .psmdl payload")
+    if offset + original_size < len(payload):
+        raise ValueError("Raw .psmdl payload has trailing bytes")
+
+    return payload[offset : offset + original_size]
+
+
+def decode_psmdl_bytes(blob: bytes) -> bytes:
+    """Dekoduje `.psmdl` subor bez ohladu na to, ci ide o huge-anchor alebo raw fallback."""
+
+    payload = bytes(blob)
+    if payload.startswith(_HUGE_ANCHOR_MAGIC):
+        return decode_huge_anchor_binary(payload)
+    if payload.startswith(_RAW_MAGIC):
+        return decode_raw_psmdl(payload)
+    raise ValueError("Unsupported .psmdl file magic")
+
+
+def compress_to_psmdl_bytes(
+    data: bytes,
+    width_bits: int = 32,
+    *,
+    require_compression: bool = False,
+    actual_rerank_top_n: int = 16,
+) -> PsmdlCompressResult:
+    """Skomprimuje bajty do `.psmdl` reprezentacie s uctivym raw fallbackom."""
+
+    payload = bytes(data)
+    search_result = compress_best_huge_anchor_binary(
+        payload,
+        width_bits=width_bits,
+        allow_raw_fallback=True,
+        actual_rerank_top_n=actual_rerank_top_n,
+    )
+
+    if search_result["decision"] == "compressed":
+        file_bytes = bytes(search_result["binary_blob"])
+        file_format = "huge_anchor"
+        decision = "compressed"
+    elif require_compression:
+        raise PsmdlCompressionRefusedError(
+            "Huge-anchor binary blob is not smaller than raw input; refusing to write output"
+        )
+    else:
+        file_bytes = encode_raw_psmdl(payload)
+        file_format = "raw_fallback"
+        decision = "raw_fallback"
+
+    roundtrip_ok = decode_psmdl_bytes(file_bytes) == payload
+    if not roundtrip_ok:
+        raise RuntimeError("PSMDL compress roundtrip verification failed")
+
+    return PsmdlCompressResult(
+        file_bytes=file_bytes,
+        width_bits=width_bits,
+        raw_bytes=len(payload),
+        compressed_bytes=len(file_bytes),
+        decision=decision,
+        file_format=file_format,
+        roundtrip_ok=roundtrip_ok,
+        best_model_string=str(search_result["best_model_string"]),
+        search_radius=int(search_result["search_radius"]),
+        estimated_best_model_string=str(search_result["estimated_best_model_string"]),
+        actual_rerank_changed_winner=bool(search_result["actual_rerank_changed_winner"]),
+    )
+
+
+def compress_file(
+    input_path: str | Path,
+    output_path: str | Path,
+    *,
+    width_bits: int = 32,
+    require_compression: bool = False,
+    actual_rerank_top_n: int = 16,
+) -> PsmdlCompressResult:
+    """Precita vstupny subor, zapise `.psmdl` vystup a overi presny roundtrip."""
+
+    source = Path(input_path)
+    destination = Path(output_path)
+    payload = source.read_bytes()
+    result = compress_to_psmdl_bytes(
+        payload,
+        width_bits=width_bits,
+        require_compression=require_compression,
+        actual_rerank_top_n=actual_rerank_top_n,
+    )
+    destination.write_bytes(result.file_bytes)
+    return result
+
+
+def decompress_file(input_path: str | Path, output_path: str | Path) -> bytes:
+    """Dekoduje `.psmdl` subor a zapise obnovene bajty."""
+
+    source = Path(input_path)
+    destination = Path(output_path)
+    restored = decode_psmdl_bytes(source.read_bytes())
+    destination.write_bytes(restored)
+    return restored
 ```
 
 ## File: `src/primesymbolicmdl/huge_anchor_models.py`
@@ -11118,6 +10163,16 @@ def _render_law(law) -> str:
     raise TypeError("Unsupported law object for rendering")
 ```
 
+## File: `src/primesymbolicmdl/__init__.py`
+
+```python
+"""Minimalny verejny povrch pre experimentalny codec."""
+
+from .codec import compress_experimental, decompress_experimental
+
+__all__ = ["compress_experimental", "decompress_experimental"]
+```
+
 ## File: `src/primesymbolicmdl/law_demo.py`
 
 ```python
@@ -11521,24 +10576,6 @@ def _require_right(law: LawNode) -> LawNode:
     if law.right is None:
         raise ValueError("law node is missing a right child")
     return law.right
-```
-
-## File: `src/primesymbolicmdl/optimizers/__init__.py`
-
-```python
-"""Abstrakcie a registry optimizerov pre vyskumne behy."""
-
-from .base import Optimizer, OptimizerRequest, OptimizerResult
-from .registry import get_optimizer, get_optimizer_names, run_optimizer
-
-__all__ = [
-    "Optimizer",
-    "OptimizerRequest",
-    "OptimizerResult",
-    "get_optimizer",
-    "get_optimizer_names",
-    "run_optimizer",
-]
 ```
 
 ## File: `src/primesymbolicmdl/optimizers/base.py`
@@ -12783,6 +11820,24 @@ def _ratio(total_bits: int, raw_bits: int) -> float:
     if raw_bits == 0:
         return 0.0 if total_bits == 0 else math.inf
     return total_bits / raw_bits
+```
+
+## File: `src/primesymbolicmdl/optimizers/__init__.py`
+
+```python
+"""Abstrakcie a registry optimizerov pre vyskumne behy."""
+
+from .base import Optimizer, OptimizerRequest, OptimizerResult
+from .registry import get_optimizer, get_optimizer_names, run_optimizer
+
+__all__ = [
+    "Optimizer",
+    "OptimizerRequest",
+    "OptimizerResult",
+    "get_optimizer",
+    "get_optimizer_names",
+    "run_optimizer",
+]
 ```
 
 ## File: `src/primesymbolicmdl/optimizers/placeholders.py`
@@ -15451,6 +14506,38 @@ def test_gui_supports_image_gplite_primitive_set_choices() -> None:
     assert available_image_gplite_primitive_sets() == ["local", "ramp", "structure", "full"]
 ```
 
+## File: `tests/test_huge_anchor_binary_demo.py`
+
+```python
+import io
+from contextlib import redirect_stdout
+
+from primesymbolicmdl import huge_anchor_binary_demo
+
+
+def test_huge_anchor_binary_demo_runs_and_prints_actual_fields() -> None:
+    stdout = io.StringIO()
+    with redirect_stdout(stdout):
+        huge_anchor_binary_demo.main()
+
+    output = stdout.getvalue()
+    assert "dataset: linear_shift_generated" in output
+    assert "actual_bits:" in output
+    assert "decision:" in output
+    assert "estimated_best_model:" in output
+    assert "actual_best_model:" in output
+    assert "actual_top_3_candidates:" in output
+
+
+def test_huge_anchor_binary_demo_results_include_actual_compression_or_honest_fallback() -> None:
+    results = huge_anchor_binary_demo.run_demo()
+
+    assert results
+    assert all(result["roundtrip_ok"] for result in results)
+    assert any(result["decision"] == "compressed" for result in results if result["dataset"].endswith("_generated"))
+    assert all(result["actual_rerank_candidates"] for result in results)
+```
+
 ## File: `tests/test_huge_anchor_binary.py`
 
 ```python
@@ -15564,38 +14651,6 @@ def test_compress_best_huge_anchor_binary_reports_estimated_vs_actual_winner() -
     assert result["best_model_string"]
     assert result["estimated_best_model_string"]
     assert isinstance(result["actual_rerank_changed_winner"], bool)
-```
-
-## File: `tests/test_huge_anchor_binary_demo.py`
-
-```python
-import io
-from contextlib import redirect_stdout
-
-from primesymbolicmdl import huge_anchor_binary_demo
-
-
-def test_huge_anchor_binary_demo_runs_and_prints_actual_fields() -> None:
-    stdout = io.StringIO()
-    with redirect_stdout(stdout):
-        huge_anchor_binary_demo.main()
-
-    output = stdout.getvalue()
-    assert "dataset: linear_shift_generated" in output
-    assert "actual_bits:" in output
-    assert "decision:" in output
-    assert "estimated_best_model:" in output
-    assert "actual_best_model:" in output
-    assert "actual_top_3_candidates:" in output
-
-
-def test_huge_anchor_binary_demo_results_include_actual_compression_or_honest_fallback() -> None:
-    results = huge_anchor_binary_demo.run_demo()
-
-    assert results
-    assert all(result["roundtrip_ok"] for result in results)
-    assert any(result["decision"] == "compressed" for result in results if result["dataset"].endswith("_generated"))
-    assert all(result["actual_rerank_candidates"] for result in results)
 ```
 
 ## File: `tests/test_huge_anchor_branch.py`
@@ -15750,6 +14805,223 @@ def test_huge_anchor_demo_results_include_at_least_one_win() -> None:
     assert results
     assert all(result["roundtrip_ok"] for result in results)
     assert any(result["decision"] == "win" for result in results if result["dataset"].endswith("_generated"))
+```
+
+## File: `tests/test_huge_anchor_file_benchmark.py`
+
+```python
+from primesymbolicmdl.huge_anchor_file_benchmark import format_benchmark_table, run_benchmark
+
+
+def test_huge_anchor_file_benchmark_runs_and_reports_honest_sizes() -> None:
+  rows = run_benchmark()
+  table = format_benchmark_table(rows)
+
+  assert len(rows) >= 5
+  assert all(row.roundtrip_ok for row in rows)
+  assert any(row.decision == "raw_fallback" for row in rows)
+  assert any(row.decision == "compressed" for row in rows)
+  assert "random_bytes_128" in table
+  assert "square_generated_64" in table
+  assert "README.md" in table
+
+  random_row = next(row for row in rows if row.name == "random_bytes_128")
+  assert random_row.decision == "raw_fallback"
+  assert random_row.psmdl_bytes >= random_row.raw_bytes
+  assert random_row.require_compression == "refused"
+
+  square_row = next(row for row in rows if row.name == "square_generated_64")
+  assert square_row.decision == "compressed"
+  assert square_row.psmdl_bytes < square_row.raw_bytes
+  assert square_row.require_compression == "ok"
+```
+
+## File: `tests/test_huge_anchor_file_cli.py`
+
+```python
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+from primesymbolicmdl.huge_anchor_datasets import make_huge_anchor_dataset
+from primesymbolicmdl.huge_anchor_file import (
+    PsmdlCompressionRefusedError,
+    compress_file,
+    compress_to_psmdl_bytes,
+    decode_psmdl_bytes,
+    decompress_file,
+    encode_raw_psmdl,
+)
+from primesymbolicmdl.huge_anchor_file_cli import main as cli_main
+
+
+def test_compress_to_psmdl_bytes_roundtrips_square_generated() -> None:
+    data = make_huge_anchor_dataset("square_generated", 64, count=32, seed=1234)
+    result = compress_to_psmdl_bytes(data, width_bits=64)
+
+    assert result.roundtrip_ok is True
+    assert decode_psmdl_bytes(result.file_bytes) == data
+    assert result.decision == "compressed"
+    assert result.file_format == "huge_anchor"
+    assert result.compressed_bytes < result.raw_bytes
+
+
+def test_compress_to_psmdl_bytes_uses_raw_fallback_for_random_data() -> None:
+    data = make_huge_anchor_dataset("random_bytes", 32, count=32, seed=1234)
+    result = compress_to_psmdl_bytes(data, width_bits=32)
+
+    assert result.roundtrip_ok is True
+    assert decode_psmdl_bytes(result.file_bytes) == data
+    assert result.decision == "raw_fallback"
+    assert result.file_format == "raw_fallback"
+    assert result.compressed_bytes >= result.raw_bytes
+
+
+def test_compress_to_psmdl_bytes_can_refuse_non_winning_compression() -> None:
+    data = make_huge_anchor_dataset("random_bytes", 32, count=32, seed=1234)
+
+    with pytest.raises(PsmdlCompressionRefusedError, match="not smaller than raw"):
+        compress_to_psmdl_bytes(data, width_bits=32, require_compression=True)
+
+
+def test_encode_raw_psmdl_roundtrips() -> None:
+    data = b"hello-psmdl-raw-fallback"
+
+    assert decode_psmdl_bytes(encode_raw_psmdl(data)) == data
+
+
+def test_temp_file_cli_roundtrip_for_square_generated(tmp_path: Path) -> None:
+    data = make_huge_anchor_dataset("square_generated", 32, count=32, seed=1234)
+    input_path = tmp_path / "input.bin"
+    psmdl_path = tmp_path / "output.psmdl"
+    restored_path = tmp_path / "restored.bin"
+    input_path.write_bytes(data)
+
+    result = compress_file(input_path, psmdl_path, width_bits=32)
+    assert result.roundtrip_ok is True
+    assert psmdl_path.exists()
+
+    restored = decompress_file(psmdl_path, restored_path)
+    assert restored == data
+    assert restored_path.read_bytes() == data
+
+
+def test_temp_file_cli_roundtrip_for_random_bytes_with_raw_fallback(tmp_path: Path) -> None:
+    data = make_huge_anchor_dataset("random_bytes", 32, count=32, seed=1234)
+    input_path = tmp_path / "input.bin"
+    psmdl_path = tmp_path / "output.psmdl"
+    restored_path = tmp_path / "restored.bin"
+    input_path.write_bytes(data)
+
+    result = compress_file(input_path, psmdl_path, width_bits=32)
+    assert result.decision == "raw_fallback"
+    assert result.file_format == "raw_fallback"
+
+    restored = decompress_file(psmdl_path, restored_path)
+    assert restored == data
+
+
+def test_cli_module_compress_and_decompress_roundtrip(tmp_path: Path) -> None:
+    data = make_huge_anchor_dataset("linear_shift_generated", 16, count=32, seed=1234)
+    input_path = tmp_path / "input.bin"
+    psmdl_path = tmp_path / "output.psmdl"
+    restored_path = tmp_path / "restored.bin"
+    input_path.write_bytes(data)
+
+    exit_code = cli_main(
+        [
+            "compress",
+            "--input",
+            str(input_path),
+            "--output",
+            str(psmdl_path),
+            "--width-bits",
+            "16",
+        ]
+    )
+    assert exit_code == 0
+    assert psmdl_path.exists()
+
+    exit_code = cli_main(
+        [
+            "decompress",
+            "--input",
+            str(psmdl_path),
+            "--output",
+            str(restored_path),
+        ]
+    )
+    assert exit_code == 0
+    assert restored_path.read_bytes() == data
+
+
+def test_cli_refuses_compression_when_required_and_no_win(tmp_path: Path) -> None:
+    data = make_huge_anchor_dataset("random_bytes", 32, count=32, seed=1234)
+    input_path = tmp_path / "input.bin"
+    psmdl_path = tmp_path / "output.psmdl"
+    input_path.write_bytes(data)
+
+    exit_code = cli_main(
+        [
+            "compress",
+            "--input",
+            str(input_path),
+            "--output",
+            str(psmdl_path),
+            "--width-bits",
+            "32",
+            "--require-compression",
+        ]
+    )
+    assert exit_code == 2
+    assert not psmdl_path.exists()
+
+
+def test_subprocess_cli_roundtrip(tmp_path: Path) -> None:
+    data = make_huge_anchor_dataset("multiple_generated", 32, count=32, seed=1234)
+    input_path = tmp_path / "input.bin"
+    psmdl_path = tmp_path / "output.psmdl"
+    restored_path = tmp_path / "restored.bin"
+    input_path.write_bytes(data)
+
+    compress = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "primesymbolicmdl.huge_anchor_file_cli",
+            "compress",
+            "--input",
+            str(input_path),
+            "--output",
+            str(psmdl_path),
+            "--width-bits",
+            "32",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert compress.returncode == 0, compress.stderr
+
+    decompress = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "primesymbolicmdl.huge_anchor_file_cli",
+            "decompress",
+            "--input",
+            str(psmdl_path),
+            "--output",
+            str(restored_path),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert decompress.returncode == 0, decompress.stderr
+    assert restored_path.read_bytes() == data
 ```
 
 ## File: `tests/test_huge_anchor_models.py`
