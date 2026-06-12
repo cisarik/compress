@@ -2,93 +2,107 @@
 
 ## 1. Summary
 
-Pridaný **external-corpus benchmark harness** pre actual `.psmdl` veľkosti na užívateľských súboroch/adresároch. Podporuje deterministické objavenie súborov, per-file reporting, exact roundtrip, agregovaný súhrn a malý CLI. Testy: **283 passed**. Validácia na temp korpuse: všetky 3 súbory raw fallback, exact roundtrip OK.
-
-**Neimplementované v tomto kroku:** premenovanie AP session artifactov (`AP_WORKER_NEXT_SESSION.md`, `AP_ORCHESTRATOR_NEXT_SESSION.md`) — to je samostatný AP/meta krok mimo acceptance criteria tohto compression tasku.
+Spustený **external-corpus benchmark** na 10 malých súboroch mimo repozitára (dočasný korpus v `/tmp`). Všetky súbory roundtripujú presne. **9/10 raw fallback** s konštantným **+12 B** overheadom; **1/10 skutočne skomprimovaný** (`zoneinfo-utc.bin`, 114→86 B). Agregát: **15720 → 15800 B** (+80 B). Testy: **283 passed**. Žiadne zmeny kódu ani AP docs.
 
 ## 2. Files inspected
 
-- `NEXT_AGENT.md`, `NEXT_ORCHESTRATOR.md`, `README.md`
-- `src/primesymbolicmdl/huge_anchor_file.py`
-- `src/primesymbolicmdl/huge_anchor_file_cli.py`
-- `src/primesymbolicmdl/huge_anchor_file_benchmark.py`
-- `tests/test_huge_anchor_file_benchmark.py`, `tests/test_huge_anchor_file_cli.py`
-- `git rev-parse HEAD` → `84b92b4513ac87eb225867c952e9180d914470b3`
+- `README.md`, `NEXT_AGENT.md`, `NEXT_ORCHESTRATOR.md`
+- `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py`
+- `tests/test_huge_anchor_corpus_benchmark.py`
+- `git rev-parse HEAD` → `e5988de54085a950ec4a57b186e0b09c20f6873c`
 
-## 3. Files changed
+## 3. Corpus selection
 
-| Súbor | Zmena |
-|-------|--------|
-| `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py` | Nový modul + CLI |
-| `tests/test_huge_anchor_corpus_benchmark.py` | 6 testov |
-| `README.md` | Krátky príkaz pre external-corpus benchmark |
+**Prístup:** dočasný adresár mimo repa (`/tmp/psmdl-external-corpus-CngaRx`), skopírované bezpečné systémové súbory — **žiadny rekurzívny crawl home**, žiadne citlivé dáta.
 
-**Nezmenené:** compression algoritmy, `huge_anchor_file.py` core logika.
+| Súbor | Typ | Raw B |
+|-------|-----|-------|
+| `os-release` | ASCII config | 361 |
+| `hosts` | ASCII config | 332 |
+| `fstab` | ASCII config | 692 |
+| `desktop-wine.desktop` | UTF-8 text | 1469 |
+| `desktop-kcm_wallpaper.desktop` | UTF-8 text | 1613 |
+| `pixmap-archlinux-logo.svg` | SVG | 1102 |
+| `pixmap-archlinux-logo-text-dark.svg` | SVG | 4548 |
+| `pixmap-timeshift.png` | PNG 128×128 | 3188 |
+| `zoneinfo-europe-bratislava.bin` | tzif timezone | 2301 |
+| `zoneinfo-utc.bin` | tzif timezone | 114 |
 
-## 4. Commands run
+**10 súborov**, celkom **15720 B raw**, runtime benchmarku ~29 s pri `--width-bits 32`.
+
+## 4. Files changed
+
+**Žiadne.** Harness fungoval bez úprav.
+
+## 5. Commands run
 
 ```fish
 cd /home/agile/compress
 git status --short
 git diff --stat
 git rev-parse HEAD
-.venv/bin/pytest -q tests/test_huge_anchor_corpus_benchmark.py
+# corpus: mktemp + cp z /etc, /usr/share/pixmaps, /usr/share/applications, /usr/share/zoneinfo
 .venv/bin/pytest -q
-PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_corpus_benchmark --input-dir <temp> --recursive
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_corpus_benchmark \
+  --input-dir /tmp/psmdl-external-corpus-CngaRx --recursive --width-bits 32
 ```
 
-## 5. Test output
+## 6. Test output
 
 ```
-6 passed in 0.54s                    # corpus tests
-283 passed in 119.70s (0:01:59)      # full suite (predtým 277)
+283 passed in 118.79s (0:01:58)
 ```
 
-## 6. Example benchmark run
+## 7. Per-file benchmark results
 
-Temp corpus (random.bin, repeat.bin, notes.txt):
+| súbor | typ | raw | psmdl | delta | decision | format | roundtrip |
+|-------|-----|-----|-------|-------|----------|--------|-----------|
+| desktop-kcm_wallpaper.desktop | text | 1613 | 1625 | +12 | raw_fallback | raw_fallback | OK |
+| desktop-wine.desktop | text | 1469 | 1481 | +12 | raw_fallback | raw_fallback | OK |
+| fstab | text | 692 | 704 | +12 | raw_fallback | raw_fallback | OK |
+| hosts | text | 332 | 344 | +12 | raw_fallback | raw_fallback | OK |
+| os-release | text | 361 | 373 | +12 | raw_fallback | raw_fallback | OK |
+| pixmap-archlinux-logo-text-dark.svg | SVG | 4548 | 4560 | +12 | raw_fallback | raw_fallback | OK |
+| pixmap-archlinux-logo.svg | SVG | 1102 | 1114 | +12 | raw_fallback | raw_fallback | OK |
+| pixmap-timeshift.png | PNG | 3188 | 3200 | +12 | raw_fallback | raw_fallback | OK |
+| zoneinfo-europe-bratislava.bin | tzif | 2301 | 2313 | +12 | raw_fallback | raw_fallback | OK |
+| zoneinfo-utc.bin | tzif | 114 | 86 | **−28** | **compressed** | huge_anchor | OK |
+
+## 8. Aggregate benchmark summary
 
 ```
-path | raw_bytes | psmdl_bytes | delta | decision | file_format | roundtrip_ok
-/tmp/.../notes.txt   | 32  | 43  | 11 | raw_fallback | raw_fallback | True
-/tmp/.../random.bin  | 64  | 75  | 11 | raw_fallback | raw_fallback | True
-/tmp/.../repeat.bin  | 64  | 75  | 11 | raw_fallback | raw_fallback | True
-```
-
-Exit code: `0`.
-
-## 7. Aggregate benchmark summary
-
-```
-file_count=3
-total_raw_bytes=160
-total_psmdl_bytes=193
-total_delta_bytes=33          # väčší kvôli raw-fallback kontajneru
-compressed_count=0
-raw_fallback_count=3
+file_count=10
+total_raw_bytes=15720
+total_psmdl_bytes=15800
+total_delta_bytes=+80
+compressed_count=1
+raw_fallback_count=9
 roundtrip_failure_count=0
 error_count=0
 ```
 
-## 8. Scientific framing checks
+## 9. Evidence-based analysis
 
-- Žiadne universal compression claims
-- Actual bytes reportované per-file aj v aggregate
-- Random-like vstupy: `raw_fallback`, `psmdl >= raw`
-- Syntetický `square_generated` v testoch: compressed win len ako mechanism check (`width_bits=64`)
-- Roundtrip failure → CLI exit code `2`
-- Žiadne sieťové dáta, len temp files
+**1. Skomprimovali sa nejaké reálne externé súbory?**  
+Áno — **jeden**: `zoneinfo-utc.bin` (114 B, veľmi štruktúrovaný tzif s nulami a opakovanými hlavičkami). To je **úzky mechanizmus-check na mikroskopickom súbore**, nie dôkaz všeobecnej kompresie textov, PNG ani väčších tzif.
 
-## 9. Warnings and limitations
+**2. Dominantný problém?**  
+Dva jasné faktory:
 
-- **AP session súbory** (`AP_WORKER_NEXT_SESSION.md`, `AP_ORCHESTRATOR_NEXT_SESSION.md`, workflow generovania `NEXT_*` na konci session) — **neboli vytvorené**; odporúčané ako nasledujúci bounded AP/meta task
-- Veľké reálne korpusy môžu byť pomalé (search + rerank per file)
-- `discover_corpus_files` preskakuje `.git`, `.venv`, `__pycache__`, `.ap`
-- `ap_snapshot.fish --run-tests` **preskočený** (úspora ~4 min; testy už prešli)
-- Žiadne git write príkazy
-- `.venv/bin/python -m` stále problematický — používaj `PYTHONPATH=src /usr/bin/python3.14 -m ...` alebo `.venv/bin/pytest`
+- **Raw-fallback container overhead:** 9 súborov má presne **+12 B** delta — konzistentný `PSMDLRAW1` wrapper. Pri nekomprimovateľných dátach je `.psmdl` vždy horší než raw.
+- **Slabý match anchor rodín k reálnym dátam:** text, SVG, PNG, väčší tzif — huge-anchor search nevyhrá; žiadna rodina neprekoná raw okrem miniatúrneho UTC súboru.
 
-## 10. Suggested next smallest step
+**3. Odporúčaný ďalší krok (jeden smer):**  
+**Overhead reduction** — zmenšiť `PSMDLRAW1` (a prípadne hlavičku huge-anchor kontajnera), aby raw fallback nebol systematicky drahší o ~12 B na súbor. Bez toho je `.psmdl` na bežných externých súboroch vždy horší než ponechať raw bajty; to je silnejší signál než ďalší anchor-family experiment na tomto korpuse.
 
-1. **AP/meta:** zaviesť `AP_WORKER_NEXT_SESSION.md` a `AP_ORCHESTRATOR_NEXT_SESSION.md` (prázdne na začiatok session, na konci generovať `NEXT_AGENT.md` / `NEXT_ORCHESTRATOR.md`) + krátky popis v `AP.md`
-2. **Compression:** spustiť corpus benchmark na malom lokálnom externom korpuse (mimo repa) a reportovať len actual bytes bez hype; potom zvážiť overhead reduction alebo entropy coding až po tomto
+## 10. Warnings and limitations
+
+- Korpus je malý a skôr systémový než „reálny user corpus“; stále mimo repa a privacy-safe.
+- Jediný win je na **114 B** súbore — neprezentovať ako všeobecný výsledok.
+- `ap_snapshot.fish` **preskočený** (testy už prešli; úspora času).
+- Žiadne git write, commit, network.
+- AP/meta súbory **nezmenené** (podľa zadania).
+
+## 11. Suggested next smallest step
+
+**Bounded overhead-reduction task:** navrhnúť a implementovať tenší raw-fallback formát (alebo voliteľný „store raw bytes without wrapper when not smaller“ režim s explicitnou dekódovateľnosťou), s roundtrip testami a re-runom tohto istého 10-súborového korpusu na porovnanie aggregate `total_delta_bytes`. Až potom zvážiť úzky algoritmický experiment, ak overhead už nebude dominovať.

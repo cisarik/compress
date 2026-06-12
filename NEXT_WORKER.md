@@ -6,54 +6,43 @@ Working directory:
 
 Task type:
 
-`AP/meta session artifacts + product direction`
+`compression practicalization / real external corpus evaluation`
 
 ## Context
 
-The COOPERATOR clarified the strategic direction:
+The AP/meta layer is sufficiently clarified for this phase.
 
-* AP/meta work is not decorative.
-* Analytic Programming / Coordinator Protocol is being developed because it may later become a real tool or SaaS.
-* The future product/tool working name is `analytic`.
-* Long-term practical compression goal: a Linux CLI command that takes an input file and produces a compressed output file.
-* Example future direction:
+Do not continue with more AP/meta changes unless you discover a serious blocking inconsistency.
 
-```fish
-analytic compress input.file --output input.file.analytic
-analytic decompress input.file.analytic --output restored.file
-```
+Return to the main compression project.
 
-or eventually a simpler workflow such as:
+Current Worker-reported repo state:
 
-```fish
-analytic input.file
-```
+* `.psmdl` file CLI exists
+* deterministic in-repo benchmark exists
+* external-corpus benchmark harness exists:
 
-This task is still a bounded AP/meta/documentation task.
+  * `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py`
+  * `tests/test_huge_anchor_corpus_benchmark.py`
+* full test suite reportedly passes:
 
-Do not implement the `analytic` CLI yet.
+  * `283 passed`
+* current honest evidence:
 
-Do not change compression algorithms.
+  * random-like data tends to raw fallback
+  * small repo text/source files tend to raw fallback
+  * synthetic `square_generated_64` can compress as a mechanism check
+* no universal compression claim is allowed
 
-The previous compression step reportedly added:
-
-* `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py`
-* `tests/test_huge_anchor_corpus_benchmark.py`
-* README external-corpus benchmark note
-* tests: `283 passed`
-
-The previous AP protocol evolution step added:
-
-* COOPERATOR role
-* living protocol artifacts
-* Worker/Orchestrator doctrine evolution
-* planned controlled write-RPC as conceptual only
+The next bounded step is to use the external-corpus harness on a small real local corpus outside the repository and derive the next compression direction from actual results.
 
 ## Goal
 
-Finish the current AP/meta cleanup by adding session-working handoff artifacts and recording the future `analytic` product direction clearly, without overbuilding.
+Run the external-corpus benchmark on a small real local corpus outside the repo and produce an honest evidence report.
 
-After this task, the next Worker step should return to compression work.
+This is primarily a benchmarking / evaluation step, not an algorithm-invention step.
+
+At the end, recommend the next smallest compression step based on the actual results.
 
 ## Hard Rules
 
@@ -63,30 +52,23 @@ After this task, the next Worker step should return to compression work.
 * Do not create branches.
 * Do not install dependencies.
 * Do not use network.
-* Do not modify compression algorithms.
-* Do not modify compression tests unless absolutely necessary.
-* Do not implement the `analytic` CLI in this task.
-* Do not claim the project is already a production compressor.
+* Do not change AP docs unless a serious blocking inconsistency is discovered.
+* Do not change compression algorithms unless a tiny bug fix is absolutely necessary to make the benchmark run correctly.
 * Do not claim universal compression.
-* Keep documentation concise and purpose-separated.
-* If write-RPC is mentioned, describe it as planned/conceptual unless implemented.
+* Do not present synthetic wins as general proof.
+* Actual bytes matter more than estimated bits.
+* Exact roundtrip is mandatory.
+* Be privacy-conscious: do not crawl broad personal directories indiscriminately.
 
 ## Required Inspection
 
 Inspect at least:
 
-* `AP.md`
-* `AP_WORKER.md`
-* `AP_ORCHESTRATOR.md`
-* `COORDINATOR_PROTOCOL.md`
+* `README.md`
 * `NEXT_AGENT.md`
 * `NEXT_ORCHESTRATOR.md`
-* `README.md`
-* current repo state
-* if present:
-
-  * `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py`
-  * `tests/test_huge_anchor_corpus_benchmark.py`
+* `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py`
+* related tests
 
 Run read-only inspection:
 
@@ -99,120 +81,95 @@ git rev-parse HEAD
 
 Do not run git write commands.
 
-## Required Changes
+## Corpus Selection Rules
 
-### 1. Add `AP_WORKER_NEXT_SESSION.md`
+Benchmark a **small real local corpus outside the repository**.
 
-Create a concise working/staging artifact.
+Preferred approach:
 
-It should explain:
+* choose a small, safe, non-sensitive corpus from local machine files outside `/home/agile/compress`
+* keep it small and bounded
+* use a mix of file types if possible
 
-* this is a temporary session-working artifact
-* it is not the final Worker handoff
-* final Worker handoff remains `NEXT_AGENT.md`
-* use it to collect candidate next Worker tasks, unresolved questions, warnings, command notes, and observations during an active AP session
-* consolidate into `NEXT_AGENT.md` only at session close or when explicitly requested
-* stale staged notes must not override current repo state, current reports, tests, or `NEXT_AGENT.md`
+Target size:
 
-Keep it short.
+* around 5 to 12 files
+* small files preferred, roughly up to a few hundred KB each
+* keep runtime reasonable
 
-### 2. Add `AP_ORCHESTRATOR_NEXT_SESSION.md`
+Good candidates if available:
 
-Create a concise working/staging artifact.
+* small text/config files
+* small binaries
+* small images
+* small structured data files
 
-It should explain:
+Privacy / safety constraints:
 
-* this is a temporary session-working artifact
-* it is not the final Orchestrator handoff
-* final Orchestrator handoff remains `NEXT_ORCHESTRATOR.md`
-* use it to collect strategic notes, report evaluations, risk notes, possible branches, and doctrine observations during an active AP session
-* consolidate into `NEXT_ORCHESTRATOR.md` only at session close or when explicitly requested
-* stale staged notes must not override current repo state, current reports, tests, or `NEXT_ORCHESTRATOR.md`
+* do not recursively crawl the user home broadly
+* do not touch obviously sensitive personal data
+* do not use browser profiles, SSH keys, wallet data, private documents, or large media folders
+* if needed, explicitly create a small temporary corpus directory and copy in a few safe external files from outside the repo
 
-Keep it short.
+If there is no suitable safe external corpus available, say so explicitly and explain what you used instead.
 
-### 3. Update `AP.md`
+## Required Benchmark Work
 
-Add a concise section explaining the difference between:
+Use the external-corpus harness to benchmark the selected corpus.
 
-* session-working artifacts:
+For each file, report at least:
 
-  * `AP_WORKER_NEXT_SESSION.md`
-  * `AP_ORCHESTRATOR_NEXT_SESSION.md`
+* path or filename
+* file type if obvious
+* raw bytes
+* `.psmdl` bytes
+* delta bytes
+* decision (`compressed` or `raw_fallback`)
+* file format (`huge_anchor` or `raw_fallback`)
+* roundtrip result
 
-and final handoff artifacts:
+Also report an aggregate summary:
 
-* `NEXT_AGENT.md`
-* `NEXT_ORCHESTRATOR.md`
+* file count
+* total raw bytes
+* total `.psmdl` bytes
+* total delta bytes
+* compressed count
+* raw fallback count
+* roundtrip failure count
+* error count
 
-Make clear:
+## Required Analysis
 
-* session-working artifacts are optional staging areas
-* final handoff files remain authoritative at session close
-* serious AP session close should consolidate staged notes into final handoffs
-* stale staged notes must not override current repo evidence
+After the benchmark, provide a short evidence-based analysis:
 
-Also add a short note that AP itself may later become part of a tool/SaaS named `analytic`, but that this is currently product direction, not implemented functionality.
+1. Did any real external files actually compress?
+2. If not, is the dominant problem clearly:
 
-### 4. Update `AP_WORKER.md`
+   * raw-fallback container overhead,
+   * poor match between current anchor families and real data,
+   * or something else?
+3. Based on actual results, what is the next **smallest** compression step?
 
-Add a short section or note explaining Worker usage of `AP_WORKER_NEXT_SESSION.md`.
+Choose exactly one recommended next direction, preferably one of:
 
-Rules:
+* overhead reduction
+* better corpus/reporting before algorithm changes
+* a narrowly scoped compression improvement in one specific area
 
-* Worker may update it only when explicitly asked
-* Worker must not silently treat it as final handoff
-* Worker reports must mention if it was changed
-* final Worker handoff remains `NEXT_AGENT.md`
+Do not recommend a large mixed-scope task.
 
-### 5. Update `AP_ORCHESTRATOR.md`
+## Optional Small Code Changes
 
-Add a short section or note explaining Orchestrator usage of `AP_ORCHESTRATOR_NEXT_SESSION.md`.
+Avoid code changes if possible.
 
-Rules:
+Only make a code change if:
 
-* Orchestrator may ask Worker to update it through bounded AP/meta tasks
-* Orchestrator uses it as staging, not final truth
-* final strategic handoff remains `NEXT_ORCHESTRATOR.md`
-* when closing a serious session, Orchestrator should decide whether staged notes are consolidated or discarded
+* the benchmark harness has a real usability bug,
+* reporting is missing an essential field,
+* or a tiny correctness fix is needed.
 
-### 6. Update `COORDINATOR_PROTOCOL.md` only if appropriate
-
-If it already lists artifacts or future RPC methods, add a minimal note about session-working artifacts.
-
-Do not bloat it.
-
-### 7. Add or update a small roadmap/direction note
-
-Add a concise future direction note.
-
-Preferred option:
-
-* create `PRODUCT_DIRECTION.md`
-
-Alternative if you judge it better:
-
-* add a short section to `README.md`
-
-The note should say:
-
-* future tool working name: `analytic`
-* possible future CLI:
-
-  * `analytic compress input.file --output input.file.analytic`
-  * `analytic decompress input.file.analytic --output restored.file`
-* this is not implemented yet
-* current repo is still an experimental lossless compression research harness
-* current `.psmdl` and corpus benchmark are stepping stones toward a real file workflow
-* no general-purpose compression claim is made
-
-Keep this concise. Do not turn it into marketing.
-
-### 8. Update `README.md` only minimally
-
-If `PRODUCT_DIRECTION.md` is created, add one short link/note to README.
-
-If you instead add the product note directly into README, keep it small.
+If you do change code, keep it minimal and add tests.
 
 ## Validation
 
@@ -224,9 +181,15 @@ source .venv/bin/activate.fish
 .venv/bin/pytest -q
 ```
 
-Snapshot is optional.
+Then run the benchmark harness on the chosen external corpus using the working invocation, for example:
 
-If you run snapshot, report it.
+```fish
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_corpus_benchmark --input-dir /path/to/corpus --recursive
+```
+
+Adjust flags as needed.
+
+Snapshot is optional in this step.
 
 If you skip snapshot, explain why.
 
@@ -234,16 +197,15 @@ If you skip snapshot, explain why.
 
 This task is complete only if:
 
-* `AP_WORKER_NEXT_SESSION.md` exists
-* `AP_ORCHESTRATOR_NEXT_SESSION.md` exists
-* `AP.md` explains session-working artifacts vs final handoff artifacts
-* `AP_WORKER.md` explains Worker usage of the Worker session artifact
-* `AP_ORCHESTRATOR.md` explains Orchestrator usage of the Orchestrator session artifact
-* future `analytic` product/CLI direction is documented as direction, not implemented feature
-* README links or briefly mentions the product direction if a separate file is created
+* a small real local external corpus outside the repo was benchmarked, or the reason this was not possible is clearly explained
+* actual byte results are reported per file
+* aggregate summary is reported
+* exact roundtrip results are reported
+* the analysis is honest and evidence-based
+* one bounded next compression direction is recommended
 * tests pass or failures are honestly reported
 * no git write commands are run
-* no compression algorithms are changed
+* no hype is introduced
 
 ## Required Report Format
 
@@ -255,14 +217,14 @@ Then include:
 
 1. Summary
 2. Files inspected
-3. Files changed
-4. Commands run
-5. Test output
-6. Snapshot status
-7. Explanation of new session-working artifacts
-8. Explanation of future `analytic` product direction
-9. How final handoff files remain authoritative
+3. Corpus selection
+4. Files changed
+5. Commands run
+6. Test output
+7. Per-file benchmark results
+8. Aggregate benchmark summary
+9. Evidence-based analysis
 10. Warnings and limitations
 11. Suggested next smallest step
 
-The suggested next smallest step should return to compression work unless there is a serious AP artifact problem.
+Be explicit about anything not done.
