@@ -118,11 +118,19 @@ Default behavior stores a safe raw fallback when compression does not win. That 
 
 ### In-repo benchmark summary
 
-Deterministic benchmark command:
+Deterministic in-repo benchmark command:
 
 ```fish
 PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_file_benchmark
 ```
+
+External-corpus benchmark command:
+
+```fish
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_corpus_benchmark --input-dir /path/to/corpus
+```
+
+Optional flags include `--file`, `--recursive`, `--max-files`, and `--width-bits`.
 
 Current honest results from the in-repo set:
 

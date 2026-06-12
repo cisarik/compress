@@ -1,159 +1,94 @@
-# NEXT_ORCHESTRATOR.md — Strategic Handoff
+### Report for ORCHESTRATOR_CHAT
 
-This file is the handoff for the **next Orchestrator**, not the Worker.
+## 1. Summary
 
-The Worker should read `NEXT_AGENT.md` instead.
+Pridaný **external-corpus benchmark harness** pre actual `.psmdl` veľkosti na užívateľských súboroch/adresároch. Podporuje deterministické objavenie súborov, per-file reporting, exact roundtrip, agregovaný súhrn a malý CLI. Testy: **283 passed**. Validácia na temp korpuse: všetky 3 súbory raw fallback, exact roundtrip OK.
 
-## Recommended Read Order
+**Neimplementované v tomto kroku:** premenovanie AP session artifactov (`AP_WORKER_NEXT_SESSION.md`, `AP_ORCHESTRATOR_NEXT_SESSION.md`) — to je samostatný AP/meta krok mimo acceptance criteria tohto compression tasku.
 
-1. `NEXT_ORCHESTRATOR.md`
-2. `NEXT_AGENT.md`
-3. `BOOT.md`
-4. `.ap/current_status.md`
-5. `.ap/last_report.md`
-6. `BRAIN.md` only when deeper context is needed
+## 2. Files inspected
 
-## Big Picture
-
-PrimeSymbolicMDL is an experimental lossless compression research harness.
-
-The project tests anchor-and-residual transforms under honest MDL accounting and, where implemented, honest actual byte accounting.
-
-Prime anchors are one candidate anchor family, not a privileged truth.
-
-The repository is benchmark-driven, deterministic, and exactly reversible.
-
-## Analytic Programming / Coordinator Protocol
-
-AP is active in this repository.
-
-Core roles:
-
-- `COOPERATOR` (user)
-- `ORCHESTRATOR`
-- `WORKER`
-
-Important protocol files:
-
-- `AP.md`
-- `AP_ORCHESTRATOR.md`
-- `AP_WORKER.md`
-- `AGENTS.md`
-- `COORDINATOR_PROTOCOL.md`
-
-Important handoff and snapshot files:
-
-- `NEXT_ORCHESTRATOR.md` = strategic Orchestrator handoff
-- `NEXT_AGENT.md` = immediate Worker handoff
-- `BOOT.md` = short generated boot summary
-- `BRAIN.md` = detailed generated repository snapshot
-- `CHAT.md` = append-only coordination ledger
-
-Current read-only RPC methods:
-
-- `repo.status`
-- `repo.diff_stat`
-- `repo.list_files`
-- `repo.get_file`
-
-The repository remains the source of truth.
-
-Chat and snapshots are supporting artifacts, not proof of compression performance.
-
-## What Has Been Solved So Far
-
-- deterministic baseline and bit accounting
-- prime-anchor and indexed anchor-law branches
-- huge-anchor portfolio across multiple families
-- shared residual codec layer
-- huge-anchor binary container with actual-size reranking
-- `.psmdl` file CLI for huge-anchor compression and decompression
-- deterministic in-repo file benchmark for actual `.psmdl` byte sizes
-- AP / Coordinator Protocol infrastructure
-- GUI research cockpit for small grayscale simulations
-- pytest coverage for roundtrip and random-data sanity
-
-## Current Compression Evidence
-
-Latest verified tests:
-
-- `277 passed`
-
-File path exists:
-
+- `NEXT_AGENT.md`, `NEXT_ORCHESTRATOR.md`, `README.md`
 - `src/primesymbolicmdl/huge_anchor_file.py`
 - `src/primesymbolicmdl/huge_anchor_file_cli.py`
 - `src/primesymbolicmdl/huge_anchor_file_benchmark.py`
+- `tests/test_huge_anchor_file_benchmark.py`, `tests/test_huge_anchor_file_cli.py`
+- `git rev-parse HEAD` → `84b92b4513ac87eb225867c952e9180d914470b3`
 
-Benchmark summary from the in-repo deterministic file benchmark:
+## 3. Files changed
 
-| input | raw bytes | `.psmdl` bytes | outcome |
-|-------|-----------|----------------|---------|
-| random_bytes_128 | 128 | 140 | raw fallback |
-| repeating_pattern | 128 | 140 | raw fallback |
-| README.md | 11548 | 11560 | raw fallback |
-| AGENTS.md | 9904 | 9916 | raw fallback |
-| huge_anchor_file.py | 5182 | 5194 | raw fallback |
-| square_generated_64 | 256 | 49 | synthetic huge-anchor win |
+| Súbor | Zmena |
+|-------|--------|
+| `src/primesymbolicmdl/huge_anchor_corpus_benchmark.py` | Nový modul + CLI |
+| `tests/test_huge_anchor_corpus_benchmark.py` | 6 testov |
+| `README.md` | Krátky príkaz pre external-corpus benchmark |
 
-Interpretation:
+**Nezmenené:** compression algoritmy, `huge_anchor_file.py` core logika.
 
-- exact roundtrip verified for all benchmark cases
-- random bytes remained raw fallback
-- small real repo files remained raw fallback
-- `square_generated_64` is a synthetic mechanism check, not general compression proof
-- `--require-compression` refuses raw-fallback cases and succeeds for the synthetic compressed case
+## 4. Commands run
 
-## Scientific Guardrails
+```fish
+cd /home/agile/compress
+git status --short
+git diff --stat
+git rev-parse HEAD
+.venv/bin/pytest -q tests/test_huge_anchor_corpus_benchmark.py
+.venv/bin/pytest -q
+PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_corpus_benchmark --input-dir <temp> --recursive
+```
 
-- exact roundtrip is mandatory
-- raw fallback is normal and often expected
-- actual bytes are stronger evidence than estimated bits
-- random-byte sanity is required
-- synthetic wins validate mechanism only
-- do not claim universal compression without established corpora and full cost accounting
-- generated snapshots are not proof of compression quality
+## 5. Test output
 
-## Current Risks
+```
+6 passed in 0.54s                    # corpus tests
+283 passed in 119.70s (0:01:59)      # full suite (predtým 277)
+```
 
-- no entropy coder exists yet
-- the small in-repo benchmark does not compress real text/source files
-- raw fallback has container overhead and can make `.psmdl` larger than raw input
-- benchmark runtime is around 90–115 seconds for the current in-repo set
-- public documentation must stay non-hype
-- estimated wins can still diverge from actual serialized bytes because of container overhead
-- exact prime support remains limited to the 64-bit line in the scaled-prime branch
+## 6. Example benchmark run
 
-## Recommended Next Strategy
+Temp corpus (random.bin, repeat.bin, notes.txt):
 
-Do not start with another large theory cycle.
+```
+path | raw_bytes | psmdl_bytes | delta | decision | file_format | roundtrip_ok
+/tmp/.../notes.txt   | 32  | 43  | 11 | raw_fallback | raw_fallback | True
+/tmp/.../random.bin  | 64  | 75  | 11 | raw_fallback | raw_fallback | True
+/tmp/.../repeat.bin  | 64  | 75  | 11 | raw_fallback | raw_fallback | True
+```
 
-Recommended order:
+Exit code: `0`.
 
-1. keep public documentation aligned with actual CLI behavior
-2. build a small honest external-corpus benchmark harness for actual `.psmdl` file sizes
-3. only then consider container overhead reduction or entropy coding
+## 7. Aggregate benchmark summary
 
-The next Worker task should stay bounded:
+```
+file_count=3
+total_raw_bytes=160
+total_psmdl_bytes=193
+total_delta_bytes=33          # väčší kvôli raw-fallback kontajneru
+compressed_count=0
+raw_fallback_count=3
+roundtrip_failure_count=0
+error_count=0
+```
 
-- external corpus benchmark only
-- no new algorithms unless required for reporting
-- report actual bytes, decisions, and roundtrip status honestly
+## 8. Scientific framing checks
 
-## What The Next Orchestrator Must Not Do
+- Žiadne universal compression claims
+- Actual bytes reportované per-file aj v aggregate
+- Random-like vstupy: `raw_fallback`, `psmdl >= raw`
+- Syntetický `square_generated` v testoch: compressed win len ako mechanism check (`width_bits=64`)
+- Roundtrip failure → CLI exit code `2`
+- Žiadne sieťové dáta, len temp files
 
-- must not claim universal compression
-- must not treat synthetic wins as broad proof
-- must not skip tests
-- must not give the Worker a large mixed-scope task
-- must not prioritize entropy coding before honest external benchmarking unless strategy explicitly changes
-- must not let stale handoff files replace current repository state
+## 9. Warnings and limitations
 
-## Closing Note
+- **AP session súbory** (`AP_WORKER_NEXT_SESSION.md`, `AP_ORCHESTRATOR_NEXT_SESSION.md`, workflow generovania `NEXT_*` na konci session) — **neboli vytvorené**; odporúčané ako nasledujúci bounded AP/meta task
+- Veľké reálne korpusy môžu byť pomalé (search + rerank per file)
+- `discover_corpus_files` preskakuje `.git`, `.venv`, `__pycache__`, `.ap`
+- `ap_snapshot.fish --run-tests` **preskočený** (úspora ~4 min; testy už prešli)
+- Žiadne git write príkazy
+- `.venv/bin/python -m` stále problematický — používaj `PYTHONPATH=src /usr/bin/python3.14 -m ...` alebo `.venv/bin/pytest`
 
-When a serious AP session ends, update both:
+## 10. Suggested next smallest step
 
-- `NEXT_ORCHESTRATOR.md` for strategic continuation
-- `NEXT_AGENT.md` for the next Worker task
-
-Keep one dominant purpose per artifact.
+1. **AP/meta:** zaviesť `AP_WORKER_NEXT_SESSION.md` a `AP_ORCHESTRATOR_NEXT_SESSION.md` (prázdne na začiatok session, na konci generovať `NEXT_AGENT.md` / `NEXT_ORCHESTRATOR.md`) + krátky popis v `AP.md`
+2. **Compression:** spustiť corpus benchmark na malom lokálnom externom korpuse (mimo repa) a reportovať len actual bytes bez hype; potom zvážiť overhead reduction alebo entropy coding až po tomto
