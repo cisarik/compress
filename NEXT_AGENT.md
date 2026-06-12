@@ -1,37 +1,44 @@
 # NEXT_AGENT.md — Worker Handoff
 
-## Current Task Status
+## Current Status
 
-Handoff files cleaned. **PSMDLRAW overhead reduction implemented** (`PSMDLR2` compact raw fallback).
+Latest verified tests: **285 passed**
 
-- tests: `285 passed`
-- external corpus after fix: **15720 → 15773 B** (+53 B aggregate, +9 B per raw fallback file)
+Implemented and verified in repo:
+
+- `.psmdl` file CLI
+- deterministic in-repo file benchmark
+- external-corpus benchmark harness
+- `PSMDLR2` compact raw fallback
 - legacy `PSMDLRAW1` decode still supported
 
-## Project Mission
+## Current Actual-Byte Evidence
 
-PrimeSymbolicMDL is an experimental lossless compression research harness with honest actual-byte accounting.
+External corpus (10 small files outside repo):
 
-## Latest Evidence
-
-External corpus benchmark (10 files outside repo):
-
-| outcome | count |
-|---------|-------|
-| raw fallback (+12 B under PSMDLRAW1) | 9 |
-| compressed (`zoneinfo-utc.bin`) | 1 |
+| metric | value |
+|--------|-------|
+| raw total | 15720 B |
+| psmdl total before `PSMDLR2` | 15800 B (+80 B) |
+| psmdl total after `PSMDLR2` | 15773 B (+53 B) |
+| compressed files | 1 (`zoneinfo-utc.bin`, 114 → 86 B) |
+| raw fallback files | 9 |
 | roundtrip failures | 0 |
 
-Aggregate before overhead fix: **15720 → 15800 B** (+80 B).
+Interpretation:
 
-Aggregate after `PSMDLR2`: **15720 → 15773 B** (+53 B).
+- aggregate is **still worse than raw**
+- random/text/SVG/PNG examples mostly raw fallback
+- `PSMDLR2` reduced per-file raw-fallback overhead from about **+12 B** to about **+9 B**
+- only `zoneinfo-utc.bin` compressed in the small external corpus
+- this is not evidence of a general-purpose compressor
 
 ## Hard Rules
 
-- no git write unless explicitly permitted
 - exact roundtrip mandatory
 - actual bytes over estimated bits
 - no universal compression claims
+- no git write commands unless explicitly permitted
 - report starts with `### Report for ORCHESTRATOR_CHAT`
 - include `git rev-parse HEAD` in reports
 
@@ -45,13 +52,17 @@ PYTHONPATH=src /usr/bin/python3.14 -m primesymbolicmdl.huge_anchor_corpus_benchm
 
 Use `.venv/bin/pytest`, not `.venv/bin/python -m pytest` (Cursor appimage issue).
 
-## Suggested Next Step
+## Suggested Next Smallest Step
 
-Overhead reduction helped but aggregate external corpus is still larger than raw (+53 B).
+Return to compression work.
 
-Choose one bounded direction:
+Investigate one narrow actual-byte compression opportunity from the external corpus, starting with the tiny zoneinfo/tzif win and nearby structured small binary files, **without changing algorithms yet** unless the evidence supports a tiny bounded experiment.
 
-1. further container overhead reduction for non-compressing files, or
-2. a narrowly scoped anchor/residual experiment only if a specific file class shows promise
+Goal:
 
-Do not start entropy coding or broad algorithm work without stronger actual-byte evidence.
+- understand why `zoneinfo-utc.bin` won
+- determine whether that is a repeatable data-class signal or only a one-off tiny-file artifact
+
+Do not reopen the external-corpus harness task; it is complete.
+
+Do not start entropy coding or broad new theory without stronger actual-byte evidence.
